@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ChevronDown, User as UserIcon, LogOut } from "lucide-react";
+import React from "react";
+import { User as UserIcon, LogOut } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 import { SPLIT_HEADER_TEXT } from "../constants/workoutConfig";
 
@@ -8,8 +8,6 @@ interface SplitHeaderProps {
   authLoading?: boolean;
   onSignOut?: () => void;
   onOpenAuth?: () => void;
-  isOpen?: boolean;
-  onToggle?: () => void;
 }
 
 export const SplitHeader: React.FC<SplitHeaderProps> = ({
@@ -17,70 +15,14 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
   authLoading,
   onSignOut,
   onOpenAuth,
-  isOpen: propIsOpen,
-  onToggle: propOnToggle,
 }) => {
-  const [internalIsOpen, setInternalIsOpen] = useState<boolean>(true);
-  const isControlled = typeof propIsOpen === "boolean";
-  const isOpen = isControlled ? propIsOpen : internalIsOpen;
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    if (isControlled) return;
-    // Visible for 30 seconds, then auto-toggles closed
-    timerRef.current = setTimeout(() => {
-      setInternalIsOpen(false);
-    }, 30000);
-
-    return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-    };
-  }, [isControlled]);
-
-  const handleToggle = () => {
-    if (isControlled && propOnToggle) {
-      propOnToggle();
-      return;
-    }
-    // Cancel the timer on manual toggle
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-    setInternalIsOpen((prev) => !prev);
-  };
-
   return (
-    <div className="w-full bg-[#15221D] border border-[#253930] rounded-xl sm:rounded-3xl p-1.5 sm:p-3 md:p-4 shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300">
-      {/* Header Bar: Title + Chevron toggle on left, Account pill embedded on right */}
-      <div className="flex items-center justify-between gap-2">
-        <div
-          onClick={handleToggle}
-          className="flex items-center gap-1.5 cursor-pointer select-none"
-        >
-          <h1 className="text-[#EAF1EC] text-xs sm:text-base font-bold tracking-wider">
-            {SPLIT_HEADER_TEXT.title}
-          </h1>
-
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleToggle();
-            }}
-            className="p-1 rounded-full text-[#8FA898] hover:text-[#EAF1EC] hover:bg-[#1A2922] transition-colors cursor-pointer active:scale-95"
-            aria-label={isOpen ? "Collapse" : "Expand"}
-            title={isOpen ? "Collapse routine" : "Expand routine"}
-          >
-            <ChevronDown
-              className={`w-3.5 h-3.5 text-[#7EA984] transition-transform duration-300 ${
-                isOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-        </div>
+    <div className="w-full bg-[#15221D] border border-[#253930] rounded-xl sm:rounded-3xl p-1.5 sm:p-3 md:p-4 shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-200">
+      {/* Header Bar: Title on left, Account pill embedded on right */}
+      <div className="flex items-center justify-between gap-2 pb-1.5 sm:pb-2 border-b border-[#253930]/60">
+        <h1 className="text-[#EAF1EC] text-xs sm:text-base font-bold tracking-wider select-none">
+          {SPLIT_HEADER_TEXT.title}
+        </h1>
 
         {/* User Account / Sign In embedded inside Workify section */}
         <div className="flex items-center">
@@ -119,14 +61,8 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         </div>
       </div>
 
-      {/* Routine Content: Visible for 30 seconds initially, togglable anytime */}
-      <div
-        className={`transition-all duration-300 ease-in-out overflow-hidden ${
-          isOpen
-            ? "max-h-[800px] opacity-100 mt-2 pt-1.5 border-t border-[#253930]/60"
-            : "max-h-0 opacity-0 pointer-events-none"
-        }`}
-      >
+      {/* Routine Content: Permanently visible */}
+      <div className="mt-1.5 pt-1">
         {/* Warmup flow */}
         <p className="text-[#8FA898] text-[10.5px] sm:text-xs mb-1.5 leading-snug text-center select-none font-normal">
           {SPLIT_HEADER_TEXT.overview}

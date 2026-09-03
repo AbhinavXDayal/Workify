@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Info } from "lucide-react";
 import { SplitHeader } from "./components/SplitHeader";
 import { WorkoutTracker } from "./components/WorkoutTracker";
@@ -11,29 +11,6 @@ import type { WorkoutDay } from "./types/workout";
 export function App() {
   const [activeDay, setActiveDay] = useState<WorkoutDay>("mon_thu");
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
-  const [isWorkifyOpen, setIsWorkifyOpen] = useState<boolean>(true);
-  const workifyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    // Auto-toggle / collapse Workify card after 30 seconds of initial viewing
-    workifyTimerRef.current = setTimeout(() => {
-      setIsWorkifyOpen(false);
-    }, 30000);
-
-    return () => {
-      if (workifyTimerRef.current) {
-        clearTimeout(workifyTimerRef.current);
-      }
-    };
-  }, []);
-
-  const handleToggleWorkify = () => {
-    if (workifyTimerRef.current) {
-      clearTimeout(workifyTimerRef.current);
-      workifyTimerRef.current = null;
-    }
-    setIsWorkifyOpen((prev) => !prev);
-  };
 
   const {
     user,
@@ -79,14 +56,12 @@ export function App() {
           </div>
         )}
 
-        {/* Section 1: TOP SECTION (Workify Routine Card with embedded user account pill & toggle) */}
+        {/* Section 1: TOP SECTION (Workify Routine Card with embedded user account pill) */}
         <SplitHeader
           user={user}
           authLoading={authLoading}
           onSignOut={signOut}
           onOpenAuth={() => setIsAuthModalOpen(true)}
-          isOpen={isWorkifyOpen}
-          onToggle={handleToggleWorkify}
         />
 
         {/* Section 2: MAIN TRACKER */}
