@@ -69,12 +69,43 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
-@keyframes leaf-sway {
+/* Dot matrix subtle drift */
+@keyframes dot-matrix-pulse {
   0%, 100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0.20;
+    transform: translate(0, 0);
   }
   50% {
-    transform: translate3d(14px, -16px, 0) rotate(12deg);
+    opacity: 0.28;
+    transform: translate(4px, 4px);
+  }
+}
+
+/* Dynamic floating leaves */
+@keyframes leaf-float-1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-12deg);
+  }
+  50% {
+    transform: translate3d(24px, -28px, 0) rotate(8deg);
+  }
+}
+
+@keyframes leaf-float-2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(45deg);
+  }
+  50% {
+    transform: translate3d(-20px, 22px, 0) rotate(25deg);
+  }
+}
+
+@keyframes leaf-float-3 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-30deg);
+  }
+  50% {
+    transform: translate3d(18px, 20px, 0) rotate(-10deg);
   }
 }
 
@@ -97,8 +128,20 @@ input[type=number]::-webkit-outer-spin-button {
   animation: ambient-drift-2 26s ease-in-out infinite;
 }
 
-.animate-leaf {
-  animation: leaf-sway 12s ease-in-out infinite;
+.animate-dot-matrix {
+  animation: dot-matrix-pulse 16s ease-in-out infinite;
+}
+
+.animate-leaf-drift-1 {
+  animation: leaf-float-1 18s ease-in-out infinite;
+}
+
+.animate-leaf-drift-2 {
+  animation: leaf-float-2 22s ease-in-out infinite;
+}
+
+.animate-leaf-drift-3 {
+  animation: leaf-float-3 20s ease-in-out infinite;
 }
 
 .day-transition {
@@ -109,7 +152,10 @@ input[type=number]::-webkit-outer-spin-button {
 @media (prefers-reduced-motion: reduce) {
   .animate-ambient-1,
   .animate-ambient-2,
-  .animate-leaf,
+  .animate-dot-matrix,
+  .animate-leaf-drift-1,
+  .animate-leaf-drift-2,
+  .animate-leaf-drift-3,
   .day-transition {
     animation: none !important;
     transform: none !important;

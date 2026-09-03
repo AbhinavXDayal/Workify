@@ -3,6 +3,7 @@ import { User as UserIcon, LogOut, Info } from "lucide-react";
 import { SplitHeader } from "./components/SplitHeader";
 import { WorkoutTracker } from "./components/WorkoutTracker";
 import { AuthModal } from "./components/AuthModal";
+import { AmbientBackground } from "./components/AmbientBackground";
 import { useAuth } from "./hooks/useAuth";
 import { useWorkoutLogger } from "./hooks/useWorkoutLogger";
 import type { WorkoutDay } from "./types/workout";
@@ -34,24 +35,8 @@ export function App() {
 
   return (
     <div className="relative min-h-screen bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-3 sm:py-6 px-3 sm:px-6 md:px-8 lg:px-12 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
-      {/* 1. Atmospheric Sage Background Elements */}
-      <div
-        className="pointer-events-none fixed inset-0 overflow-hidden z-0"
-        aria-hidden="true"
-      >
-        {/* Soft emerald/sage ambient glow top left */}
-        <div className="absolute -top-32 -left-20 w-[550px] h-[450px] rounded-full bg-[#5B8B67]/[0.08] blur-[150px] animate-ambient-1" />
-        {/* Soft sage glow mid right */}
-        <div className="absolute top-1/3 -right-24 w-[500px] h-[500px] rounded-full bg-[#7EA984]/[0.06] blur-[160px] animate-ambient-2" />
-        {/* Gentle floating organic accents */}
-        <div className="absolute top-1/4 left-12 w-3 h-2 rounded-[60%_40%] bg-[#7EA984]/20 blur-[0.5px] animate-leaf" />
-        <div
-          className="absolute top-2/3 right-16 w-2.5 h-1.5 rounded-[40%_60%] bg-[#7EA984]/15 blur-[0.5px] animate-leaf"
-          style={{ animationDelay: "4s" }}
-        />
-        {/* Faint subtle vignette overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#7EA984]/[0.025] via-transparent to-transparent opacity-90" />
-      </div>
+      {/* 1. Dynamic Ambient Background: small leaves, dot matrix, and connected moving graph */}
+      <AmbientBackground />
 
       {/* Main Full-Width Content Container */}
       <div className="relative z-10 w-full max-w-6xl mx-auto space-y-3 sm:space-y-4">
