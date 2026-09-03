@@ -86,14 +86,6 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
       {/* 1. Day Selector Tabs with soft rounded corners */}
       <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
 
-      {/* 2. Column Headers: Exercise | KG | Reps with portfolio sage green accent */}
-      <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-[#7EA984] font-semibold px-2 tracking-wider uppercase select-none">
-        <span className="flex-1">Exercise</span>
-        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-          <span className="w-13 sm:w-28 md:w-36 text-center">KG</span>
-          <span className="w-13 sm:w-28 md:w-36 text-center">Reps</span>
-        </div>
-      </div>
 
       {/* 3. Muscle Groups & Exercise Rows with smooth day-switch transition */}
       <div key={activeDay} className="space-y-1.5 sm:space-y-4 day-transition">
