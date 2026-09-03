@@ -32,15 +32,15 @@ export function App() {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative min-h-[100dvh] w-full max-w-full overflow-x-hidden bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
+    <div className="relative h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] w-full max-w-full overflow-hidden sm:overflow-x-hidden sm:overflow-y-auto bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
       {/* 1. Dynamic Ambient Background: small leaves, dot matrix, and connected moving graph */}
       <AmbientBackground />
 
       {/* Main Full-Width Content Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto space-y-1 sm:space-y-3">
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-1 sm:space-y-3 overflow-y-auto sm:overflow-visible overscroll-contain">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
-          <div className="bg-[#F6F3EC] border border-amber-600/30 rounded-2xl p-2.5 text-xs text-amber-900 flex items-start gap-2 shadow-sm shrink-0">
+          <div className="liquid-glass-card border border-amber-600/30 rounded-2xl p-2.5 text-xs text-amber-900 flex items-start gap-2 shadow-sm shrink-0">
             <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <div className="space-y-0.5">
               <p className="font-semibold text-amber-900">
@@ -83,7 +83,7 @@ export function App() {
         />
 
         {/* Bottom space */}
-        <footer className="pb-4 sm:pb-6" />
+        <footer className="pb-1 sm:pb-4 shrink-0" />
       </div>
 
       {/* Auth Modal */}

@@ -38,6 +38,100 @@ html, body {
   color: #F2F7F4;
 }
 
+/* Liquid Glass Design System */
+.liquid-glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(252, 250, 246, 0.90) 0%,
+    rgba(246, 242, 234, 0.84) 50%,
+    rgba(240, 235, 225, 0.88) 100%
+  );
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.05),
+    0 16px 40px 0 rgba(0, 0, 0, 0.38);
+  position: relative;
+}
+
+.liquid-glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  pointer-events: none;
+}
+
+.liquid-glass-pill {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 6px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.15s ease-out;
+}
+
+.liquid-glass-pill:hover {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 1),
+    0 4px 12px 0 rgba(0, 0, 0, 0.08);
+}
+
+.liquid-glass-input {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 1px 4px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-input:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 1);
+}
+
+.liquid-glass-input:focus-within {
+  background: #ffffff;
+  border-color: #385541;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1),
+    0 0 0 3px rgba(56, 85, 65, 0.22),
+    0 3px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.custom-glass-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-glass-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-glass-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(70, 106, 81, 0.35);
+  border-radius: 9999px;
+}
+.custom-glass-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(70, 106, 81, 0.65);
+}
+
+
 /* Custom select chevron and input styles */
 select {
   appearance: none;
