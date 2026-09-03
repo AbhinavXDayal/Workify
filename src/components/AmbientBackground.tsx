@@ -67,7 +67,7 @@ export const AmbientBackground: React.FC = () => {
         vy: (Math.random() - 0.5) * 0.32,
         radius: Math.random() * 0.6 + 1.2,
         hasSprout,
-        sproutAngle: (Math.random() * 0.8 - 0.4) - Math.PI / 2, // pointing generally upward
+        sproutAngle: Math.random() * 0.8 - 0.4 - Math.PI / 2, // pointing generally upward
         stemLength: Math.random() * 6 + 14,
         phase: Math.random() * Math.PI * 2,
       });

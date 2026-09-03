@@ -47,9 +47,14 @@ export function App() {
                 Supabase Credentials Needed
               </p>
               <p className="text-[#6A6359] text-[11px] leading-relaxed">
-                Add <code className="text-amber-800 font-mono bg-amber-100/70 px-1 py-0.5 rounded">VITE_SUPABASE_URL</code>{" "}
+                Add{" "}
+                <code className="text-amber-800 font-mono bg-amber-100/70 px-1 py-0.5 rounded">
+                  VITE_SUPABASE_URL
+                </code>{" "}
                 and{" "}
-                <code className="text-amber-800 font-mono bg-amber-100/70 px-1 py-0.5 rounded">VITE_SUPABASE_ANON_KEY</code>{" "}
+                <code className="text-amber-800 font-mono bg-amber-100/70 px-1 py-0.5 rounded">
+                  VITE_SUPABASE_ANON_KEY
+                </code>{" "}
                 to your .env file to enable cross-device cloud sync.
               </p>
             </div>
