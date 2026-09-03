@@ -1,43 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { SPLIT_HEADER_TEXT } from "../constants/workoutConfig";
 
 export const SplitHeader: React.FC = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
-    <div className="w-full bg-[#15221D]/90 backdrop-blur-md border border-[#253930] rounded-3xl p-4.5 sm:p-7 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-all duration-200">
-      {/* Exactly one heading - matching portfolio typography */}
-      <h1 className="text-center text-[#EAF1EC] text-base sm:text-xl font-bold tracking-wider mb-2 select-none">
+    <div className="w-full bg-[#15221D]/90 backdrop-blur-md border border-[#253930] rounded-2xl sm:rounded-3xl p-3 sm:p-5 md:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-200">
+      {/* Title - compact with subtle tracking */}
+      <h1 className="text-center text-[#EAF1EC] text-sm sm:text-base md:text-lg font-bold tracking-wider mb-1 select-none">
         {SPLIT_HEADER_TEXT.title}
       </h1>
 
-      {/* Dynamic warmup flow */}
-      <p className="text-[#8FA898] text-xs sm:text-[13px] mb-5 leading-normal text-center select-none font-normal">
+      {/* Warmup flow */}
+      <p className="text-[#8FA898] text-[11px] sm:text-xs mb-2 sm:mb-2.5 leading-snug text-center select-none font-normal">
         {SPLIT_HEADER_TEXT.overview}
       </p>
 
-      {/* Days split - responsive columns across wider layout with soft rounded corners */}
-      <div className="space-y-2.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-3.5 text-[#C8DACF] text-xs sm:text-[13px] mb-5">
+      {/* Days split - ultra-compact on mobile, 3 columns on tablet/desktop */}
+      <div className="space-y-1 md:space-y-0 md:grid md:grid-cols-3 md:gap-2.5 text-[#C8DACF] text-[11px] sm:text-xs mb-2 sm:mb-2.5">
         {SPLIT_HEADER_TEXT.days.map((dayText, idx) => (
           <div
             key={idx}
-            className="md:bg-[#1A2922]/50 md:border md:border-[#253930]/60 md:p-4 md:rounded-2xl flex items-center shadow-xs"
+            className="md:bg-[#1A2922]/50 md:border md:border-[#253930]/60 md:p-2.5 md:rounded-xl flex items-center"
           >
-            <p className="leading-relaxed">{dayText}</p>
+            <p className="leading-tight sm:leading-normal">{dayText}</p>
           </div>
         ))}
       </div>
 
       {/* Thin dark sage separator line */}
-      <hr className="border-[#253930] my-4" />
+      <hr className="border-[#253930]/60 my-1.5 sm:my-2" />
 
       {/* Sets and reps guidelines */}
-      <p className="text-[#EAF1EC] text-xs sm:text-[13px] font-medium tracking-tight mb-2.5 text-center">
+      <p className="text-[#EAF1EC] text-[11px] sm:text-xs font-medium tracking-tight mb-1 text-center">
         {SPLIT_HEADER_TEXT.guidelines}
       </p>
 
-      {/* Merged short instruction */}
-      <p className="text-[#8FA898] text-xs sm:text-[12.5px] leading-relaxed text-center max-w-4xl mx-auto">
-        {SPLIT_HEADER_TEXT.instruction}
-      </p>
+      {/* Short instruction - tap to toggle full text on mobile, compact by default */}
+      <div
+        onClick={() => setIsExpanded((prev) => !prev)}
+        className="cursor-pointer"
+        title="Tap to expand/collapse full instructions"
+      >
+        <p
+          className={`text-[#8FA898] text-[10.5px] sm:text-xs leading-relaxed text-center max-w-4xl mx-auto transition-all duration-200 ${
+            isExpanded ? "" : "line-clamp-2 sm:line-clamp-none"
+          }`}
+        >
+          {SPLIT_HEADER_TEXT.instruction}
+        </p>
+      </div>
     </div>
   );
 };
