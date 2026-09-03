@@ -76,10 +76,10 @@ describe("Workout Logger Acceptance Tests", () => {
 
     expect(options).toEqual(BACK_EXERCISE_OPTIONS);
     expect(options).toEqual([
-      "T bar row",
-      "lat pull down",
-      "Lower back extensions",
-      "seated cable row",
+      "T bar row - upper back",
+      "Lat pull down - lats",
+      "Lower back extensions - lower back",
+      "Seated cable row - mid back",
     ]);
   });
 

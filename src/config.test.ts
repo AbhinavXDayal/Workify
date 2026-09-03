@@ -4,10 +4,10 @@ import { WORKOUT_DAYS_CONFIG, BACK_EXERCISE_OPTIONS } from './constants/workoutC
 describe('Workout Configuration & Reps Logic', () => {
   it('verifies exact Back exercises', () => {
     expect(BACK_EXERCISE_OPTIONS).toEqual([
-      'T bar row',
-      'lat pull down',
-      'Lower back extensions',
-      'seated cable row',
+      'T bar row - upper back',
+      'Lat pull down - lats',
+      'Lower back extensions - lower back',
+      'Seated cable row - mid back',
     ]);
   });
 

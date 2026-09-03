@@ -13,12 +13,12 @@ export const SPLIT_HEADER_TEXT = {
     'Choose a weight where the Zth rep feels very hard & close to failure, use controlled reps with natural full ROM, proper form & 1 RIR, never ego lift. Warm up properly & use backups and supporting gear when needed, such as spotters, safety bars, knee sleeves or lifting straps. Listen to your body & if something feels unsafe or uncomfortable, stop or be cautious',
 };
 
-// Exactly the 4 options required for Back
+// Exactly the 4 options required for Back with muscle target annotations
 export const BACK_EXERCISE_OPTIONS = [
-  'T bar row',
-  'lat pull down',
-  'Lower back extensions',
-  'seated cable row',
+  'T bar row - upper back',
+  'Lat pull down - lats',
+  'Lower back extensions - lower back',
+  'Seated cable row - mid back',
 ];
 
 export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
