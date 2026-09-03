@@ -33,28 +33,28 @@ export function App() {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative min-h-screen bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-4 sm:py-7 px-3 sm:px-6 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
-      {/* 1. Subtle, Atmospheric Sage Background Elements matching portfolio */}
+    <div className="relative min-h-screen bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-4 sm:py-7 px-3 sm:px-6 md:px-8 lg:px-12 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
+      {/* 1. Atmospheric Sage Background Elements */}
       <div
         className="pointer-events-none fixed inset-0 overflow-hidden z-0"
         aria-hidden="true"
       >
         {/* Soft emerald/sage ambient glow top left */}
-        <div className="absolute -top-32 -left-20 w-[440px] h-[360px] rounded-full bg-[#5B8B67]/[0.08] blur-[130px] animate-ambient-1" />
+        <div className="absolute -top-32 -left-20 w-[550px] h-[450px] rounded-full bg-[#5B8B67]/[0.08] blur-[150px] animate-ambient-1" />
         {/* Soft sage glow mid right */}
-        <div className="absolute top-1/3 -right-24 w-[400px] h-[400px] rounded-full bg-[#7EA984]/[0.06] blur-[140px] animate-ambient-2" />
+        <div className="absolute top-1/3 -right-24 w-[500px] h-[500px] rounded-full bg-[#7EA984]/[0.06] blur-[160px] animate-ambient-2" />
         {/* Gentle floating organic accents */}
-        <div className="absolute top-1/4 left-10 w-3 h-2 rounded-[60%_40%] bg-[#7EA984]/20 blur-[0.5px] animate-leaf" />
+        <div className="absolute top-1/4 left-12 w-3 h-2 rounded-[60%_40%] bg-[#7EA984]/20 blur-[0.5px] animate-leaf" />
         <div
-          className="absolute top-2/3 right-12 w-2.5 h-1.5 rounded-[40%_60%] bg-[#7EA984]/15 blur-[0.5px] animate-leaf"
+          className="absolute top-2/3 right-16 w-2.5 h-1.5 rounded-[40%_60%] bg-[#7EA984]/15 blur-[0.5px] animate-leaf"
           style={{ animationDelay: "4s" }}
         />
         {/* Faint subtle vignette overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#7EA984]/[0.025] via-transparent to-transparent opacity-90" />
       </div>
 
-      {/* Main Centered Content Container */}
-      <div className="relative z-10 w-full max-w-xl space-y-4">
+      {/* Main Full-Width Content Container */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto space-y-4 sm:space-y-5">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
           <div className="bg-[#15221D]/90 backdrop-blur-md border border-amber-500/30 rounded-2xl p-3.5 text-xs text-amber-300/90 flex items-start gap-2.5 shadow-sm">
