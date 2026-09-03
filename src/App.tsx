@@ -70,8 +70,10 @@ export function App() {
                 Supabase Credentials Needed
               </p>
               <p className="text-[#8FA898] text-[11px] leading-relaxed">
-                Add <code className="text-amber-200">VITE_SUPABASE_URL</code> and{" "}
-                <code className="text-amber-200">VITE_SUPABASE_ANON_KEY</code> to your .env file to enable cross-device cloud sync.
+                Add <code className="text-amber-200">VITE_SUPABASE_URL</code>{" "}
+                and{" "}
+                <code className="text-amber-200">VITE_SUPABASE_ANON_KEY</code>{" "}
+                to your .env file to enable cross-device cloud sync.
               </p>
             </div>
           </div>

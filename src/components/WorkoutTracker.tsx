@@ -1,5 +1,4 @@
 import React from "react";
-import { Check, Loader2, AlertCircle } from "lucide-react";
 import { DaySelector } from "./DaySelector";
 import { AestheticSelect } from "./AestheticSelect";
 import { HistoryDrawer } from "./HistoryDrawer";
@@ -9,7 +8,6 @@ import type {
   ExerciseSlotState,
   WorkoutLogHistoryItem,
 } from "../types/workout";
-import type { SaveStatus } from "../hooks/useWorkoutLogger";
 
 interface WorkoutTrackerProps {
   activeDay: WorkoutDay;
@@ -22,7 +20,7 @@ interface WorkoutTrackerProps {
   ) => void;
   onSaveWorkout?: () => void;
   onClearEntries?: () => void;
-  status: SaveStatus;
+  status?: string;
   statusMessage?: string;
   history?: WorkoutLogHistoryItem[];
   showHistory?: boolean;
@@ -35,8 +33,6 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   onSelectDay,
   slots,
   onUpdateSlot,
-  status,
-  statusMessage,
   history = [],
   showHistory = false,
   onToggleHistory,
@@ -173,31 +169,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         ))}
       </div>
 
-      {/* 4. Elegant Minimalist Auto-Save Status Bar */}
-      <div className="pt-1 flex items-center justify-between border-t border-[#253930]/30 text-xs select-none">
-        <div className="flex items-center gap-1.5">
-          {status === "saving" ? (
-            <span className="flex items-center gap-1.5 text-[#8FA898] text-[10.5px]">
-              <Loader2 className="w-3 h-3 animate-spin text-[#7EA984]" />
-              <span>Saving changes...</span>
-            </span>
-          ) : status === "error" ? (
-            <span className="flex items-center gap-1.5 text-amber-400 text-[10.5px]">
-              <AlertCircle className="w-3 h-3 text-amber-400" />
-              <span>{statusMessage || "Auto-saved locally"}</span>
-            </span>
-          ) : (
-            <span className="flex items-center gap-1.5 text-[#7EA984] text-[10.5px] font-medium">
-              <Check className="w-3 h-3 text-[#7EA984]" />
-              <span>Auto-saved</span>
-            </span>
-          )}
-        </div>
 
-        <span className="text-[10px] text-[#5A7465] font-mono">
-          cloud auto-sync
-        </span>
-      </div>
 
       {/* History Drawer Modal */}
       {onToggleHistory && (
