@@ -102,7 +102,7 @@ describe("Workout Logger Acceptance Tests", () => {
     expect((repsInputs[0] as HTMLInputElement).value).toBe("11");
 
     // Verify auto-save status indicator is present
-    expect(await screen.findByText(/auto-saved|saving/i)).toBeDefined();
+    expect(await screen.findByText(/auto-saved/i)).toBeDefined();
   });
 
   it("persists slot updates automatically across sessions", async () => {
