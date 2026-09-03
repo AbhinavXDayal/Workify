@@ -21,17 +21,17 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md">
       <div className="liquid-glass-card rounded-3xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[#221E1B]/10">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[#382C24]/12">
           <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-[#466A51]" />
-            <h2 className="text-sm font-bold text-[#221E1B]">
+            <Calendar className="w-4 h-4 text-[#7C583F]" />
+            <h2 className="text-sm font-bold text-[#382C24]">
               History — {dayLabel}
             </h2>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#7A7266] hover:text-[#221E1B] hover:bg-white/50 transition-colors active:scale-95 cursor-pointer"
+            className="p-1.5 rounded-full text-[#7C6A5D] hover:text-[#382C24] hover:bg-white/50 transition-colors active:scale-95 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -40,7 +40,7 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
         {/* Content */}
         <div className="p-6 overflow-y-auto space-y-4">
           {history.length === 0 ? (
-            <p className="text-[#6E6659] text-xs text-center py-8">
+            <p className="text-[#7C6A5D] text-xs text-center py-8">
               No saved workouts found for this day yet.
             </p>
           ) : (
@@ -59,11 +59,11 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
                   key={log.id}
                   className="liquid-glass-pill rounded-2xl p-4 space-y-3 shadow-xs"
                 >
-                  <div className="flex justify-between items-center text-xs text-[#7A7266] pb-2 border-b border-[#E3DDD1]">
-                    <span className="font-semibold text-[#221E1B]">
+                  <div className="flex justify-between items-center text-xs pb-2 border-b border-[#382C24]/10">
+                    <span className="font-semibold text-[#382C24]">
                       {formattedDate}
                     </span>
-                    <span className="text-[11px] text-[#8E867A]">
+                    <span className="text-[11px] text-[#8C7A6B]">
                       2 Sets per exercise
                     </span>
                   </div>
@@ -72,12 +72,12 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
                     {log.exercises.map((ex) => (
                       <div
                         key={ex.id}
-                        className="flex justify-between items-center text-xs text-[#342E29]"
+                        className="flex justify-between items-center text-xs text-[#44352B]"
                       >
-                        <span className="truncate pr-2 text-[#221E1B] font-medium">
+                        <span className="truncate pr-2 text-[#382C24] font-medium">
                           {ex.exercise_name || "Exercise"}
                         </span>
-                        <div className="flex gap-3 text-[#466A51] shrink-0 font-mono text-[11px] font-medium">
+                        <div className="flex gap-3 text-[#7C583F] shrink-0 font-mono text-[11px] font-semibold">
                           <span>
                             {ex.weight_kg !== null
                               ? `${ex.weight_kg} kg`

@@ -2,29 +2,37 @@
 
 :root {
   color-scheme: dark;
-  --background: #0E1613;
-  --foreground: #EAF1EC;
-  --muted: #1A2822;
-  --muted-foreground: #8FA898;
-  --card: #15221D;
+  --background: #0e1613;
+  --foreground: #eaf1ec;
+  --muted: #1a2822;
+  --muted-foreground: #8fa898;
+  --card: #15221d;
   --border: #253930;
-  --input: #1A2922;
-  --primary: #EAF1EC;
-  --secondary: #1F3229;
-  --brand-accent: #7EA984;
-  --brand-accent-hover: #A3CEB3;
-  --ring: #5B8B67;
+  --input: #1a2922;
+  --primary: #eaf1ec;
+  --secondary: #1f3229;
+  --brand-accent: #7ea984;
+  --brand-accent-hover: #a3ceb3;
+  --ring: #5b8b67;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   min-height: 100%;
-  background-color: #0E1613;
-  color: #EAF1EC;
-  font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #0e1613;
+  color: #eaf1ec;
+  font-family:
+    "Geist",
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -34,8 +42,8 @@ html, body {
 }
 
 ::selection {
-  background-color: #3E6349;
-  color: #F2F7F4;
+  background-color: #664D3B;
+  color: #FAF6F0;
 }
 
 /* Liquid Glass Design System */
@@ -110,10 +118,10 @@ html, body {
 
 .liquid-glass-input:focus-within {
   background: #ffffff;
-  border-color: #385541;
+  border-color: #7C583F;
   box-shadow: 
     inset 0 1px 1px 0 rgba(255, 255, 255, 1),
-    0 0 0 3px rgba(56, 85, 65, 0.22),
+    0 0 0 3px rgba(124, 88, 63, 0.22),
     0 3px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -124,13 +132,12 @@ html, body {
   background: transparent;
 }
 .custom-glass-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(70, 106, 81, 0.35);
+  background: rgba(124, 88, 63, 0.35);
   border-radius: 9999px;
 }
 .custom-glass-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(70, 106, 81, 0.65);
+  background: rgba(124, 88, 63, 0.65);
 }
-
 
 /* Custom select chevron and input styles */
 select {
@@ -140,15 +147,16 @@ select {
 }
 
 /* Number input spinners subtlety */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   opacity: 0.4;
   height: 24px;
 }
 
 /* Hardware-accelerated GPU ambient glows */
 @keyframes ambient-drift-1 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate3d(0, 0, 0) scale(1);
     opacity: 0.12;
   }
@@ -159,9 +167,10 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @keyframes ambient-drift-2 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate3d(0, 0, 0) scale(1.04);
-    opacity: 0.10;
+    opacity: 0.1;
   }
   50% {
     transform: translate3d(-20px, -15px, 0) scale(0.96);
@@ -171,7 +180,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* Dot matrix subtle drift */
 @keyframes dot-matrix-pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.18;
   }
   50% {
@@ -181,7 +191,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* Floating leaves with 3D transform (GPU composited) */
 @keyframes leaf-float-1 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate3d(0, 0, 0) rotate(-12deg);
   }
   50% {
@@ -190,7 +201,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @keyframes leaf-float-2 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate3d(0, 0, 0) rotate(45deg);
   }
   50% {
@@ -199,7 +211,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @keyframes leaf-float-3 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate3d(0, 0, 0) rotate(-30deg);
   }
   50% {

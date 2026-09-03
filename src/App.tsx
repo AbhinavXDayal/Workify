@@ -32,7 +32,7 @@ export function App() {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] w-full max-w-full overflow-hidden sm:overflow-x-hidden sm:overflow-y-auto bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
+    <div className="relative h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] w-full max-w-full overflow-hidden sm:overflow-x-hidden sm:overflow-y-auto bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#664D3B] selection:text-[#F8F5F0]">
       {/* 1. Dynamic Ambient Background: small leaves, dot matrix, and connected moving graph */}
       <AmbientBackground />
 
@@ -40,19 +40,19 @@ export function App() {
       <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-1 sm:space-y-3 overflow-y-auto sm:overflow-visible overscroll-contain">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
-          <div className="liquid-glass-card border border-amber-600/30 rounded-2xl p-2.5 text-xs text-amber-900 flex items-start gap-2 shadow-sm shrink-0">
-            <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+          <div className="liquid-glass-card border border-[#7C583F]/30 rounded-2xl p-2.5 text-xs text-[#382C24] flex items-start gap-2 shadow-sm shrink-0">
+            <Info className="w-4 h-4 text-[#7C583F] shrink-0 mt-0.5" />
             <div className="space-y-0.5">
-              <p className="font-semibold text-amber-900">
+              <p className="font-bold text-[#382C24]">
                 Supabase Credentials Needed
               </p>
-              <p className="text-[#6A6359] text-[11px] leading-relaxed">
+              <p className="text-[#5C4B3F] text-[11px] leading-relaxed">
                 Add{" "}
-                <code className="text-amber-800 font-mono bg-amber-100/70 px-1 py-0.5 rounded">
+                <code className="text-[#7C583F] font-mono bg-[#382C24]/8 px-1 py-0.5 rounded">
                   VITE_SUPABASE_URL
                 </code>{" "}
                 and{" "}
-                <code className="text-amber-800 font-mono bg-amber-100/70 px-1 py-0.5 rounded">
+                <code className="text-[#7C583F] font-mono bg-[#382C24]/8 px-1 py-0.5 rounded">
                   VITE_SUPABASE_ANON_KEY
                 </code>{" "}
                 to your .env file to enable cross-device cloud sync.
