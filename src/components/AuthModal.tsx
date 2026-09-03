@@ -79,21 +79,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-      <div className="bg-[#121215] border border-white/[0.08] rounded-2xl w-full max-w-sm p-5 sm:p-6 shadow-2xl relative transition-all duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm">
+      <div className="bg-[#15221D] border border-[#253930] rounded-2xl w-full max-w-sm p-5 sm:p-6 shadow-2xl relative transition-all duration-200">
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-colors active:scale-95 cursor-pointer"
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-[#8FA898] hover:text-[#EAF1EC] hover:bg-white/[0.06] transition-colors active:scale-95 cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
 
         <div className="text-center mb-6">
-          <h2 className="text-base font-semibold text-white tracking-tight">
+          <h2 className="text-base font-semibold text-[#EAF1EC] tracking-tight">
             {mode === "signin" ? "Sign In" : "Create Account"}
           </h2>
-          <p className="text-xs text-zinc-400 mt-1">
+          <p className="text-xs text-[#8FA898] mt-1">
             Sync your workouts across phone and laptop
           </p>
         </div>
@@ -124,35 +124,35 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
-            <label className="text-xs text-zinc-400 font-medium block">
+            <label className="text-xs text-[#8FA898] font-medium block">
               Email
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-zinc-500 absolute left-3 top-3" />
+              <Mail className="w-4 h-4 text-[#5A7465] absolute left-3 top-3" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full bg-[#16161b] border border-white/[0.07] hover:border-white/[0.14] focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400/30 rounded-xl pl-9 pr-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none transition-all duration-150"
+                className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-1 focus:ring-[#7EA984]/30 rounded-xl pl-9 pr-3 py-2.5 text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150"
               />
             </div>
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs text-zinc-400 font-medium block">
+            <label className="text-xs text-[#8FA898] font-medium block">
               Password
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-zinc-500 absolute left-3 top-3" />
+              <Lock className="w-4 h-4 text-[#5A7465] absolute left-3 top-3" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-[#16161b] border border-white/[0.07] hover:border-white/[0.14] focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400/30 rounded-xl pl-9 pr-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none transition-all duration-150"
+                className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-1 focus:ring-[#7EA984]/30 rounded-xl pl-9 pr-3 py-2.5 text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150"
               />
             </div>
           </div>
@@ -160,7 +160,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-zinc-100 hover:bg-white active:scale-[0.985] text-zinc-950 text-sm font-semibold rounded-xl transition-all duration-150 cursor-pointer disabled:opacity-50 mt-2 shadow-sm"
+            className="w-full py-3 bg-[#EAF1EC] hover:bg-[#A3CEB3] active:scale-[0.985] text-[#0E1613] text-sm font-semibold rounded-xl transition-all duration-150 cursor-pointer disabled:opacity-50 mt-2 shadow-sm"
           >
             {loading
               ? "Processing..."
@@ -170,7 +170,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           </button>
         </form>
 
-        <div className="mt-5 text-center text-xs text-zinc-400">
+        <div className="mt-5 text-center text-xs text-[#8FA898]">
           {mode === "signin" ? (
             <span>
               Don't have an account?{" "}
@@ -180,7 +180,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   setMode("signup");
                   setErrorMsg(null);
                 }}
-                className="text-white hover:underline font-medium cursor-pointer"
+                className="text-[#EAF1EC] hover:text-[#7EA984] hover:underline font-medium cursor-pointer"
               >
                 Sign up
               </button>
@@ -194,7 +194,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   setMode("signin");
                   setErrorMsg(null);
                 }}
-                className="text-white hover:underline font-medium cursor-pointer"
+                className="text-[#EAF1EC] hover:text-[#7EA984] hover:underline font-medium cursor-pointer"
               >
                 Sign in
               </button>

@@ -87,12 +87,12 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   });
 
   return (
-    <div className="w-full bg-[#121215]/85 backdrop-blur-md border border-white/[0.07] rounded-2xl p-3.5 sm:p-6 shadow-[0_6px_28px_rgba(0,0,0,0.45)] space-y-4.5 transition-all duration-200">
+    <div className="w-full bg-[#15221D]/90 backdrop-blur-md border border-[#253930] rounded-2xl p-3.5 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.45)] space-y-4.5 transition-all duration-200">
       {/* 1. Day Selector Tabs */}
       <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
 
-      {/* 2. Column Headers: Exercise | KG | Reps */}
-      <div className="flex items-center justify-between text-[11px] text-zinc-400/90 font-medium px-1 pt-1 tracking-wider uppercase select-none">
+      {/* 2. Column Headers: Exercise | KG | Reps with portfolio sage green accent */}
+      <div className="flex items-center justify-between text-[11px] text-[#7EA984] font-semibold px-1 pt-1 tracking-wider uppercase select-none">
         <span className="flex-1">Exercise</span>
         <div className="flex items-center gap-2 sm:gap-3 w-[120px] sm:w-44 shrink-0">
           <span className="w-14 sm:w-20 text-center">KG</span>
@@ -105,7 +105,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         {groupedSlots.map((group, groupIdx) => (
           <div key={group.name} className="space-y-2">
             {/* Muscle Group Title */}
-            <h3 className="text-xs font-semibold text-zinc-300 tracking-tight select-none">
+            <h3 className="text-xs font-semibold text-[#C8DACF] tracking-tight select-none">
               {group.name}
             </h3>
 
@@ -127,22 +127,22 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                           e.target.value,
                         )
                       }
-                      className="w-full min-w-0 max-w-full bg-[#16161b] border border-white/[0.07] hover:border-white/[0.14] focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400/30 rounded-xl px-2.5 sm:px-3 py-2.5 pr-7 sm:pr-8 text-xs sm:text-sm text-zinc-200 truncate focus:outline-none transition-all duration-150 cursor-pointer appearance-none shadow-xs"
+                      className="w-full min-w-0 max-w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-1 focus:ring-[#7EA984]/30 rounded-xl px-2.5 sm:px-3 py-2.5 pr-7 sm:pr-8 text-xs sm:text-sm text-[#EAF1EC] truncate focus:outline-none transition-all duration-150 cursor-pointer appearance-none shadow-xs"
                     >
-                      <option value="" className="bg-[#16161b] text-zinc-500">
+                      <option value="" className="bg-[#15221D] text-[#5A7465]">
                         Select exercise
                       </option>
                       {group.options.map((option) => (
                         <option
                           key={option}
                           value={option}
-                          className="bg-[#16161b] text-zinc-200"
+                          className="bg-[#15221D] text-[#EAF1EC]"
                         >
                           {option}
                         </option>
                       ))}
                     </select>
-                    <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-500 group-hover:text-zinc-400 absolute right-2 sm:right-2.5 top-1/2 -translate-y-1/2 pointer-events-none transition-colors duration-150" />
+                    <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#7EA984]/70 group-hover:text-[#7EA984] absolute right-2 sm:right-2.5 top-1/2 -translate-y-1/2 pointer-events-none transition-colors duration-150" />
                   </div>
 
                   {/* KG Input */}
@@ -156,7 +156,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                         onUpdateSlot(globalIndex, "weightKg", e.target.value)
                       }
                       placeholder="kg"
-                      className="w-full bg-[#16161b] border border-white/[0.07] hover:border-white/[0.14] focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400/30 rounded-xl px-1 sm:px-2 py-2.5 text-center text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none transition-all duration-150 font-mono shadow-xs"
+                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-1 focus:ring-[#7EA984]/30 rounded-xl px-1 sm:px-2 py-2.5 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs"
                     />
                   </div>
 
@@ -171,16 +171,16 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                         onUpdateSlot(globalIndex, "reps", e.target.value)
                       }
                       placeholder={String(slot.defaultReps)}
-                      className="w-full bg-[#16161b] border border-white/[0.07] hover:border-white/[0.14] focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400/30 rounded-xl px-1 sm:px-2 py-2.5 text-center text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none transition-all duration-150 font-mono shadow-xs"
+                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-1 focus:ring-[#7EA984]/30 rounded-xl px-1 sm:px-2 py-2.5 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs"
                     />
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Subtle separator between muscle groups, except after the last group */}
+            {/* Subtle sage separator between muscle groups */}
             {groupIdx < groupedSlots.length - 1 && (
-              <div className="h-[1px] bg-white/[0.05] my-2.5" />
+              <div className="h-[1px] bg-[#253930]/70 my-2.5" />
             )}
           </div>
         ))}
@@ -190,14 +190,14 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
       {status !== "idle" && (
         <div className="flex items-center justify-center gap-2 py-1 text-xs">
           {status === "saving" && (
-            <span className="flex items-center gap-1.5 text-zinc-400">
-              <Loader2 className="w-3.5 h-3.5 animate-spin text-zinc-400" />
+            <span className="flex items-center gap-1.5 text-[#8FA898]">
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-[#7EA984]" />
               {statusMessage || "Saving..."}
             </span>
           )}
           {status === "saved" && (
-            <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
-              <Check className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="flex items-center gap-1.5 text-[#7EA984] font-medium">
+              <Check className="w-3.5 h-3.5 text-[#7EA984]" />
               {statusMessage || "Saved"}
             </span>
           )}
@@ -210,7 +210,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         </div>
       )}
 
-      {/* 5. Action Buttons with tactile hover/press feedback */}
+      {/* 5. Action Buttons with portfolio styling */}
       <div className="pt-2 space-y-2.5">
         <button
           type="button"
@@ -218,8 +218,8 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
           disabled={status === "saving"}
           className={`w-full py-3.5 text-sm font-semibold rounded-xl transition-all duration-150 cursor-pointer shadow-sm active:scale-[0.985] disabled:opacity-50 flex items-center justify-center gap-2 select-none ${
             status === "saved"
-              ? "bg-emerald-500 text-zinc-950 shadow-emerald-500/20"
-              : "bg-zinc-100 hover:bg-white text-zinc-950 hover:shadow-md"
+              ? "bg-[#7EA984] text-[#0E1613] shadow-[#7EA984]/20"
+              : "bg-[#EAF1EC] hover:bg-[#A3CEB3] text-[#0E1613] hover:shadow-md"
           }`}
         >
           {status === "saving" ? (
@@ -240,7 +240,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         <button
           type="button"
           onClick={onClearEntries}
-          className="w-full py-2.5 sm:py-3 bg-[#16161b] hover:bg-[#1e1e24] active:scale-[0.985] text-zinc-400 hover:text-zinc-200 text-xs sm:text-sm font-medium rounded-xl border border-white/[0.06] hover:border-white/[0.12] transition-all duration-150 cursor-pointer select-none"
+          className="w-full py-2.5 sm:py-3 bg-[#1A2922] hover:bg-[#23372E] active:scale-[0.985] text-[#8FA898] hover:text-[#EAF1EC] text-xs sm:text-sm font-medium rounded-xl border border-[#253930] hover:border-[#3E6349] transition-all duration-150 cursor-pointer select-none"
         >
           Clear Entries
         </button>
@@ -251,7 +251,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             <button
               type="button"
               onClick={() => onToggleHistory(true)}
-              className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer py-1 px-2.5 rounded-lg hover:bg-white/[0.04] active:scale-95"
+              className="inline-flex items-center gap-1.5 text-xs text-[#8FA898] hover:text-[#7EA984] transition-colors cursor-pointer py-1 px-2.5 rounded-lg hover:bg-[#1A2922] active:scale-95"
             >
               <History className="w-3.5 h-3.5" />
               <span>View Past History ({history.length})</span>

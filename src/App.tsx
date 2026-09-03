@@ -33,31 +33,37 @@ export function App() {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative min-h-screen bg-[#08080a] text-[#f4f4f5] flex flex-col items-center py-4 sm:py-7 px-3 sm:px-6 selection:bg-zinc-800 selection:text-white">
-      {/* 1. Subtle, Slow Moving Ambient Background Elements */}
+    <div className="relative min-h-screen bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-4 sm:py-7 px-3 sm:px-6 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
+      {/* 1. Subtle, Atmospheric Sage Background Elements matching portfolio */}
       <div
         className="pointer-events-none fixed inset-0 overflow-hidden z-0"
         aria-hidden="true"
       >
-        {/* Soft atmospheric gradient top left */}
-        <div className="absolute -top-32 -left-20 w-[420px] h-[340px] rounded-full bg-indigo-500/[0.04] blur-[120px] animate-ambient-1" />
-        {/* Soft atmospheric gradient mid right */}
-        <div className="absolute top-1/3 -right-24 w-[380px] h-[380px] rounded-full bg-sky-500/[0.03] blur-[130px] animate-ambient-2" />
-        {/* Faint subtle vignette texture */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/[0.015] via-transparent to-transparent opacity-80" />
+        {/* Soft emerald/sage ambient glow top left */}
+        <div className="absolute -top-32 -left-20 w-[440px] h-[360px] rounded-full bg-[#5B8B67]/[0.08] blur-[130px] animate-ambient-1" />
+        {/* Soft sage glow mid right */}
+        <div className="absolute top-1/3 -right-24 w-[400px] h-[400px] rounded-full bg-[#7EA984]/[0.06] blur-[140px] animate-ambient-2" />
+        {/* Gentle floating organic accents */}
+        <div className="absolute top-1/4 left-10 w-3 h-2 rounded-[60%_40%] bg-[#7EA984]/20 blur-[0.5px] animate-leaf" />
+        <div
+          className="absolute top-2/3 right-12 w-2.5 h-1.5 rounded-[40%_60%] bg-[#7EA984]/15 blur-[0.5px] animate-leaf"
+          style={{ animationDelay: "4s" }}
+        />
+        {/* Faint subtle vignette overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#7EA984]/[0.025] via-transparent to-transparent opacity-90" />
       </div>
 
       {/* Main Centered Content Container */}
       <div className="relative z-10 w-full max-w-xl space-y-4">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
-          <div className="bg-[#121215]/90 backdrop-blur-md border border-amber-500/25 rounded-2xl p-3.5 text-xs text-amber-300/90 flex items-start gap-2.5 shadow-sm">
+          <div className="bg-[#15221D]/90 backdrop-blur-md border border-amber-500/30 rounded-2xl p-3.5 text-xs text-amber-300/90 flex items-start gap-2.5 shadow-sm">
             <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
             <div className="space-y-0.5">
               <p className="font-semibold text-amber-300">
                 Supabase Credentials Needed
               </p>
-              <p className="text-zinc-400 leading-relaxed">
+              <p className="text-[#8FA898] leading-relaxed">
                 Add{" "}
                 <code className="text-amber-200 bg-amber-950/40 px-1 py-0.5 rounded">
                   VITE_SUPABASE_URL
@@ -66,7 +72,7 @@ export function App() {
                 <code className="text-amber-200 bg-amber-950/40 px-1 py-0.5 rounded">
                   VITE_SUPABASE_ANON_KEY
                 </code>{" "}
-                to your <code className="text-zinc-300">.env</code> file to
+                to your <code className="text-[#C8DACF]">.env</code> file to
                 enable cross-device sync and authentication.
               </p>
             </div>
@@ -96,15 +102,15 @@ export function App() {
           {!authLoading && (
             <>
               {user ? (
-                <div className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#121215]/85 border border-white/[0.07] backdrop-blur-md shadow-xs">
-                  <span className="text-zinc-300 text-xs font-mono tracking-tight max-w-[220px] sm:max-w-none truncate">
+                <div className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#15221D]/90 border border-[#253930] hover:border-[#7EA984]/50 backdrop-blur-md shadow-xs transition-colors">
+                  <span className="text-[#C8DACF] text-xs font-mono tracking-tight max-w-[220px] sm:max-w-none truncate">
                     {user.email}
                   </span>
                   <button
                     type="button"
                     onClick={signOut}
                     title="Sign Out"
-                    className="p-1 rounded-full text-zinc-400 hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer active:scale-95"
+                    className="p-1 rounded-full text-[#8FA898] hover:text-[#EAF1EC] hover:bg-white/[0.08] transition-colors cursor-pointer active:scale-95"
                   >
                     <LogOut className="w-3.5 h-3.5" />
                   </button>
@@ -113,9 +119,9 @@ export function App() {
                 <button
                   type="button"
                   onClick={() => setIsAuthModalOpen(true)}
-                  className="inline-flex items-center gap-1.5 text-zinc-300 hover:text-white text-xs font-medium bg-[#141418]/90 hover:bg-[#1a1a22] border border-white/[0.07] hover:border-white/[0.14] px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer shadow-xs active:scale-[0.97]"
+                  className="inline-flex items-center gap-1.5 text-[#C8DACF] hover:text-[#EAF1EC] text-xs font-medium bg-[#1A2922]/90 hover:bg-[#23372E] border border-[#253930] hover:border-[#7EA984]/50 px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer shadow-xs active:scale-[0.97]"
                 >
-                  <UserIcon className="w-3.5 h-3.5 text-zinc-400" />
+                  <UserIcon className="w-3.5 h-3.5 text-[#7EA984]" />
                   <span>Sign In</span>
                 </button>
               )}
