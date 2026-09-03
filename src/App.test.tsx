@@ -87,8 +87,8 @@ describe("Workout Logger Acceptance Tests", () => {
     render(<App />);
 
     // Find inputs
-    const kgInputs = screen.getAllByPlaceholderText(/kg/i);
-    const repsInputs = screen.getAllByPlaceholderText(/10|12|15/);
+    const kgInputs = screen.getAllByLabelText(/weight/i);
+    const repsInputs = screen.getAllByLabelText(/reps/i);
 
     expect(kgInputs.length).toBeGreaterThan(0);
     expect(repsInputs.length).toBeGreaterThan(0);
@@ -105,7 +105,7 @@ describe("Workout Logger Acceptance Tests", () => {
   it("persists slot updates automatically across sessions", () => {
     render(<App />);
 
-    const kgInputs = screen.getAllByPlaceholderText(/kg/i);
+    const kgInputs = screen.getAllByLabelText(/weight/i);
     fireEvent.change(kgInputs[0], { target: { value: "75" } });
     expect((kgInputs[0] as HTMLInputElement).value).toBe("75");
   });

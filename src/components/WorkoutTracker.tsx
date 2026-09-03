@@ -127,7 +127,8 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                   />
 
                   {/* KG Input with soft rounded corners and instant tap selection */}
-                  <div className="w-13 sm:w-28 md:w-36 shrink-0">
+                  {/* KG Input with inline 'kg' unit badge inside the same box */}
+                  <div className="relative w-[58px] sm:w-24 md:w-28 h-8 sm:h-9 bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus-within:border-[#7EA984] focus-within:ring-2 focus-within:ring-[#7EA984]/20 rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 transition-all duration-150 font-mono shadow-xs shrink-0 cursor-text">
                     <input
                       type="text"
                       inputMode="decimal"
@@ -137,13 +138,17 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       onChange={(e) =>
                         onUpdateSlot(globalIndex, "weightKg", e.target.value)
                       }
-                      placeholder="kg"
-                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-xl sm:rounded-2xl px-1.5 sm:px-3 py-1.5 sm:py-2 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs h-8 sm:h-9"
+                      placeholder="0"
+                      aria-label="Weight (kg)"
+                      className="w-full bg-transparent text-right text-[11px] sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none font-mono min-w-0 pr-0.5"
                     />
+                    <span className="text-[9.5px] sm:text-xs text-[#7EA984]/85 font-medium select-none shrink-0 pointer-events-none">
+                      kg
+                    </span>
                   </div>
 
-                  {/* Reps Input with soft rounded corners and instant tap selection */}
-                  <div className="w-13 sm:w-28 md:w-36 shrink-0">
+                  {/* Reps Input with inline 'reps' unit badge inside the same box */}
+                  <div className="relative w-[58px] sm:w-24 md:w-28 h-8 sm:h-9 bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus-within:border-[#7EA984] focus-within:ring-2 focus-within:ring-[#7EA984]/20 rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 transition-all duration-150 font-mono shadow-xs shrink-0 cursor-text">
                     <input
                       type="text"
                       inputMode="numeric"
@@ -154,8 +159,12 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                         onUpdateSlot(globalIndex, "reps", e.target.value)
                       }
                       placeholder={String(slot.defaultReps)}
-                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-xl sm:rounded-2xl px-1.5 sm:px-3 py-1.5 sm:py-2 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs h-8 sm:h-9"
+                      aria-label="Reps"
+                      className="w-full bg-transparent text-right text-[11px] sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none font-mono min-w-0 pr-0.5"
                     />
+                    <span className="text-[9.5px] sm:text-xs text-[#7EA984]/85 font-medium select-none shrink-0 pointer-events-none">
+                      reps
+                    </span>
                   </div>
                 </div>
               ))}
@@ -168,8 +177,6 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
           </div>
         ))}
       </div>
-
-
 
       {/* History Drawer Modal */}
       {onToggleHistory && (
