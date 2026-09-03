@@ -27,6 +27,7 @@ interface WorkoutTrackerProps {
   history?: WorkoutLogHistoryItem[];
   showHistory?: boolean;
   onToggleHistory?: (show: boolean) => void;
+  isWorkifyCollapsed?: boolean;
 }
 
 export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
@@ -39,6 +40,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   history = [],
   showHistory = false,
   onToggleHistory,
+  isWorkifyCollapsed = false,
 }) => {
   const dayConfig = WORKOUT_DAYS_CONFIG[activeDay];
 
@@ -82,13 +84,25 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   });
 
   return (
-    <div className="w-full bg-[#15221D] border border-[#253930] rounded-2xl sm:rounded-3xl p-2 sm:p-5 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.45)] space-y-1.5 sm:space-y-4 transition-all duration-200">
+    <div
+      className={`w-full bg-[#15221D] border border-[#253930] rounded-2xl sm:rounded-3xl p-2 sm:p-5 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-all duration-300 flex flex-col justify-between overflow-hidden ${
+        isWorkifyCollapsed ? "flex-1 h-full min-h-0" : "flex-shrink-0"
+      }`}
+    >
       {/* 1. Day Selector Tabs with soft rounded corners */}
-      <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
+      <div className="shrink-0 mb-1">
+        <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
+      </div>
 
-
-      {/* 3. Muscle Groups & Exercise Rows with smooth day-switch transition */}
-      <div key={activeDay} className="space-y-1.5 sm:space-y-4 day-transition">
+      {/* 2. Muscle Groups & Exercise Rows with smooth day-switch transition */}
+      <div
+        key={activeDay}
+        className={`w-full overflow-y-auto sm:overflow-visible day-transition ${
+          isWorkifyCollapsed
+            ? "flex-1 flex flex-col justify-around py-1 min-h-0"
+            : "space-y-1.5 sm:space-y-4"
+        }`}
+      >
         {groupedSlots.map((group, groupIdx) => (
           <div key={group.name} className="space-y-1 sm:space-y-2">
             {/* Muscle Group Title with soft accent indicator */}

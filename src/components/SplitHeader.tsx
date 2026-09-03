@@ -8,6 +8,8 @@ interface SplitHeaderProps {
   authLoading?: boolean;
   onSignOut?: () => void;
   onOpenAuth?: () => void;
+  isOpen?: boolean;
+  onToggle?: () => void;
 }
 
 export const SplitHeader: React.FC<SplitHeaderProps> = ({
@@ -15,14 +17,19 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
   authLoading,
   onSignOut,
   onOpenAuth,
+  isOpen: propIsOpen,
+  onToggle: propOnToggle,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [internalIsOpen, setInternalIsOpen] = useState<boolean>(true);
+  const isControlled = typeof propIsOpen === "boolean";
+  const isOpen = isControlled ? propIsOpen : internalIsOpen;
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    if (isControlled) return;
     // Visible for 30 seconds, then auto-toggles closed
     timerRef.current = setTimeout(() => {
-      setIsOpen(false);
+      setInternalIsOpen(false);
     }, 30000);
 
     return () => {
@@ -30,15 +37,19 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         clearTimeout(timerRef.current);
       }
     };
-  }, []);
+  }, [isControlled]);
 
   const handleToggle = () => {
+    if (isControlled && propOnToggle) {
+      propOnToggle();
+      return;
+    }
     // Cancel the timer on manual toggle
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-    setIsOpen((prev) => !prev);
+    setInternalIsOpen((prev) => !prev);
   };
 
   return (
