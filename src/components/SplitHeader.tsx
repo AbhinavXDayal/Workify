@@ -42,14 +42,14 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
   };
 
   return (
-    <div className="w-full bg-[#15221D]/90 backdrop-blur-md border border-[#253930] rounded-2xl sm:rounded-3xl p-2.5 sm:p-3.5 md:p-4 shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300">
+    <div className="w-full bg-[#15221D] border border-[#253930] rounded-xl sm:rounded-3xl p-1.5 sm:p-3 md:p-4 shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300">
       {/* Header Bar: Title + Chevron toggle on left, Account pill embedded on right */}
       <div className="flex items-center justify-between gap-2">
         <div
           onClick={handleToggle}
           className="flex items-center gap-1.5 cursor-pointer select-none"
         >
-          <h1 className="text-[#EAF1EC] text-sm sm:text-base font-bold tracking-wider">
+          <h1 className="text-[#EAF1EC] text-xs sm:text-base font-bold tracking-wider">
             {SPLIT_HEADER_TEXT.title}
           </h1>
 

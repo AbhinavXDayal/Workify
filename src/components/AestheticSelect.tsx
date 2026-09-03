@@ -65,7 +65,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full flex items-center justify-between bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-2xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-[#EAF1EC] transition-all duration-150 cursor-pointer shadow-xs text-left group active:scale-[0.99]"
+        className="w-full flex items-center justify-between bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2.5 text-xs sm:text-sm text-[#EAF1EC] transition-all duration-150 cursor-pointer shadow-xs text-left group active:scale-[0.99] min-h-[32px] sm:min-h-[38px]"
       >
         <span
           className={`truncate ${!value ? "text-[#5A7465]" : "text-[#EAF1EC] font-medium"}`}

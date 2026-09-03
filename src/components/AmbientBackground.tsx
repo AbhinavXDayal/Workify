@@ -31,26 +31,32 @@ export const AmbientBackground: React.FC = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Gracefully handle environments without canvas 2d context (e.g., jsdom / unit tests)
-    const ctx = canvas.getContext("2d");
+    let ctx: CanvasRenderingContext2D | null = null;
+    try {
+      ctx = canvas.getContext("2d");
+    } catch {
+      return;
+    }
     if (!ctx) return;
 
     let animationFrameId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Responsive node density
-    const nodeCount = width < 768 ? 22 : 36;
-    const maxDistance = width < 768 ? 95 : 125;
+    // Highly optimized node count for buttery mobile performance
+    const isMobile = width < 768;
+    const nodeCount = isMobile ? 12 : 24;
+    const maxDistance = isMobile ? 85 : 115;
+    const maxDist2 = maxDistance * maxDistance;
 
     const nodes: GraphNode[] = [];
     for (let i = 0; i < nodeCount; i++) {
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        radius: Math.random() * 1.2 + 1.2,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        radius: Math.random() * 0.8 + 1.1,
       });
     }
 
@@ -60,9 +66,9 @@ export const AmbientBackground: React.FC = () => {
       height = canvas.height = window.innerHeight;
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
-    // Dynamic animation loop: updating nodes & drawing connecting edges
+    // 60fps high-efficiency rendering
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
@@ -76,18 +82,19 @@ export const AmbientBackground: React.FC = () => {
         if (node.y < 0 || node.y > height) node.vy *= -1;
       }
 
-      // 2. Draw connected graph lines between nearby nodes
+      // 2. Draw connecting edges with fast distance squared check
+      ctx.lineWidth = 0.75;
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const dist2 = dx * dx + dy * dy;
 
-          if (dist < maxDistance) {
-            const alpha = (1 - dist / maxDistance) * 0.22;
+          if (dist2 < maxDist2) {
+            const dist = Math.sqrt(dist2);
+            const alpha = (1 - dist / maxDistance) * 0.2;
             ctx.beginPath();
             ctx.strokeStyle = `rgba(126, 169, 132, ${alpha})`;
-            ctx.lineWidth = 0.8;
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
             ctx.stroke();
@@ -96,11 +103,11 @@ export const AmbientBackground: React.FC = () => {
       }
 
       // 3. Draw node dots
+      ctx.fillStyle = "rgba(126, 169, 132, 0.4)";
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(126, 169, 132, 0.45)";
         ctx.fill();
       }
 
@@ -120,12 +127,11 @@ export const AmbientBackground: React.FC = () => {
       className="pointer-events-none fixed inset-0 overflow-hidden z-0 select-none"
       aria-hidden="true"
     >
-      {/* 1. Deep Atmospheric Ambient Sage Glows */}
-      <div className="absolute -top-32 -left-20 w-[550px] h-[450px] rounded-full bg-[#5B8B67]/[0.08] blur-[150px] animate-ambient-1" />
-      <div className="absolute top-1/3 -right-24 w-[500px] h-[500px] rounded-full bg-[#7EA984]/[0.06] blur-[160px] animate-ambient-2" />
-      <div className="absolute -bottom-24 left-1/4 w-[450px] h-[450px] rounded-full bg-[#3E6349]/[0.06] blur-[140px] animate-ambient-1" />
+      {/* 1. Fast GPU Radial Gradients (No heavy blur filters to avoid mobile lag) */}
+      <div className="absolute -top-24 -left-16 w-[400px] h-[350px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(91,139,103,0.12)_0%,_transparent_70%)] animate-ambient-1" />
+      <div className="absolute top-1/3 -right-20 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(126,169,132,0.09)_0%,_transparent_70%)] animate-ambient-2" />
 
-      {/* 2. Dot Matrix Grid Overlay */}
+      {/* 2. Ultra-Light Dot Matrix Grid */}
       <svg
         className="absolute inset-0 w-full h-full opacity-[0.22] animate-dot-matrix"
         xmlns="http://www.w3.org/2000/svg"
@@ -143,60 +149,37 @@ export const AmbientBackground: React.FC = () => {
         <rect width="100%" height="100%" fill="url(#ambient-dot-matrix)" />
       </svg>
 
-      {/* 3. Dynamic Moving Connected Graph Canvas */}
+      {/* 3. Smooth Connected Graph Canvas */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-80"
+        className="absolute inset-0 w-full h-full opacity-70"
       />
 
-      {/* 4. Elegant Drifting Small Leaves */}
-      {/* Leaf 1 - Top Left */}
-      <div className="absolute top-[12%] left-[8%] animate-leaf-drift-1">
-        <SmallLeaf className="w-5 h-5 text-[#7EA984]/25 drop-shadow-[0_2px_8px_rgba(126,169,132,0.15)] transform -rotate-12" />
+      {/* 4. Elegant Drifting Small Leaves (GPU-composited translate3d) */}
+      <div className="absolute top-[10%] left-[8%] animate-leaf-drift-1">
+        <SmallLeaf className="w-4 h-4 text-[#7EA984]/20 transform -rotate-12" />
       </div>
 
-      {/* Leaf 2 - Top Right */}
       <div
-        className="absolute top-[18%] right-[12%] animate-leaf-drift-2"
+        className="absolute top-[22%] right-[10%] animate-leaf-drift-2"
         style={{ animationDelay: "3.5s" }}
       >
-        <SmallLeaf className="w-4 h-4 text-[#7EA984]/20 transform rotate-45" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#7EA984]/18 transform rotate-45" />
       </div>
 
-      {/* Leaf 3 - Mid Left */}
       <div
-        className="absolute top-[48%] left-[5%] animate-leaf-drift-3"
+        className="absolute top-[65%] left-[6%] animate-leaf-drift-3"
         style={{ animationDelay: "7s" }}
       >
-        <SmallLeaf className="w-4.5 h-4.5 text-[#7EA984]/22 transform -rotate-30" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#7EA984]/18 transform -rotate-30" />
       </div>
 
-      {/* Leaf 4 - Mid Right */}
       <div
-        className="absolute top-[55%] right-[7%] animate-leaf-drift-1"
+        className="absolute top-[80%] right-[12%] animate-leaf-drift-1"
         style={{ animationDelay: "5s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#7EA984]/20 transform rotate-20" />
+        <SmallLeaf className="w-4 h-4 text-[#7EA984]/20 transform rotate-20" />
       </div>
-
-      {/* Leaf 5 - Lower Left */}
-      <div
-        className="absolute top-[78%] left-[15%] animate-leaf-drift-2"
-        style={{ animationDelay: "9s" }}
-      >
-        <SmallLeaf className="w-4 h-4 text-[#7EA984]/24 transform rotate-60" />
-      </div>
-
-      {/* Leaf 6 - Lower Right */}
-      <div
-        className="absolute top-[82%] right-[18%] animate-leaf-drift-3"
-        style={{ animationDelay: "1.5s" }}
-      >
-        <SmallLeaf className="w-5 h-5 text-[#7EA984]/18 transform -rotate-45" />
-      </div>
-
-      {/* Subtle Vignette overlay to keep workout cards prominent */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#7EA984]/[0.02] via-transparent to-transparent opacity-90" />
     </div>
   );
 };

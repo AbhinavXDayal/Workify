@@ -34,12 +34,12 @@ export function App() {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative min-h-screen bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-2 sm:py-4 px-2.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
+    <div className="relative min-h-[100dvh] bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
       {/* 1. Dynamic Ambient Background: small leaves, dot matrix, and connected moving graph */}
       <AmbientBackground />
 
       {/* Main Full-Width Content Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto space-y-2.5 sm:space-y-3">
+      <div className="relative z-10 w-full max-w-6xl mx-auto space-y-1 sm:space-y-3">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
           <div className="bg-[#15221D]/90 backdrop-blur-md border border-amber-500/30 rounded-2xl p-3 text-xs text-amber-300/90 flex items-start gap-2.5 shadow-sm">
