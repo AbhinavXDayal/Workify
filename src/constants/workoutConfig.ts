@@ -1,7 +1,7 @@
 import type { DayWorkoutConfig, WorkoutDay } from '../types/workout';
 
 export const SPLIT_HEADER_TEXT = {
-  title: 'Split',
+  title: 'Workify',
   overview: 'Dynamic warmup → weightlifting ( machines & free weights ) → cardio → self defence',
   days: [
     'Mon, thu - back ( 3 ), arms ( 2 ), shoulders ( 1 ) + cardio sports / mma',

@@ -10,10 +10,10 @@ describe("Workout Logger Acceptance Tests", () => {
   it("renders top Split section with exactly one heading and exact text", () => {
     render(<App />);
 
-    // Exactly one heading titled "Split"
-    const headings = screen.getAllByRole("heading", { name: /split/i });
+    // Exactly one heading titled "Workify"
+    const headings = screen.getAllByRole("heading", { name: /workify/i });
     expect(headings).toHaveLength(1);
-    expect(headings[0].textContent).toBe("Split");
+    expect(headings[0].textContent).toBe("Workify");
 
     // Split text contents
     expect(screen.getByText(SPLIT_HEADER_TEXT.overview)).toBeDefined();
