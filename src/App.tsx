@@ -37,7 +37,7 @@ export function App() {
       <AmbientBackground />
 
       {/* Main Full-Width Content Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-1 sm:space-y-3 overflow-y-auto sm:overflow-visible overscroll-contain">
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-1 sm:space-y-3 overflow-hidden sm:overflow-visible overscroll-contain">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
           <div className="liquid-glass-card border border-[#7C583F]/30 rounded-2xl p-2.5 text-xs text-[#382C24] flex items-start gap-2 shadow-sm shrink-0">
@@ -82,8 +82,8 @@ export function App() {
           onToggleHistory={setShowHistory}
         />
 
-        {/* Bottom space */}
-        <footer className="pb-1 sm:pb-4 shrink-0" />
+        {/* Fixed bottom spacer of the website (expandable to user liking) */}
+        <footer className="h-6 sm:h-8 shrink-0" aria-label="Fixed website bottom space" />
       </div>
 
       {/* Auth Modal */}

@@ -26,7 +26,10 @@ const getCustomOptionsFromStorage = (group?: string): string[] => {
   return [];
 };
 
-const saveCustomOptionToStorage = (group: string | undefined, newOption: string) => {
+const saveCustomOptionToStorage = (
+  group: string | undefined,
+  newOption: string,
+) => {
   if (typeof window === "undefined") return;
   const key = group || "general";
   try {
@@ -53,9 +56,7 @@ const removeCustomOptionFromStorage = (
     if (!raw) return;
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed[key])) {
-      parsed[key] = parsed[key].filter(
-        (opt: string) => opt !== optionToRemove,
-      );
+      parsed[key] = parsed[key].filter((opt: string) => opt !== optionToRemove);
       localStorage.setItem("workify_custom_exercises", JSON.stringify(parsed));
     }
   } catch {
@@ -166,7 +167,6 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
       onChange("");
     }
   };
-
 
   const handleToggleOpen = () => {
     setIsOpen((prev) => {

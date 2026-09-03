@@ -78,7 +78,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   });
 
   return (
-    <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2.5 pb-2.5 sm:p-5 sm:pb-8 md:p-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
+    <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2.5 pb-5 sm:p-5 sm:pb-8 md:p-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
       {/* 1. Day Selector Tabs with soft rounded corners */}
       <div className="shrink-0 mb-1.5 sm:mb-2">
         <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
@@ -87,7 +87,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
       {/* 2. Muscle Groups & Exercise Rows: cohesive, smooth scrollable on mobile, natural on desktop */}
       <div
         key={activeDay}
-        className="flex-1 min-h-0 overflow-y-auto sm:overflow-visible overscroll-contain pr-0.5 space-y-1.5 sm:space-y-3.5 day-transition custom-glass-scrollbar"
+        className="flex-1 min-h-0 overflow-y-auto sm:overflow-visible overscroll-contain pr-0.5 pb-2 sm:pb-4 space-y-1.5 sm:space-y-3.5 day-transition custom-glass-scrollbar"
       >
         {groupedSlots.map((group, groupIdx) => (
           <div key={group.name} className="space-y-1 sm:space-y-1.5">
