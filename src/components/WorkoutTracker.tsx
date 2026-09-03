@@ -79,7 +79,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   });
 
   return (
-    <div className="w-full bg-[#15221D] border border-[#253930] rounded-2xl sm:rounded-3xl p-2.5 pb-6 sm:p-5 sm:pb-8 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.45)] space-y-2 sm:space-y-4 transition-all duration-200">
+    <div className="w-full max-w-full overflow-hidden bg-[#F6F3EC] border border-[#DDD7CB] rounded-2xl sm:rounded-3xl p-2.5 pb-6 sm:p-5 sm:pb-8 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.3)] space-y-2 sm:space-y-4 transition-all duration-200">
       {/* 1. Day Selector Tabs with soft rounded corners */}
       <div className="shrink-0 mb-1">
         <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
@@ -91,8 +91,8 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
           <div key={group.name} className="space-y-1 sm:space-y-1.5">
             {/* Muscle Group Title with soft accent indicator */}
             <div className="flex items-center gap-1 px-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#7EA984]/80" />
-              <h3 className="text-[10px] sm:text-xs font-semibold text-[#EAF1EC] tracking-wider uppercase select-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#466A51]" />
+              <h3 className="text-[10px] sm:text-xs font-bold text-[#221E1B] tracking-wider uppercase select-none">
                 {group.name}
               </h3>
             </div>
@@ -102,7 +102,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
               {group.slots.map(({ slot, globalIndex }) => (
                 <div
                   key={`${slot.muscleGroup}-${slot.slotNumber}`}
-                  className="group flex items-center gap-1.5 sm:gap-3"
+                  className="group flex items-center gap-1.5 sm:gap-3 w-full min-w-0"
                 >
                   {/* Custom Aesthetic Dropdown with Soft Rounded Corners */}
                   <AestheticSelect
@@ -116,7 +116,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
 
                   {/* KG Input with soft rounded corners and instant tap selection */}
                   {/* KG Input with inline 'kg' unit badge inside the same box */}
-                  <div className="relative w-[58px] sm:w-24 md:w-28 h-8 sm:h-9 bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus-within:border-[#7EA984] focus-within:ring-2 focus-within:ring-[#7EA984]/20 rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 transition-all duration-150 font-mono shadow-xs shrink-0 cursor-text">
+                  <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 bg-[#FFFFFF] border border-[#D8D2C5] hover:border-[#B3AC9D] focus-within:border-[#466A51] focus-within:ring-2 focus-within:ring-[#466A51]/20 rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 transition-all duration-150 font-mono shadow-xs shrink-0 cursor-text">
                     <input
                       type="text"
                       inputMode="decimal"
@@ -128,15 +128,15 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       }
                       placeholder="0"
                       aria-label="Weight (kg)"
-                      className="w-full bg-transparent text-right text-[11px] sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none font-mono min-w-0 pr-0.5"
+                      className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#221E1B] placeholder-[#9E968A] focus:outline-none font-mono pr-0.5"
                     />
-                    <span className="text-[9.5px] sm:text-xs text-[#7EA984]/85 font-medium select-none shrink-0 pointer-events-none">
+                    <span className="text-[9.5px] sm:text-xs text-[#466A51] font-semibold select-none shrink-0 pointer-events-none ml-0.5">
                       kg
                     </span>
                   </div>
 
                   {/* Reps Input with inline 'reps' unit badge inside the same box */}
-                  <div className="relative w-[58px] sm:w-24 md:w-28 h-8 sm:h-9 bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus-within:border-[#7EA984] focus-within:ring-2 focus-within:ring-[#7EA984]/20 rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 transition-all duration-150 font-mono shadow-xs shrink-0 cursor-text">
+                  <div className="relative w-[62px] sm:w-24 md:w-28 h-8 sm:h-9 bg-[#FFFFFF] border border-[#D8D2C5] hover:border-[#B3AC9D] focus-within:border-[#466A51] focus-within:ring-2 focus-within:ring-[#466A51]/20 rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 transition-all duration-150 font-mono shadow-xs shrink-0 cursor-text">
                     <input
                       type="text"
                       inputMode="numeric"
@@ -148,9 +148,9 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       }
                       placeholder={String(slot.defaultReps)}
                       aria-label="Reps"
-                      className="w-full bg-transparent text-right text-[11px] sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none font-mono min-w-0 pr-0.5"
+                      className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#221E1B] placeholder-[#9E968A] focus:outline-none font-mono pr-0.5"
                     />
-                    <span className="text-[9.5px] sm:text-xs text-[#7EA984]/85 font-medium select-none shrink-0 pointer-events-none">
+                    <span className="text-[9.5px] sm:text-xs text-[#466A51] font-semibold select-none shrink-0 pointer-events-none ml-0.5">
                       reps
                     </span>
                   </div>
@@ -158,9 +158,9 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
               ))}
             </div>
 
-            {/* Subtle sage separator between muscle groups */}
+            {/* Subtle separator between muscle groups */}
             {groupIdx < groupedSlots.length - 1 && (
-              <div className="h-[1px] bg-[#253930]/70 my-1 sm:my-2" />
+              <div className="h-[1px] bg-[#E3DDD1] my-1 sm:my-2" />
             )}
           </div>
         ))}

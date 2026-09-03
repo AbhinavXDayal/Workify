@@ -45,18 +45,31 @@ export const AmbientBackground: React.FC = () => {
 
     // Highly optimized node count for buttery mobile performance
     const isMobile = width < 768;
-    const nodeCount = isMobile ? 12 : 24;
-    const maxDistance = isMobile ? 85 : 115;
+    const nodeCount = isMobile ? 14 : 24;
+    const maxDistance = isMobile ? 95 : 125;
     const maxDist2 = maxDistance * maxDistance;
 
-    const nodes: GraphNode[] = [];
+    interface LeafGraphNode extends GraphNode {
+      hasSprout: boolean;
+      sproutAngle: number;
+      stemLength: number;
+      phase: number;
+    }
+
+    const nodes: LeafGraphNode[] = [];
     for (let i = 0; i < nodeCount; i++) {
+      // Designate ~25% of nodes to have a seedling/leaf pair sprout
+      const hasSprout = i % 4 === 0;
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        radius: Math.random() * 0.8 + 1.1,
+        vx: (Math.random() - 0.5) * 0.32,
+        vy: (Math.random() - 0.5) * 0.32,
+        radius: Math.random() * 0.6 + 1.2,
+        hasSprout,
+        sproutAngle: (Math.random() * 0.8 - 0.4) - Math.PI / 2, // pointing generally upward
+        stemLength: Math.random() * 6 + 14,
+        phase: Math.random() * Math.PI * 2,
       });
     }
 
@@ -68,8 +81,53 @@ export const AmbientBackground: React.FC = () => {
 
     window.addEventListener("resize", handleResize, { passive: true });
 
+    // Draw an organic almond/pointed leaf matching reference image
+    const drawBotanicalLeaf = (
+      context: CanvasRenderingContext2D,
+      x: number,
+      y: number,
+      angle: number,
+      length: number,
+      width: number,
+      alpha: number,
+    ) => {
+      if (alpha <= 0.02) return;
+      context.save();
+      context.translate(x, y);
+      context.rotate(angle);
+
+      // 1. Leaf body (almond/oval pointed curve)
+      context.beginPath();
+      context.moveTo(0, 0);
+      context.quadraticCurveTo(length * 0.45, -width * 0.6, length, 0);
+      context.quadraticCurveTo(length * 0.45, width * 0.6, 0, 0);
+      context.closePath();
+
+      // Soft luminous sage green fill
+      context.fillStyle = `rgba(132, 178, 142, ${Math.min(alpha * 0.85, 0.9)})`;
+      context.fill();
+
+      // Delicate outer rim stroke
+      context.strokeStyle = `rgba(172, 215, 182, ${Math.min(alpha * 0.9, 0.95)})`;
+      context.lineWidth = 0.85;
+      context.stroke();
+
+      // 2. Center midrib / vein (delicate lighter rib)
+      context.beginPath();
+      context.moveTo(0, 0);
+      context.lineTo(length * 0.9, 0);
+      context.strokeStyle = `rgba(224, 246, 230, ${Math.min(alpha * 1.1, 1.0)})`;
+      context.lineWidth = 0.95;
+      context.stroke();
+
+      context.restore();
+    };
+
+    let time = 0;
+
     // 60fps high-efficiency rendering
     const render = () => {
+      time += 0.018;
       ctx.clearRect(0, 0, width, height);
 
       // 1. Move nodes
@@ -82,33 +140,98 @@ export const AmbientBackground: React.FC = () => {
         if (node.y < 0 || node.y > height) node.vy *= -1;
       }
 
-      // 2. Draw connecting edges with fast distance squared check
-      ctx.lineWidth = 0.75;
+      // 2. Draw connecting edges and attached leaves along edges
+      ctx.lineWidth = 0.8;
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
+          const dx = nodes[j].x - nodes[i].x;
+          const dy = nodes[j].y - nodes[i].y;
           const dist2 = dx * dx + dy * dy;
 
           if (dist2 < maxDist2) {
             const dist = Math.sqrt(dist2);
-            const alpha = (1 - dist / maxDistance) * 0.2;
+            const edgeRatio = 1 - dist / maxDistance;
+            const alpha = edgeRatio * 0.35;
+
+            // Draw edge line
             ctx.beginPath();
             ctx.strokeStyle = `rgba(126, 169, 132, ${alpha})`;
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
             ctx.stroke();
+
+            // Place leaves along certain edges (e.g. deterministic pair hash)
+            // Leaves stay attached as nodes move!
+            const isLeafEdge = (i * 7 + j * 11) % 4 === 0;
+            if (isLeafEdge && edgeRatio > 0.18) {
+              const leafT = 0.48; // placed near midpoint
+              const leafX = nodes[i].x + dx * leafT;
+              const leafY = nodes[i].y + dy * leafT;
+              const lineAngle = Math.atan2(dy, dx);
+              const leafAlpha = Math.min(edgeRatio * 1.4, 0.85);
+
+              drawBotanicalLeaf(
+                ctx,
+                leafX,
+                leafY,
+                lineAngle,
+                15, // length
+                6.8, // width
+                leafAlpha,
+              );
+            }
           }
         }
       }
 
-      // 3. Draw node dots
-      ctx.fillStyle = "rgba(126, 169, 132, 0.4)";
+      // 3. Draw node dots & sprout leaf pairs
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
+
+        // Node dot
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(132, 178, 142, 0.65)";
         ctx.fill();
+
+        // If node has sprout: draw stem and two sprouting leaves (seedling)
+        if (node.hasSprout) {
+          const sway = Math.sin(time + node.phase) * 0.1;
+          const currentStemAngle = node.sproutAngle + sway;
+          const tipX = node.x + Math.cos(currentStemAngle) * node.stemLength;
+          const tipY = node.y + Math.sin(currentStemAngle) * node.stemLength;
+
+          // Tiny organic stem
+          ctx.beginPath();
+          ctx.moveTo(node.x, node.y);
+          ctx.lineTo(tipX, tipY);
+          ctx.strokeStyle = "rgba(132, 178, 142, 0.7)";
+          ctx.lineWidth = 1.1;
+          ctx.stroke();
+
+          // Two sprouting leaves from stem tip
+          // Leaf 1 (angled to left)
+          drawBotanicalLeaf(
+            ctx,
+            tipX,
+            tipY,
+            currentStemAngle - 0.45,
+            12,
+            5.2,
+            0.8,
+          );
+
+          // Leaf 2 (angled to right)
+          drawBotanicalLeaf(
+            ctx,
+            tipX,
+            tipY,
+            currentStemAngle + 0.45,
+            12,
+            5.2,
+            0.8,
+          );
+        }
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -124,12 +247,12 @@ export const AmbientBackground: React.FC = () => {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 overflow-hidden z-0 select-none"
+      className="pointer-events-none fixed inset-0 w-full h-full max-w-full overflow-hidden z-0 select-none"
       aria-hidden="true"
     >
       {/* 1. Fast GPU Radial Gradients (No heavy blur filters to avoid mobile lag) */}
-      <div className="absolute -top-24 -left-16 w-[400px] h-[350px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(91,139,103,0.12)_0%,_transparent_70%)] animate-ambient-1" />
-      <div className="absolute top-1/3 -right-20 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(126,169,132,0.09)_0%,_transparent_70%)] animate-ambient-2" />
+      <div className="absolute -top-24 -left-16 w-[360px] h-[350px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(91,139,103,0.12)_0%,_transparent_70%)] animate-ambient-1" />
+      <div className="absolute top-1/3 right-0 w-[340px] h-[340px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(126,169,132,0.09)_0%,_transparent_70%)] animate-ambient-2" />
 
       {/* 2. Ultra-Light Dot Matrix Grid */}
       <svg
@@ -149,10 +272,10 @@ export const AmbientBackground: React.FC = () => {
         <rect width="100%" height="100%" fill="url(#ambient-dot-matrix)" />
       </svg>
 
-      {/* 3. Smooth Connected Graph Canvas */}
+      {/* 3. Smooth Connected Graph Canvas with Dynamic Botanical Leaves */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-70"
+        className="absolute inset-0 w-full h-full opacity-85"
       />
 
       {/* 4. Elegant Drifting Small Leaves (GPU-composited translate3d) */}

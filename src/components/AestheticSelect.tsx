@@ -177,23 +177,23 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full flex items-center justify-between bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2.5 text-xs sm:text-sm text-[#EAF1EC] transition-all duration-150 cursor-pointer shadow-xs text-left group active:scale-[0.99] min-h-[32px] sm:min-h-[38px]"
+        className="w-full min-w-0 flex items-center justify-between bg-[#FFFFFF] border border-[#D8D2C5] hover:border-[#B3AC9D] focus:border-[#466A51] focus:ring-2 focus:ring-[#466A51]/20 rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2.5 text-xs sm:text-sm text-[#221E1B] transition-all duration-150 cursor-pointer shadow-xs text-left group active:scale-[0.99] min-h-[32px] sm:min-h-[38px]"
       >
         <span
-          className={`truncate ${!value ? "text-[#5A7465]" : "text-[#EAF1EC] font-medium"}`}
+          className={`truncate min-w-0 ${!value ? "text-[#8E867A]" : "text-[#221E1B] font-medium"}`}
         >
           {value || placeholder}
         </span>
         <ChevronDown
-          className={`w-4 h-4 text-[#7EA984]/80 transition-transform duration-200 shrink-0 ml-2 ${
-            isOpen ? "rotate-180 text-[#7EA984]" : "group-hover:text-[#7EA984]"
+          className={`w-4 h-4 text-[#466A51] transition-transform duration-200 shrink-0 ml-2 ${
+            isOpen ? "rotate-180" : ""
           }`}
         />
       </button>
 
       {/* Custom aesthetic dropdown popover with soft rounded corners */}
       {isOpen && (
-        <div className="absolute left-0 right-0 top-full mt-1.5 z-50 bg-[#15221D]/98 backdrop-blur-xl border border-[#253930] rounded-2xl p-1.5 shadow-2xl shadow-black/80 max-h-64 overflow-y-auto space-y-0.5 animate-in fade-in zoom-in-95 duration-150">
+        <div className="absolute left-0 right-0 top-full mt-1.5 z-50 bg-[#FAF7F2] border border-[#DDD7CB] rounded-2xl p-1.5 shadow-xl shadow-black/25 max-h-64 overflow-y-auto space-y-0.5 animate-in fade-in zoom-in-95 duration-150">
           <button
             type="button"
             onClick={() => {
@@ -202,12 +202,12 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
             }}
             className={`w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs sm:text-sm text-left transition-colors cursor-pointer ${
               !value
-                ? "bg-[#23372E] text-[#7EA984] font-medium"
-                : "text-[#5A7465] hover:bg-[#1F3229] hover:text-[#8FA898]"
+                ? "bg-[#EDE8DE] text-[#466A51] font-semibold"
+                : "text-[#7A7266] hover:bg-[#EFEBE3] hover:text-[#221E1B]"
             }`}
           >
             <span>{placeholder}</span>
-            {!value && <Check className="w-3.5 h-3.5 text-[#7EA984]" />}
+            {!value && <Check className="w-3.5 h-3.5 text-[#466A51]" />}
           </button>
 
           {allOptions.map((opt) => {
@@ -222,14 +222,14 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
                 }}
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm text-left transition-colors cursor-pointer group/opt ${
                   isSelected
-                    ? "bg-[#23372E] text-[#EAF1EC] font-medium"
-                    : "text-[#C8DACF] hover:bg-[#1F3229] hover:text-[#EAF1EC]"
+                    ? "bg-[#EDE8DE] text-[#221E1B] font-semibold"
+                    : "text-[#342E29] hover:bg-[#EFEBE3] hover:text-[#221E1B]"
                 }`}
               >
                 <div className="flex items-center gap-1.5 min-w-0 flex-1">
                   <span className="truncate">{opt}</span>
                   {isCustom && (
-                    <span className="text-[9px] px-1 py-0.2 rounded bg-[#101B16] text-[#7EA984] border border-[#3E6349]/40 shrink-0">
+                    <span className="text-[9.5px] px-1.5 py-0.5 rounded-full bg-[#E5DFD3] text-[#466A51] border border-[#D5CEC2] shrink-0 font-medium">
                       custom
                     </span>
                   )}
@@ -241,13 +241,13 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
                       type="button"
                       onClick={(e) => handleRemoveCustom(e, opt)}
                       title="Remove custom exercise"
-                      className="p-1 rounded-md text-[#5A7465] hover:text-red-400 hover:bg-red-950/30 transition-colors"
+                      className="p-1 rounded-md text-[#8E867A] hover:text-red-600 hover:bg-red-100 transition-colors"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   )}
                   {isSelected && (
-                    <Check className="w-3.5 h-3.5 text-[#7EA984]" />
+                    <Check className="w-3.5 h-3.5 text-[#466A51]" />
                   )}
                 </div>
               </div>
@@ -255,11 +255,11 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
           })}
 
           {/* Divider & Option to Add Custom Exercise */}
-          <div className="pt-1 mt-1 border-t border-[#253930]/70">
+          <div className="pt-1 mt-1 border-t border-[#E3DDD1]">
             {isAdding ? (
               <form
                 onSubmit={handleSaveCustom}
-                className="flex items-center gap-1 p-1 bg-[#101B16] border border-[#3E6349] rounded-xl"
+                className="flex items-center gap-1 p-1 bg-[#FFFFFF] border border-[#D8D2C5] rounded-xl"
               >
                 <input
                   ref={inputRef}
@@ -267,12 +267,12 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
                   value={newExerciseInput}
                   onChange={(e) => setNewExerciseInput(e.target.value)}
                   placeholder="Enter exercise name..."
-                  className="flex-1 bg-transparent px-2 py-1 text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none min-w-0"
+                  className="flex-1 bg-transparent px-2 py-1 text-xs sm:text-sm text-[#221E1B] placeholder-[#9E968A] focus:outline-none min-w-0"
                 />
                 <button
                   type="submit"
                   disabled={!newExerciseInput.trim()}
-                  className="px-2.5 py-1 bg-[#23372E] hover:bg-[#304B3E] text-[#7EA984] hover:text-[#EAF1EC] disabled:opacity-40 disabled:cursor-not-allowed rounded-lg text-xs font-semibold transition-colors cursor-pointer shrink-0"
+                  className="px-2.5 py-1 bg-[#466A51] hover:bg-[#385541] text-white disabled:opacity-40 disabled:cursor-not-allowed rounded-lg text-xs font-semibold transition-colors cursor-pointer shrink-0"
                 >
                   Add
                 </button>
@@ -282,7 +282,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
                     setIsAdding(false);
                     setNewExerciseInput("");
                   }}
-                  className="p-1 text-[#8FA898] hover:text-[#EAF1EC] transition-colors cursor-pointer shrink-0"
+                  className="p-1 text-[#7A7266] hover:text-[#221E1B] transition-colors cursor-pointer shrink-0"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -291,7 +291,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
               <button
                 type="button"
                 onClick={handleStartAdding}
-                className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-[#7EA984] hover:text-[#A1C9A7] hover:bg-[#1A2922] transition-colors cursor-pointer"
+                className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-[#466A51] hover:text-[#385541] hover:bg-[#EDE8DE] transition-colors cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add custom exercise</span>

@@ -32,7 +32,7 @@ export function App() {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative min-h-[100dvh] bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
+    <div className="relative min-h-[100dvh] w-full max-w-full overflow-x-hidden bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
       {/* 1. Dynamic Ambient Background: small leaves, dot matrix, and connected moving graph */}
       <AmbientBackground />
 
@@ -40,16 +40,16 @@ export function App() {
       <div className="relative z-10 w-full max-w-6xl mx-auto space-y-1 sm:space-y-3">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
-          <div className="bg-[#15221D]/90 backdrop-blur-md border border-amber-500/30 rounded-2xl p-2.5 text-xs text-amber-300/90 flex items-start gap-2 shadow-sm shrink-0">
-            <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+          <div className="bg-[#F6F3EC] border border-amber-600/30 rounded-2xl p-2.5 text-xs text-amber-900 flex items-start gap-2 shadow-sm shrink-0">
+            <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <div className="space-y-0.5">
-              <p className="font-semibold text-amber-300">
+              <p className="font-semibold text-amber-900">
                 Supabase Credentials Needed
               </p>
-              <p className="text-[#8FA898] text-[11px] leading-relaxed">
-                Add <code className="text-amber-200">VITE_SUPABASE_URL</code>{" "}
+              <p className="text-[#6A6359] text-[11px] leading-relaxed">
+                Add <code className="text-amber-800 font-mono bg-amber-100/70 px-1 py-0.5 rounded">VITE_SUPABASE_URL</code>{" "}
                 and{" "}
-                <code className="text-amber-200">VITE_SUPABASE_ANON_KEY</code>{" "}
+                <code className="text-amber-800 font-mono bg-amber-100/70 px-1 py-0.5 rounded">VITE_SUPABASE_ANON_KEY</code>{" "}
                 to your .env file to enable cross-device cloud sync.
               </p>
             </div>
