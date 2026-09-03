@@ -80,11 +80,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm">
-      <div className="bg-[#15221D] border border-[#253930] rounded-2xl w-full max-w-sm p-5 sm:p-6 shadow-2xl relative transition-all duration-200">
+      <div className="bg-[#15221D] border border-[#253930] rounded-3xl w-full max-w-sm p-6 sm:p-7 shadow-2xl relative transition-all duration-200">
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-lg text-[#8FA898] hover:text-[#EAF1EC] hover:bg-white/[0.06] transition-colors active:scale-95 cursor-pointer"
+          className="absolute top-4 right-4 p-1.5 rounded-full text-[#8FA898] hover:text-[#EAF1EC] hover:bg-white/[0.06] transition-colors active:scale-95 cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
@@ -99,7 +99,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         </div>
 
         {!isConfigured && (
-          <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-300 text-xs flex items-start gap-2">
+          <div className="mb-4 p-3.5 bg-amber-500/10 border border-amber-500/30 rounded-2xl text-amber-300 text-xs flex items-start gap-2">
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
             <span>
               Supabase is not configured yet. Please add your credentials to{" "}
@@ -109,14 +109,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         )}
 
         {errorMsg && (
-          <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-300 text-xs flex items-start gap-2">
+          <div className="mb-4 p-3.5 bg-red-500/10 border border-red-500/30 rounded-2xl text-red-300 text-xs flex items-start gap-2">
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
             <span>{errorMsg}</span>
           </div>
         )}
 
         {successMsg && (
-          <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-300 text-xs flex items-start gap-2">
+          <div className="mb-4 p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs flex items-start gap-2">
             <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
             <span>{successMsg}</span>
           </div>
@@ -128,14 +128,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               Email
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-[#5A7465] absolute left-3 top-3" />
+              <Mail className="w-4 h-4 text-[#5A7465] absolute left-3.5 top-3.5" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-1 focus:ring-[#7EA984]/30 rounded-xl pl-9 pr-3 py-2.5 text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150"
+                className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-2xl pl-10 pr-3.5 py-2.5 sm:py-3 text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150"
               />
             </div>
           </div>
@@ -145,14 +145,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               Password
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-[#5A7465] absolute left-3 top-3" />
+              <Lock className="w-4 h-4 text-[#5A7465] absolute left-3.5 top-3.5" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-1 focus:ring-[#7EA984]/30 rounded-xl pl-9 pr-3 py-2.5 text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150"
+                className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-2xl pl-10 pr-3.5 py-2.5 sm:py-3 text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150"
               />
             </div>
           </div>
@@ -160,7 +160,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-[#EAF1EC] hover:bg-[#A3CEB3] active:scale-[0.985] text-[#0E1613] text-sm font-semibold rounded-xl transition-all duration-150 cursor-pointer disabled:opacity-50 mt-2 shadow-sm"
+            className="w-full py-3.5 bg-[#EAF1EC] hover:bg-[#A3CEB3] active:scale-[0.985] text-[#0E1613] text-sm font-semibold rounded-2xl transition-all duration-150 cursor-pointer disabled:opacity-50 mt-2 shadow-sm"
           >
             {loading
               ? "Processing..."

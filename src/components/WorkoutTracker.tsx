@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  ChevronDown,
-  Check,
-  Loader2,
-  AlertCircle,
-  History,
-} from "lucide-react";
+import { Check, Loader2, AlertCircle, History } from "lucide-react";
 import { DaySelector } from "./DaySelector";
+import { AestheticSelect } from "./AestheticSelect";
 import { HistoryDrawer } from "./HistoryDrawer";
 import { WORKOUT_DAYS_CONFIG } from "../constants/workoutConfig";
 import type {
@@ -87,91 +82,77 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   });
 
   return (
-    <div className="w-full bg-[#15221D]/90 backdrop-blur-md border border-[#253930] rounded-2xl p-3.5 sm:p-6 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.45)] space-y-5 transition-all duration-200">
-      {/* 1. Day Selector Tabs */}
+    <div className="w-full bg-[#15221D]/90 backdrop-blur-md border border-[#253930] rounded-3xl p-4 sm:p-7 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.45)] space-y-6 transition-all duration-200">
+      {/* 1. Day Selector Tabs with soft rounded corners */}
       <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
 
       {/* 2. Column Headers: Exercise | KG | Reps with portfolio sage green accent */}
-      <div className="flex items-center justify-between text-[11px] text-[#7EA984] font-semibold px-2 pt-1 tracking-wider uppercase select-none">
+      <div className="flex items-center justify-between text-[11px] text-[#7EA984] font-semibold px-3 pt-1 tracking-wider uppercase select-none">
         <span className="flex-1">Exercise</span>
-        <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
+        <div className="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
           <span className="w-16 sm:w-28 md:w-36 text-center">KG</span>
           <span className="w-16 sm:w-28 md:w-36 text-center">Reps</span>
         </div>
       </div>
 
       {/* 3. Muscle Groups & Exercise Rows with smooth day-switch transition */}
-      <div key={activeDay} className="space-y-5 day-transition">
+      <div key={activeDay} className="space-y-6 day-transition">
         {groupedSlots.map((group, groupIdx) => (
-          <div key={group.name} className="space-y-2.5">
-            {/* Muscle Group Title */}
-            <h3 className="text-xs font-semibold text-[#C8DACF] tracking-tight select-none">
-              {group.name}
-            </h3>
+          <div key={group.name} className="space-y-3">
+            {/* Muscle Group Title with soft accent indicator */}
+            <div className="flex items-center gap-2 px-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#7EA984]/80" />
+              <h3 className="text-xs font-semibold text-[#EAF1EC] tracking-wider uppercase select-none">
+                {group.name}
+              </h3>
+            </div>
 
             {/* Exercise Slots */}
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               {group.slots.map(({ slot, globalIndex }) => (
                 <div
                   key={`${slot.muscleGroup}-${slot.slotNumber}`}
-                  className="group flex items-center gap-2 sm:gap-3.5"
+                  className="group flex items-center gap-2.5 sm:gap-3.5"
                 >
-                  {/* Exercise Selector */}
-                  <div className="relative flex-1 min-w-0">
-                    <select
-                      value={slot.exerciseName}
-                      onChange={(e) =>
-                        onUpdateSlot(
-                          globalIndex,
-                          "exerciseName",
-                          e.target.value,
-                        )
-                      }
-                      className="w-full min-w-0 max-w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-1 focus:ring-[#7EA984]/30 rounded-xl px-2.5 sm:px-3.5 py-2.5 sm:py-3 pr-7 sm:pr-8 text-xs sm:text-sm text-[#EAF1EC] truncate focus:outline-none transition-all duration-150 cursor-pointer appearance-none shadow-xs"
-                    >
-                      <option value="" className="bg-[#15221D] text-[#5A7465]">
-                        Select exercise
-                      </option>
-                      {group.options.map((option) => (
-                        <option
-                          key={option}
-                          value={option}
-                          className="bg-[#15221D] text-[#EAF1EC]"
-                        >
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#7EA984]/70 group-hover:text-[#7EA984] absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 pointer-events-none transition-colors duration-150" />
-                  </div>
+                  {/* Custom Aesthetic Dropdown with Soft Rounded Corners */}
+                  <AestheticSelect
+                    value={slot.exerciseName}
+                    onChange={(val) =>
+                      onUpdateSlot(globalIndex, "exerciseName", val)
+                    }
+                    options={group.options}
+                    placeholder="Select exercise"
+                  />
 
-                  {/* KG Input */}
+                  {/* KG Input with soft rounded corners and instant tap selection */}
                   <div className="w-16 sm:w-28 md:w-36 shrink-0">
                     <input
                       type="text"
                       inputMode="decimal"
                       pattern="[0-9]*[.]?[0-9]*"
                       value={slot.weightKg}
+                      onFocus={(e) => e.target.select()}
                       onChange={(e) =>
                         onUpdateSlot(globalIndex, "weightKg", e.target.value)
                       }
                       placeholder="kg"
-                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-1 focus:ring-[#7EA984]/30 rounded-xl px-1 sm:px-2 py-2.5 sm:py-3 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs"
+                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-2xl px-2 sm:px-3 py-2.5 sm:py-3 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs"
                     />
                   </div>
 
-                  {/* Reps Input */}
+                  {/* Reps Input with soft rounded corners and instant tap selection */}
                   <div className="w-16 sm:w-28 md:w-36 shrink-0">
                     <input
                       type="text"
                       inputMode="numeric"
                       pattern="[0-9]*"
                       value={slot.reps}
+                      onFocus={(e) => e.target.select()}
                       onChange={(e) =>
                         onUpdateSlot(globalIndex, "reps", e.target.value)
                       }
                       placeholder={String(slot.defaultReps)}
-                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-1 focus:ring-[#7EA984]/30 rounded-xl px-1 sm:px-2 py-2.5 sm:py-3 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs"
+                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-2xl px-2 sm:px-3 py-2.5 sm:py-3 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs"
                     />
                   </div>
                 </div>
@@ -180,7 +161,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
 
             {/* Subtle sage separator between muscle groups */}
             {groupIdx < groupedSlots.length - 1 && (
-              <div className="h-[1px] bg-[#253930]/70 my-3" />
+              <div className="h-[1px] bg-[#253930]/70 my-3.5" />
             )}
           </div>
         ))}
@@ -210,14 +191,14 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         </div>
       )}
 
-      {/* 5. Action Buttons - responsive flex layout for full width */}
+      {/* 5. Action Buttons with soft rounded aesthetic corners */}
       <div className="pt-2 space-y-3">
         <div className="flex flex-col sm:flex-row gap-3">
           <button
             type="button"
             onClick={onSaveWorkout}
             disabled={status === "saving"}
-            className={`flex-1 py-3.5 text-sm font-semibold rounded-xl transition-all duration-150 cursor-pointer shadow-sm active:scale-[0.985] disabled:opacity-50 flex items-center justify-center gap-2 select-none ${
+            className={`flex-1 py-3.5 text-sm font-semibold rounded-2xl transition-all duration-150 cursor-pointer shadow-sm active:scale-[0.985] disabled:opacity-50 flex items-center justify-center gap-2 select-none ${
               status === "saved"
                 ? "bg-[#7EA984] text-[#0E1613] shadow-[#7EA984]/20"
                 : "bg-[#EAF1EC] hover:bg-[#A3CEB3] text-[#0E1613] hover:shadow-md"
@@ -241,7 +222,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
           <button
             type="button"
             onClick={onClearEntries}
-            className="sm:w-48 py-3.5 bg-[#1A2922] hover:bg-[#23372E] active:scale-[0.985] text-[#8FA898] hover:text-[#EAF1EC] text-xs sm:text-sm font-medium rounded-xl border border-[#253930] hover:border-[#3E6349] transition-all duration-150 cursor-pointer select-none"
+            className="sm:w-48 py-3.5 bg-[#1A2922] hover:bg-[#23372E] active:scale-[0.985] text-[#8FA898] hover:text-[#EAF1EC] text-xs sm:text-sm font-medium rounded-2xl border border-[#253930] hover:border-[#3E6349] transition-all duration-150 cursor-pointer select-none"
           >
             Clear Entries
           </button>
@@ -253,7 +234,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             <button
               type="button"
               onClick={() => onToggleHistory(true)}
-              className="inline-flex items-center gap-1.5 text-xs text-[#8FA898] hover:text-[#7EA984] transition-colors cursor-pointer py-1.5 px-3 rounded-lg hover:bg-[#1A2922] active:scale-95"
+              className="inline-flex items-center gap-1.5 text-xs text-[#8FA898] hover:text-[#7EA984] transition-colors cursor-pointer py-1.5 px-3 rounded-full hover:bg-[#1A2922] active:scale-95"
             >
               <History className="w-3.5 h-3.5" />
               <span>View Past History ({history.length})</span>

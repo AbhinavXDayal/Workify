@@ -3,7 +3,7 @@ import { SPLIT_HEADER_TEXT } from "../constants/workoutConfig";
 
 export const SplitHeader: React.FC = () => {
   return (
-    <div className="w-full bg-[#15221D]/90 backdrop-blur-md border border-[#253930] rounded-2xl p-4.5 sm:p-6 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-all duration-200">
+    <div className="w-full bg-[#15221D]/90 backdrop-blur-md border border-[#253930] rounded-3xl p-4.5 sm:p-7 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-all duration-200">
       {/* Exactly one heading - matching portfolio typography */}
       <h1 className="text-center text-[#EAF1EC] text-base sm:text-xl font-bold tracking-wider mb-2 select-none">
         {SPLIT_HEADER_TEXT.title}
@@ -14,12 +14,12 @@ export const SplitHeader: React.FC = () => {
         {SPLIT_HEADER_TEXT.overview}
       </p>
 
-      {/* Days split - responsive columns across wider layout */}
+      {/* Days split - responsive columns across wider layout with soft rounded corners */}
       <div className="space-y-2.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-3.5 text-[#C8DACF] text-xs sm:text-[13px] mb-5">
         {SPLIT_HEADER_TEXT.days.map((dayText, idx) => (
           <div
             key={idx}
-            className="md:bg-[#1A2922]/50 md:border md:border-[#253930]/60 md:p-3.5 md:rounded-xl flex items-center"
+            className="md:bg-[#1A2922]/50 md:border md:border-[#253930]/60 md:p-4 md:rounded-2xl flex items-center shadow-xs"
           >
             <p className="leading-relaxed">{dayText}</p>
           </div>
