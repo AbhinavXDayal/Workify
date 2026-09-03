@@ -1,5 +1,5 @@
 import React from "react";
-import { Check, Loader2, AlertCircle, History } from "lucide-react";
+import { Check, Loader2, AlertCircle } from "lucide-react";
 import { DaySelector } from "./DaySelector";
 import { AestheticSelect } from "./AestheticSelect";
 import { HistoryDrawer } from "./HistoryDrawer";
@@ -227,20 +227,6 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             Clear Entries
           </button>
         </div>
-
-        {/* Discreet history link */}
-        {history.length > 0 && (
-          <div className="pt-1 text-center">
-            <button
-              type="button"
-              onClick={() => onToggleHistory(true)}
-              className="inline-flex items-center gap-1.5 text-xs text-[#8FA898] hover:text-[#7EA984] transition-colors cursor-pointer py-1.5 px-3 rounded-full hover:bg-[#1A2922] active:scale-95"
-            >
-              <History className="w-3.5 h-3.5" />
-              <span>View Past History ({history.length})</span>
-            </button>
-          </div>
-        )}
       </div>
 
       {/* History Drawer Modal */}
