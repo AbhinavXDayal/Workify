@@ -1,5 +1,5 @@
-import React from "react";
-import { Check, Loader2, AlertCircle } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { Check, Loader2, AlertCircle, RotateCcw, Trash2 } from "lucide-react";
 import { DaySelector } from "./DaySelector";
 import { AestheticSelect } from "./AestheticSelect";
 import { HistoryDrawer } from "./HistoryDrawer";
@@ -43,6 +43,45 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   onToggleHistory,
 }) => {
   const dayConfig = WORKOUT_DAYS_CONFIG[activeDay];
+
+  // Accidental Clear Protection: Store backup of slots for undo
+  const [backupSlots, setBackupSlots] = useState<ExerciseSlotState[] | null>(null);
+  const [showUndoBanner, setShowUndoBanner] = useState<boolean>(false);
+  const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleClearWithSafety = () => {
+    // Preserve current filled values before wiping
+    const hasEnteredData = slots.some(
+      (s) => (s.weightKg && s.weightKg.trim().length > 0) || s.reps !== String(s.defaultReps)
+    );
+
+    if (hasEnteredData) {
+      setBackupSlots(slots.map((s) => ({ ...s })));
+      setShowUndoBanner(true);
+      if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+      undoTimerRef.current = setTimeout(() => {
+        setShowUndoBanner(false);
+        setBackupSlots(null);
+      }, 10000); // 10-second undo window
+    }
+
+    onClearEntries();
+  };
+
+  const handleUndo = () => {
+    if (backupSlots) {
+      backupSlots.forEach((savedSlot, idx) => {
+        if (savedSlot.weightKg !== slots[idx]?.weightKg) {
+          onUpdateSlot(idx, "weightKg", savedSlot.weightKg);
+        }
+        if (savedSlot.reps !== slots[idx]?.reps) {
+          onUpdateSlot(idx, "reps", savedSlot.reps);
+        }
+      });
+      setBackupSlots(null);
+      setShowUndoBanner(false);
+    }
+  };
 
   // Group slots by their muscleGroup
   const groupedSlots = dayConfig.groups.map((group) => {
@@ -191,40 +230,64 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         </div>
       )}
 
-      {/* 5. Action Buttons with soft rounded aesthetic corners */}
-      <div className="pt-2 space-y-3">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <button
-            type="button"
-            onClick={onSaveWorkout}
-            disabled={status === "saving"}
-            className={`flex-1 py-3.5 text-sm font-semibold rounded-2xl transition-all duration-150 cursor-pointer shadow-sm active:scale-[0.985] disabled:opacity-50 flex items-center justify-center gap-2 select-none ${
-              status === "saved"
-                ? "bg-[#7EA984] text-[#0E1613] shadow-[#7EA984]/20"
-                : "bg-[#EAF1EC] hover:bg-[#A3CEB3] text-[#0E1613] hover:shadow-md"
-            }`}
-          >
-            {status === "saving" ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Saving Workout...</span>
-              </>
-            ) : status === "saved" ? (
-              <>
-                <Check className="w-4 h-4" />
-                <span>Workout Saved</span>
-              </>
+      {/* 5. Safe, Ergonomic Action Area */}
+      <div className="pt-3 space-y-4">
+        {/* Primary Hero Action: Full-width Save Workout button */}
+        <button
+          type="button"
+          onClick={onSaveWorkout}
+          disabled={status === "saving"}
+          className={`w-full py-4 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-150 cursor-pointer shadow-sm active:scale-[0.985] disabled:opacity-50 flex items-center justify-center gap-2 select-none ${
+            status === "saved"
+              ? "bg-[#7EA984] text-[#0E1613] shadow-[#7EA984]/25"
+              : "bg-[#EAF1EC] hover:bg-[#A3CEB3] text-[#0E1613] hover:shadow-md"
+          }`}
+        >
+          {status === "saving" ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>Saving Workout...</span>
+            </>
+          ) : status === "saved" ? (
+            <>
+              <Check className="w-4 h-4" />
+              <span>Workout Saved</span>
+            </>
+          ) : (
+            <span>Save Workout</span>
+          )}
+        </button>
+
+        {/* Secondary Safety Row: Separated from Save Workout to prevent accidental clearing */}
+        <div className="pt-2 border-t border-[#253930]/40 flex items-center justify-between min-h-[38px]">
+          <div>
+            {showUndoBanner ? (
+              <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs animate-in fade-in duration-200">
+                <span>Entries cleared</span>
+                <button
+                  type="button"
+                  onClick={handleUndo}
+                  className="inline-flex items-center gap-1 font-semibold text-white hover:text-amber-200 underline decoration-amber-400/60 underline-offset-2 cursor-pointer active:scale-95"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  <span>Undo</span>
+                </button>
+              </div>
             ) : (
-              <span>Save Workout</span>
+              <span className="text-[11px] text-[#5A7465] select-none">
+                Session data auto-preserved
+              </span>
             )}
-          </button>
+          </div>
 
           <button
             type="button"
-            onClick={onClearEntries}
-            className="sm:w-48 py-3.5 bg-[#1A2922] hover:bg-[#23372E] active:scale-[0.985] text-[#8FA898] hover:text-[#EAF1EC] text-xs sm:text-sm font-medium rounded-2xl border border-[#253930] hover:border-[#3E6349] transition-all duration-150 cursor-pointer select-none"
+            onClick={handleClearWithSafety}
+            className="inline-flex items-center gap-1.5 text-xs text-[#8FA898] hover:text-red-400 hover:bg-red-500/10 px-3 py-1.5 rounded-xl border border-transparent hover:border-red-500/20 transition-all duration-150 cursor-pointer select-none active:scale-95"
+            title="Reset all input fields for today"
           >
-            Clear Entries
+            <Trash2 className="w-3.5 h-3.5 opacity-60" />
+            <span>Clear Entries</span>
           </button>
         </div>
       </div>
