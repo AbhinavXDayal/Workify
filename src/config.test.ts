@@ -2,13 +2,13 @@ import { describe, it, expect } from 'vitest';
 import { WORKOUT_DAYS_CONFIG, BACK_EXERCISE_OPTIONS } from './constants/workoutConfig';
 
 describe('Workout Configuration & Reps Logic', () => {
-  it('verifies exact Back exercises', () => {
-    expect(BACK_EXERCISE_OPTIONS).toEqual([
-      'T bar row - upper back',
-      'Lat pull down - lats',
-      'Lower back extensions - lower back',
-      'Seated cable row - mid back',
-    ]);
+  it('verifies exercises are user-defined with no default exercises pre-populated', () => {
+    expect(BACK_EXERCISE_OPTIONS).toEqual([]);
+    for (const day of Object.values(WORKOUT_DAYS_CONFIG)) {
+      for (const group of day.groups) {
+        expect(group.options).toEqual([]);
+      }
+    }
   });
 
   it('verifies Mon / Thu structure and muscle sizes', () => {

@@ -58,7 +58,7 @@ describe("Workout Logger Acceptance Tests", () => {
     expect(screen.getByRole("heading", { name: /^long run$/i })).toBeDefined();
   });
 
-  it("verifies Back exercise options contains exactly the specified four choices", () => {
+  it("verifies slots start without default exercises and supports adding custom exercises", () => {
     render(<App />);
 
     // Switch to Mon / Thu
@@ -68,19 +68,16 @@ describe("Workout Logger Acceptance Tests", () => {
     const selects = screen.getAllByRole("combobox");
     expect(selects.length).toBeGreaterThanOrEqual(3);
 
-    // Test the first Back slot options
-    const firstBackSelect = selects[0];
+    // Test that first slot has NO default exercise preselected and no hardcoded options
+    const firstBackSelect = selects[0] as HTMLSelectElement;
+    expect(firstBackSelect.value).toBe("");
+
     const options = Array.from(firstBackSelect.querySelectorAll("option"))
       .map((opt) => opt.value)
       .filter((val) => val !== ""); // filter placeholder
 
     expect(options).toEqual(BACK_EXERCISE_OPTIONS);
-    expect(options).toEqual([
-      "T bar row - upper back",
-      "Lat pull down - lats",
-      "Lower back extensions - lower back",
-      "Seated cable row - mid back",
-    ]);
+    expect(options).toEqual([]);
   });
 
   it("supports updating KG and Reps with automatic saving", () => {

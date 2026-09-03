@@ -61,8 +61,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
           slot: {
             muscleGroup: group.name,
             slotNumber: i,
-            exerciseName:
-              group.name === "Back" && group.options[i] ? group.options[i] : "",
+            exerciseName: "",
             weightKg: "",
             reps: String(group.defaultReps),
             defaultReps: group.defaultReps,
@@ -112,6 +111,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                     }
                     options={group.options}
                     placeholder="Select exercise"
+                    groupName={group.name}
                   />
 
                   {/* KG Input with soft rounded corners and instant tap selection */}

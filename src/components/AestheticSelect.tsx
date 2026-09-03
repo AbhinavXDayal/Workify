@@ -11,13 +11,14 @@ interface AestheticSelectProps {
 }
 
 const getCustomOptionsFromStorage = (group?: string): string[] => {
-  if (typeof window === "undefined" || !group) return [];
+  if (typeof window === "undefined") return [];
+  const key = group || "general";
   try {
     const raw = localStorage.getItem("workify_custom_exercises");
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    if (parsed && Array.isArray(parsed[group])) {
-      return parsed[group];
+    if (parsed && Array.isArray(parsed[key])) {
+      return parsed[key];
     }
   } catch {
     // Ignore storage errors
@@ -25,16 +26,15 @@ const getCustomOptionsFromStorage = (group?: string): string[] => {
   return [];
 };
 
-const saveCustomOptionToStorage = (group: string, newOption: string) => {
-  if (typeof window === "undefined" || !group) return;
+const saveCustomOptionToStorage = (group: string | undefined, newOption: string) => {
+  if (typeof window === "undefined") return;
+  const key = group || "general";
   try {
     const raw = localStorage.getItem("workify_custom_exercises");
     const parsed = raw ? JSON.parse(raw) : {};
-    const existing: string[] = Array.isArray(parsed[group])
-      ? parsed[group]
-      : [];
+    const existing: string[] = Array.isArray(parsed[key]) ? parsed[key] : [];
     if (!existing.includes(newOption)) {
-      parsed[group] = [...existing, newOption];
+      parsed[key] = [...existing, newOption];
       localStorage.setItem("workify_custom_exercises", JSON.stringify(parsed));
     }
   } catch {
@@ -43,16 +43,17 @@ const saveCustomOptionToStorage = (group: string, newOption: string) => {
 };
 
 const removeCustomOptionFromStorage = (
-  group: string,
+  group: string | undefined,
   optionToRemove: string,
 ) => {
-  if (typeof window === "undefined" || !group) return;
+  if (typeof window === "undefined") return;
+  const key = group || "general";
   try {
     const raw = localStorage.getItem("workify_custom_exercises");
     if (!raw) return;
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed[group])) {
-      parsed[group] = parsed[group].filter(
+    if (Array.isArray(parsed[key])) {
+      parsed[key] = parsed[key].filter(
         (opt: string) => opt !== optionToRemove,
       );
       localStorage.setItem("workify_custom_exercises", JSON.stringify(parsed));
@@ -166,6 +167,18 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
     }
   };
 
+
+  const handleToggleOpen = () => {
+    setIsOpen((prev) => {
+      const next = !prev;
+      if (next && allOptions.length === 0) {
+        setIsAdding(true);
+        setTimeout(() => inputRef.current?.focus(), 50);
+      }
+      return next;
+    });
+  };
+
   return (
     <div ref={containerRef} className="relative flex-1 min-w-0">
       {/* Underlying standard select to preserve accessibility and automated testing */}
@@ -185,7 +198,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
       {/* Visible aesthetic trigger button with soft rounded corners */}
       <button
         type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={handleToggleOpen}
         className="w-full min-w-0 flex items-center justify-between bg-[#FFFFFF] border border-[#D8D2C5] hover:border-[#B3AC9D] focus:border-[#466A51] focus:ring-2 focus:ring-[#466A51]/20 rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2.5 text-xs sm:text-sm text-[#221E1B] transition-all duration-150 cursor-pointer shadow-xs text-left group active:scale-[0.99] min-h-[32px] sm:min-h-[38px]"
       >
         <span
@@ -218,6 +231,12 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
             <span>{placeholder}</span>
             {!value && <Check className="w-3.5 h-3.5 text-[#466A51]" />}
           </button>
+
+          {allOptions.length === 0 && !isAdding && (
+            <div className="px-3.5 py-2 text-center text-xs text-[#7A7266]">
+              No exercises added yet
+            </div>
+          )}
 
           {allOptions.map((opt) => {
             const isSelected = value === opt;

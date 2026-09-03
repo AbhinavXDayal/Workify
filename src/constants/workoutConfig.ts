@@ -13,13 +13,8 @@ export const SPLIT_HEADER_TEXT = {
     'Choose a weight where the Zth rep feels very hard & close to failure, use controlled reps with natural full ROM, proper form & 1 RIR, never ego lift. Warm up properly & use backups and supporting gear when needed, such as spotters, safety bars, knee sleeves or lifting straps. Listen to your body & if something feels unsafe or uncomfortable, stop or be cautious',
 };
 
-// Exactly the 4 options required for Back with muscle target annotations
-export const BACK_EXERCISE_OPTIONS = [
-  'T bar row - upper back',
-  'Lat pull down - lats',
-  'Lower back extensions - lower back',
-  'Seated cable row - mid back',
-];
+// User-defined exercise configuration: all exercises are added and managed by the user
+export const BACK_EXERCISE_OPTIONS: string[] = [];
 
 export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
   mon_thu: {
@@ -30,49 +25,25 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         name: 'Back',
         slotsCount: 3,
         defaultReps: 10, // Big muscles = 10
-        options: BACK_EXERCISE_OPTIONS,
+        options: [],
       },
       {
         name: 'Arms',
         slotsCount: 2,
         defaultReps: 15, // Small muscles = 15
-        options: [
-          'Bicep dumbbell curl',
-          'Incline dumbbell curl',
-          'Hammer curl',
-          'Barbell curl',
-          'Preacher curl',
-          'Cable tricep pushdown',
-          'Overhead dumbbell extension',
-          'Skull crusher',
-          'Dips',
-        ],
+        options: [],
       },
       {
         name: 'Shoulders',
         slotsCount: 1,
         defaultReps: 15, // Small muscles = 15
-        options: [
-          'Dumbbell lateral raise',
-          'Overhead barbell press',
-          'Dumbbell shoulder press',
-          'Cable lateral raise',
-          'Face pull',
-          'Rear delt fly',
-        ],
+        options: [],
       },
       {
         name: 'Cardio sports / MMA',
         slotsCount: 1,
         defaultReps: 15,
-        options: [
-          'MMA sparring / drills',
-          'Boxing bag / pads',
-          'BJJ / Grappling roll',
-          'Muay Thai / Kickboxing',
-          'High intensity intervals / sprint',
-          'Jump rope session',
-        ],
+        options: [],
       },
     ],
   },
@@ -84,55 +55,25 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         name: 'Legs',
         slotsCount: 3,
         defaultReps: 10, // Big muscles = 10
-        options: [
-          'Barbell back squat',
-          'Leg press',
-          'Romanian deadlift',
-          'Hamstring leg curl',
-          'Leg extension',
-          'Bulgarian split squat',
-          'Standing calf raise',
-          'Hack squat',
-        ],
+        options: [],
       },
       {
         name: 'Chest',
         slotsCount: 2,
         defaultReps: 12, // Mid muscles = 12
-        options: [
-          'Incline dumbbell press',
-          'Flat barbell bench press',
-          'Flat dumbbell bench press',
-          'Incline machine press',
-          'Cable chest fly',
-          'Chest dips',
-          'Pushups',
-        ],
+        options: [],
       },
       {
         name: 'Abs',
         slotsCount: 1,
         defaultReps: 15, // Small muscles = 15
-        options: [
-          'Hanging leg raise',
-          'Cable woodchopper / crunch',
-          'Ab wheel rollout',
-          'Decline bench crunch',
-          'Plank holds',
-        ],
+        options: [],
       },
       {
         name: 'Cardio sports / MMA',
         slotsCount: 1,
         defaultReps: 15,
-        options: [
-          'MMA sparring / drills',
-          'Boxing bag / pads',
-          'BJJ / Grappling roll',
-          'Muay Thai / Kickboxing',
-          'High intensity intervals / sprint',
-          'Jump rope session',
-        ],
+        options: [],
       },
     ],
   },
@@ -144,51 +85,25 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         name: 'Calisthenics',
         slotsCount: 3,
         defaultReps: 10, // Big muscles = 10
-        options: [
-          'Pull-ups',
-          'Parallel bar dips',
-          'Push-ups',
-          'Chin-ups',
-          'Muscle-ups',
-          'Pike push-ups',
-          'Inverted rows',
-        ],
+        options: [],
       },
       {
         name: 'Self defence w tools',
         slotsCount: 2,
         defaultReps: 12, // Mid muscles = 12
-        options: [
-          'Stick / Kali drills',
-          'Knife defense drills',
-          'Baton / Impact tool work',
-          'Tool grappling & retention',
-          'Footwork & evasive striking',
-        ],
+        options: [],
       },
       {
         name: 'Neck',
         slotsCount: 2,
         defaultReps: 15, // Small muscles = 15
-        options: [
-          'Neck flexion (curl)',
-          'Neck extension',
-          'Lateral neck flexion',
-          'Neck harness extension',
-          'Isometric neck holds',
-        ],
+        options: [],
       },
       {
         name: 'Long run',
         slotsCount: 1,
         defaultReps: 10,
-        options: [
-          'Zone 2 steady run (5-10km)',
-          '5km tempo run',
-          '10km endurance run',
-          'Interval track run',
-          'Trail run',
-        ],
+        options: [],
       },
     ],
   },

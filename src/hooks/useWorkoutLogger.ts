@@ -10,6 +10,13 @@ import type {
 
 export type SaveStatus = 'idle' | 'saving' | 'saved' | 'error';
 
+const OLD_DEFAULT_EXERCISES = [
+  'T bar row - upper back',
+  'Lat pull down - lats',
+  'Lower back extensions - lower back',
+  'Seated cable row - mid back',
+];
+
 // Helper to load cached slots from localStorage
 function getLocalSlots(day: WorkoutDay): ExerciseSlotState[] | null {
   try {
@@ -17,7 +24,12 @@ function getLocalSlots(day: WorkoutDay): ExerciseSlotState[] | null {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
+        return parsed.map((s) => {
+          if (OLD_DEFAULT_EXERCISES.includes(s.exerciseName) && !s.weightKg) {
+            return { ...s, exerciseName: '' };
+          }
+          return s;
+        });
       }
     }
   } catch {
@@ -42,15 +54,10 @@ export function createDefaultSlots(day: WorkoutDay): ExerciseSlotState[] {
 
   config.groups.forEach((group) => {
     for (let i = 0; i < group.slotsCount; i++) {
-      let initialExercise = '';
-      if (group.name === 'Back' && group.options[i]) {
-        initialExercise = group.options[i];
-      }
-
       initialSlots.push({
         muscleGroup: group.name,
         slotNumber: i,
-        exerciseName: initialExercise,
+        exerciseName: '',
         weightKg: '',
         reps: String(group.defaultReps),
         defaultReps: group.defaultReps,
