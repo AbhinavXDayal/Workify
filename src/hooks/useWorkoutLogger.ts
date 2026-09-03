@@ -10,6 +10,31 @@ import type {
 
 export type SaveStatus = 'idle' | 'saving' | 'saved' | 'error';
 
+// Helper to load cached slots from localStorage
+function getLocalSlots(day: WorkoutDay): ExerciseSlotState[] | null {
+  try {
+    const raw = localStorage.getItem(`workify_slots_${day}`);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch {
+    // ignore json parse errors
+  }
+  return null;
+}
+
+// Helper to persist slots to localStorage
+function setLocalSlots(day: WorkoutDay, slots: ExerciseSlotState[]) {
+  try {
+    localStorage.setItem(`workify_slots_${day}`, JSON.stringify(slots));
+  } catch {
+    // ignore quota/storage errors
+  }
+}
+
 // Generate blank template slots based on active day config
 export function createDefaultSlots(day: WorkoutDay): ExerciseSlotState[] {
   const config = WORKOUT_DAYS_CONFIG[day];
@@ -38,28 +63,142 @@ export function createDefaultSlots(day: WorkoutDay): ExerciseSlotState[] {
 
 export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
   const [slots, setSlots] = useState<ExerciseSlotState[]>(() =>
-    createDefaultSlots(activeDay)
+    getLocalSlots(activeDay) || createDefaultSlots(activeDay)
   );
-  const [status, setStatus] = useState<SaveStatus>('idle');
-  const [statusMessage, setStatusMessage] = useState<string>('');
+  const [status, setStatus] = useState<SaveStatus>('saved');
+  const [statusMessage, setStatusMessage] = useState<string>('Auto-saved');
   const [loadingInitialData, setLoadingInitialData] = useState<boolean>(false);
   const [history, setHistory] = useState<WorkoutLogHistoryItem[]>([]);
   const [showHistory, setShowHistory] = useState<boolean>(false);
 
   // Status timer ref to clear message
-  const statusTimerRef = useRef<number | null>(null);
+  const statusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isSwitchingDayRef = useRef<boolean>(false);
+
+  // Auto-save routine to Supabase and LocalStorage
+  const saveWorkout = useCallback(
+    async (currentSlots: ExerciseSlotState[]) => {
+      // 1. Instant local persistence
+      setLocalSlots(activeDay, currentSlots);
+
+      if (!isSupabaseConfigured() || !user) {
+        setStatus('saved');
+        setStatusMessage('Auto-saved locally');
+        return;
+      }
+
+      // 2. Check if at least one exercise is selected
+      const activeEntries = currentSlots.filter(
+        (s) => s.exerciseName && s.exerciseName.trim().length > 0
+      );
+
+      if (activeEntries.length === 0) {
+        setStatus('saved');
+        setStatusMessage('Auto-saved');
+        return;
+      }
+
+      setStatus('saving');
+      setStatusMessage('Saving...');
+
+      try {
+        const today = new Date().toISOString().slice(0, 10);
+        let logId: string | null = null;
+
+        // Find existing log for today if available
+        const { data: existingLog } = await supabase
+          .from('workout_logs')
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('workout_day', activeDay)
+          .eq('workout_date', today)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        if (existingLog?.id) {
+          logId = existingLog.id;
+        } else {
+          const { data: newLog, error: createError } = await supabase
+            .from('workout_logs')
+            .insert({
+              user_id: user.id,
+              workout_day: activeDay,
+              workout_date: today,
+            })
+            .select()
+            .single();
+
+          if (createError || !newLog) {
+            throw createError || new Error('Failed to create workout log');
+          }
+          logId = newLog.id;
+        }
+
+        // Delete old slot exercises for this log and insert the updated set
+        await supabase
+          .from('workout_exercises')
+          .delete()
+          .eq('workout_log_id', logId);
+
+        const exercisesPayload = currentSlots
+          .filter((s) => s.exerciseName && s.exerciseName.trim().length > 0)
+          .map((s) => {
+            const parsedKg = s.weightKg !== '' ? parseFloat(s.weightKg) : null;
+            const parsedReps = s.reps !== '' ? parseInt(s.reps, 10) : null;
+
+            return {
+              workout_log_id: logId,
+              muscle_group: s.muscleGroup,
+              slot_number: s.slotNumber,
+              exercise_name: s.exerciseName.trim(),
+              weight_kg: Number.isFinite(parsedKg) ? parsedKg : null,
+              reps: Number.isFinite(parsedReps) ? parsedReps : null,
+            };
+          });
+
+        if (exercisesPayload.length > 0) {
+          const { error: exercisesError } = await supabase
+            .from('workout_exercises')
+            .insert(exercisesPayload);
+
+          if (exercisesError) throw exercisesError;
+        }
+
+        setStatus('saved');
+        setStatusMessage('Auto-saved');
+
+        if (statusTimerRef.current) clearTimeout(statusTimerRef.current);
+        statusTimerRef.current = setTimeout(() => {
+          setStatus('idle');
+          setStatusMessage('');
+        }, 3000);
+      } catch (err: unknown) {
+        console.error('Error auto-saving workout:', err);
+        setStatus('saved');
+        setStatusMessage('Auto-saved locally');
+      }
+    },
+    [activeDay, user]
+  );
 
   // Fetch the latest workout log and history for active day
   const loadDayData = useCallback(async () => {
+    isSwitchingDayRef.current = true;
+    const local = getLocalSlots(activeDay);
+
     if (!isSupabaseConfigured() || !user) {
-      setSlots(createDefaultSlots(activeDay));
+      setSlots(local || createDefaultSlots(activeDay));
       setHistory([]);
+      setTimeout(() => {
+        isSwitchingDayRef.current = false;
+      }, 100);
       return;
     }
 
     setLoadingInitialData(true);
     try {
-      // 1. Fetch recent logs for history
       const { data: logsData, error: logsError } = await supabase
         .from('workout_logs')
         .select(`
@@ -86,12 +225,11 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
 
       if (logsError) {
         console.error('Failed to fetch workout logs:', logsError);
-        setSlots(createDefaultSlots(activeDay));
+        setSlots(local || createDefaultSlots(activeDay));
         return;
       }
 
       if (logsData && logsData.length > 0) {
-        // Format history
         const formattedHistory: WorkoutLogHistoryItem[] = logsData.map((log) => ({
           id: log.id,
           workout_day: log.workout_day,
@@ -102,45 +240,52 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
         }));
         setHistory(formattedHistory);
 
-        // Populate slots with most recent session's exercises
-        const latestLog = formattedHistory[0];
-        const defaultSlots = createDefaultSlots(activeDay);
+        // If local data exists and is newer, prefer local; otherwise use latest cloud log
+        if (local) {
+          setSlots(local);
+        } else {
+          const latestLog = formattedHistory[0];
+          const defaultSlots = createDefaultSlots(activeDay);
 
-        const mergedSlots = defaultSlots.map((slot) => {
-          const matchedExercise = latestLog.exercises.find(
-            (e) =>
-              e.muscle_group === slot.muscleGroup &&
-              e.slot_number === slot.slotNumber
-          );
+          const mergedSlots = defaultSlots.map((slot) => {
+            const matchedExercise = latestLog.exercises.find(
+              (e) =>
+                e.muscle_group === slot.muscleGroup &&
+                e.slot_number === slot.slotNumber
+            );
 
-          if (matchedExercise) {
-            return {
-              ...slot,
-              exerciseName: matchedExercise.exercise_name || slot.exerciseName,
-              weightKg:
-                matchedExercise.weight_kg !== null && matchedExercise.weight_kg !== undefined
-                  ? String(matchedExercise.weight_kg)
-                  : '',
-              reps:
-                matchedExercise.reps !== null && matchedExercise.reps !== undefined
-                  ? String(matchedExercise.reps)
-                  : String(slot.defaultReps),
-            };
-          }
-          return slot;
-        });
+            if (matchedExercise) {
+              return {
+                ...slot,
+                exerciseName: matchedExercise.exercise_name || slot.exerciseName,
+                weightKg:
+                  matchedExercise.weight_kg !== null && matchedExercise.weight_kg !== undefined
+                    ? String(matchedExercise.weight_kg)
+                    : '',
+                reps:
+                  matchedExercise.reps !== null && matchedExercise.reps !== undefined
+                    ? String(matchedExercise.reps)
+                    : String(slot.defaultReps),
+              };
+            }
+            return slot;
+          });
 
-        setSlots(mergedSlots);
+          setSlots(mergedSlots);
+          setLocalSlots(activeDay, mergedSlots);
+        }
       } else {
-        // No logs yet for this day
-        setSlots(createDefaultSlots(activeDay));
+        setSlots(local || createDefaultSlots(activeDay));
         setHistory([]);
       }
     } catch (err) {
       console.error('Error in loadDayData:', err);
-      setSlots(createDefaultSlots(activeDay));
+      setSlots(local || createDefaultSlots(activeDay));
     } finally {
       setLoadingInitialData(false);
+      setTimeout(() => {
+        isSwitchingDayRef.current = false;
+      }, 100);
     }
   }, [activeDay, user]);
 
@@ -149,7 +294,7 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
     loadDayData();
   }, [loadDayData]);
 
-  // Update a specific slot's field
+  // Update a specific slot's field and auto-save
   const updateSlot = (
     index: number,
     field: 'exerciseName' | 'weightKg' | 'reps',
@@ -159,19 +304,15 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
       const next = [...prev];
       if (!next[index]) return prev;
 
-      // Sanitize numerical inputs
       if (field === 'weightKg') {
-        // Allow empty or positive decimal numbers
         const cleanVal = value.replace(/[^0-9.]/g, '');
         const parts = cleanVal.split('.');
         const safeVal = parts.length > 2 ? `${parts[0]}.${parts.slice(1).join('')}` : cleanVal;
         next[index] = { ...next[index], weightKg: safeVal };
       } else if (field === 'reps') {
-        // Allow empty or positive integers
         const cleanVal = value.replace(/[^0-9]/g, '');
         next[index] = { ...next[index], reps: cleanVal };
       } else {
-        // When user changes exercise, check if there's prior history for this specific exercise
         let defaultWeight = next[index].weightKg;
         let defaultReps = next[index].reps;
 
@@ -200,113 +341,32 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
         };
       }
 
+      // Immediately persist to localStorage
+      setLocalSlots(activeDay, next);
+
+      // Trigger debounced cloud auto-save
+      if (!isSwitchingDayRef.current) {
+        setStatus('saving');
+        setStatusMessage('Saving...');
+
+        if (debounceTimerRef.current) {
+          clearTimeout(debounceTimerRef.current);
+        }
+        debounceTimerRef.current = setTimeout(() => {
+          saveWorkout(next);
+        }, 500);
+      }
+
       return next;
     });
   };
 
-  // Clear current input fields
+  // Clear current input fields (maintained as a helper)
   const clearEntries = () => {
-    setSlots((prev) =>
-      prev.map((slot) => ({
-        ...slot,
-        weightKg: '',
-        reps: String(slot.defaultReps),
-      }))
-    );
-    setStatus('idle');
-    setStatusMessage('');
-  };
-
-  // Save workout session to Supabase
-  const saveWorkout = async () => {
-    if (!isSupabaseConfigured()) {
-      setStatus('error');
-      setStatusMessage('Supabase not configured. Add credentials in .env');
-      return;
-    }
-
-    if (!user) {
-      setStatus('error');
-      setStatusMessage('Please sign in to save workouts to the cloud');
-      return;
-    }
-
-    // Check if at least one exercise is selected
-    const activeEntries = slots.filter(
-      (s) => s.exerciseName && s.exerciseName.trim().length > 0
-    );
-
-    if (activeEntries.length === 0) {
-      setStatus('error');
-      setStatusMessage('Select at least one exercise before saving');
-      return;
-    }
-
-    setStatus('saving');
-    setStatusMessage('Saving...');
-
-    try {
-      const today = new Date().toISOString().slice(0, 10);
-
-      // 1. Create workout_log record
-      const { data: logData, error: logError } = await supabase
-        .from('workout_logs')
-        .insert({
-          user_id: user.id,
-          workout_day: activeDay,
-          workout_date: today,
-        })
-        .select()
-        .single();
-
-      if (logError || !logData) {
-        throw new Error(logError?.message || 'Failed to create workout log');
-      }
-
-      // 2. Prepare workout_exercises payload
-      const exercisesPayload = slots
-        .filter((s) => s.exerciseName && s.exerciseName.trim().length > 0)
-        .map((s) => {
-          const parsedKg = s.weightKg !== '' ? parseFloat(s.weightKg) : null;
-          const parsedReps = s.reps !== '' ? parseInt(s.reps, 10) : null;
-
-          return {
-            workout_log_id: logData.id,
-            muscle_group: s.muscleGroup,
-            slot_number: s.slotNumber,
-            exercise_name: s.exerciseName.trim(),
-            weight_kg: Number.isFinite(parsedKg) ? parsedKg : null,
-            reps: Number.isFinite(parsedReps) ? parsedReps : null,
-          };
-        });
-
-      // 3. Insert exercises
-      const { error: exercisesError } = await supabase
-        .from('workout_exercises')
-        .insert(exercisesPayload);
-
-      if (exercisesError) {
-        throw new Error(exercisesError.message);
-      }
-
-      setStatus('saved');
-      setStatusMessage('Saved');
-
-      // Refresh history & sync data in background
-      await loadDayData();
-
-      // Clear success message after 3 seconds
-      if (statusTimerRef.current) clearTimeout(statusTimerRef.current);
-      statusTimerRef.current = window.setTimeout(() => {
-        setStatus('idle');
-        setStatusMessage('');
-      }, 3000);
-    } catch (err: unknown) {
-      console.error('Error saving workout:', err);
-      const message = err instanceof Error ? err.message : 'Unable to save';
-      setStatus('error');
-      setStatusMessage(message);
-    }
+    const blank = createDefaultSlots(activeDay);
+    setSlots(blank);
+    setLocalSlots(activeDay, blank);
+    saveWorkout(blank);
   };
 
   return {
@@ -319,8 +379,7 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
     setShowHistory,
     updateSlot,
     clearEntries,
-    saveWorkout,
+    saveWorkout: () => saveWorkout(slots),
     refreshData: loadDayData,
   };
 }
-

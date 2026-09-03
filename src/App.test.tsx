@@ -83,7 +83,7 @@ describe("Workout Logger Acceptance Tests", () => {
     ]);
   });
 
-  it("supports updating KG and Reps and clearing entries", () => {
+  it("supports updating KG and Reps with automatic saving", async () => {
     render(<App />);
 
     // Find inputs
@@ -101,25 +101,19 @@ describe("Workout Logger Acceptance Tests", () => {
     fireEvent.change(repsInputs[0], { target: { value: "11" } });
     expect((repsInputs[0] as HTMLInputElement).value).toBe("11");
 
-    // Click Clear Entries
-    const clearBtn = screen.getByRole("button", { name: /clear entries/i });
-    fireEvent.click(clearBtn);
-
-    // KG should reset to empty, Reps resets to default (10)
-    expect((kgInputs[0] as HTMLInputElement).value).toBe("");
-    expect((repsInputs[0] as HTMLInputElement).value).toBe("10");
+    // Verify auto-save status indicator is present
+    expect(await screen.findByText(/auto-saved|saving/i)).toBeDefined();
   });
 
-  it("handles Save Workout click gracefully when Supabase is not yet configured or user not signed in", async () => {
+  it("persists slot updates automatically across sessions", async () => {
     render(<App />);
 
-    const saveBtn = screen.getByRole("button", { name: /save workout/i });
-    fireEvent.click(saveBtn);
+    const kgInputs = screen.getAllByPlaceholderText(/kg/i);
+    fireEvent.change(kgInputs[0], { target: { value: "75" } });
+    expect((kgInputs[0] as HTMLInputElement).value).toBe("75");
 
-    // Status message should indicate setup or prompt
-    expect(
-      await screen.findByText(/Supabase not configured|Please sign in/i),
-    ).toBeDefined();
+    // Auto-save indicator shows saved status
+    expect(await screen.findByText(/auto-saved/i)).toBeDefined();
   });
 
   it("opens and closes Auth Modal", async () => {

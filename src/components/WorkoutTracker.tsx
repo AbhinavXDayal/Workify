@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { Check, Loader2, AlertCircle, RotateCcw, Trash2 } from "lucide-react";
+import React from "react";
+import { Check, Loader2, AlertCircle } from "lucide-react";
 import { DaySelector } from "./DaySelector";
 import { AestheticSelect } from "./AestheticSelect";
 import { HistoryDrawer } from "./HistoryDrawer";
@@ -20,13 +20,13 @@ interface WorkoutTrackerProps {
     field: "exerciseName" | "weightKg" | "reps",
     value: string,
   ) => void;
-  onSaveWorkout: () => void;
-  onClearEntries: () => void;
+  onSaveWorkout?: () => void;
+  onClearEntries?: () => void;
   status: SaveStatus;
-  statusMessage: string;
-  history: WorkoutLogHistoryItem[];
-  showHistory: boolean;
-  onToggleHistory: (show: boolean) => void;
+  statusMessage?: string;
+  history?: WorkoutLogHistoryItem[];
+  showHistory?: boolean;
+  onToggleHistory?: (show: boolean) => void;
 }
 
 export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
@@ -34,73 +34,30 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   onSelectDay,
   slots,
   onUpdateSlot,
-  onSaveWorkout,
-  onClearEntries,
   status,
   statusMessage,
-  history,
-  showHistory,
+  history = [],
+  showHistory = false,
   onToggleHistory,
 }) => {
   const dayConfig = WORKOUT_DAYS_CONFIG[activeDay];
 
-  // Accidental Clear Protection: Store backup of slots for undo
-  const [backupSlots, setBackupSlots] = useState<ExerciseSlotState[] | null>(
-    null,
-  );
-  const [showUndoBanner, setShowUndoBanner] = useState<boolean>(false);
-  const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const handleClearWithSafety = () => {
-    // Preserve current filled values before wiping
-    const hasEnteredData = slots.some(
-      (s) =>
-        (s.weightKg && s.weightKg.trim().length > 0) ||
-        s.reps !== String(s.defaultReps),
-    );
-
-    if (hasEnteredData) {
-      setBackupSlots(slots.map((s) => ({ ...s })));
-      setShowUndoBanner(true);
-      if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
-      undoTimerRef.current = setTimeout(() => {
-        setShowUndoBanner(false);
-        setBackupSlots(null);
-      }, 10000); // 10-second undo window
-    }
-
-    onClearEntries();
-  };
-
-  const handleUndo = () => {
-    if (backupSlots) {
-      backupSlots.forEach((savedSlot, idx) => {
-        if (savedSlot.weightKg !== slots[idx]?.weightKg) {
-          onUpdateSlot(idx, "weightKg", savedSlot.weightKg);
-        }
-        if (savedSlot.reps !== slots[idx]?.reps) {
-          onUpdateSlot(idx, "reps", savedSlot.reps);
-        }
-      });
-      setBackupSlots(null);
-      setShowUndoBanner(false);
-    }
-  };
-
-  // Group slots by their muscleGroup
+  // Group slots by muscle group according to configuration
   const groupedSlots = dayConfig.groups.map((group) => {
     const groupSlotsWithIndex: {
       slot: ExerciseSlotState;
       globalIndex: number;
     }[] = [];
+
     for (let i = 0; i < group.slotsCount; i++) {
-      const foundIndex = slots.findIndex(
+      const globalIdx = slots.findIndex(
         (s) => s.muscleGroup === group.name && s.slotNumber === i,
       );
-      if (foundIndex >= 0) {
+
+      if (globalIdx !== -1) {
         groupSlotsWithIndex.push({
-          slot: slots[foundIndex],
-          globalIndex: foundIndex,
+          slot: slots[globalIdx],
+          globalIndex: globalIdx,
         });
       } else {
         groupSlotsWithIndex.push({
@@ -210,99 +167,41 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         ))}
       </div>
 
-      {/* 4. Small Status Indicator */}
-      {status !== "idle" && (
-        <div className="flex items-center justify-center gap-2 py-0.5 text-xs">
-          {status === "saving" && (
-            <span className="flex items-center gap-1.5 text-[#8FA898]">
-              <Loader2 className="w-3 h-3 animate-spin text-[#7EA984]" />
-              {statusMessage || "Saving..."}
-            </span>
-          )}
-          {status === "saved" && (
-            <span className="flex items-center gap-1.5 text-[#7EA984] font-medium">
-              <Check className="w-3 h-3 text-[#7EA984]" />
-              {statusMessage || "Saved"}
-            </span>
-          )}
-          {status === "error" && (
-            <span className="flex items-center gap-1.5 text-red-400">
-              <AlertCircle className="w-3 h-3 text-red-400" />
-              {statusMessage || "Unable to save"}
-            </span>
-          )}
-        </div>
-      )}
-
-      {/* 5. Safe, Ergonomic Action Area */}
-      <div className="pt-1 space-y-1.5">
-        {/* Primary Hero Action: Full-width Save Workout button */}
-        <button
-          type="button"
-          onClick={onSaveWorkout}
-          disabled={status === "saving"}
-          className={`w-full py-2.5 sm:py-3.5 text-xs sm:text-sm font-semibold rounded-xl sm:rounded-2xl transition-all duration-150 cursor-pointer shadow-sm active:scale-[0.985] disabled:opacity-50 flex items-center justify-center gap-2 select-none ${
-            status === "saved"
-              ? "bg-[#7EA984] text-[#0E1613] shadow-[#7EA984]/25"
-              : "bg-[#EAF1EC] hover:bg-[#A3CEB3] text-[#0E1613] hover:shadow-md"
-          }`}
-        >
+      {/* 4. Elegant Minimalist Auto-Save Status Bar */}
+      <div className="pt-1 flex items-center justify-between border-t border-[#253930]/30 text-xs select-none">
+        <div className="flex items-center gap-1.5">
           {status === "saving" ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Saving Workout...</span>
-            </>
-          ) : status === "saved" ? (
-            <>
-              <Check className="w-4 h-4" />
-              <span>Workout Saved</span>
-            </>
+            <span className="flex items-center gap-1.5 text-[#8FA898] text-[10.5px]">
+              <Loader2 className="w-3 h-3 animate-spin text-[#7EA984]" />
+              <span>Saving changes...</span>
+            </span>
+          ) : status === "error" ? (
+            <span className="flex items-center gap-1.5 text-amber-400 text-[10.5px]">
+              <AlertCircle className="w-3 h-3 text-amber-400" />
+              <span>{statusMessage || "Auto-saved locally"}</span>
+            </span>
           ) : (
-            <span>Save Workout</span>
+            <span className="flex items-center gap-1.5 text-[#7EA984] text-[10.5px] font-medium">
+              <Check className="w-3 h-3 text-[#7EA984]" />
+              <span>Auto-saved</span>
+            </span>
           )}
-        </button>
-
-        {/* Secondary Safety Row: Separated from Save Workout to prevent accidental clearing */}
-        <div className="pt-2 border-t border-[#253930]/40 flex items-center justify-between min-h-[38px]">
-          <div>
-            {showUndoBanner ? (
-              <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs animate-in fade-in duration-200">
-                <span>Entries cleared</span>
-                <button
-                  type="button"
-                  onClick={handleUndo}
-                  className="inline-flex items-center gap-1 font-semibold text-white hover:text-amber-200 underline decoration-amber-400/60 underline-offset-2 cursor-pointer active:scale-95"
-                >
-                  <RotateCcw className="w-3 h-3" />
-                  <span>Undo</span>
-                </button>
-              </div>
-            ) : (
-              <span className="text-[11px] text-[#5A7465] select-none">
-                Session data auto-preserved
-              </span>
-            )}
-          </div>
-
-          <button
-            type="button"
-            onClick={handleClearWithSafety}
-            className="inline-flex items-center gap-1.5 text-xs text-[#8FA898] hover:text-red-400 hover:bg-red-500/10 px-3 py-1.5 rounded-xl border border-transparent hover:border-red-500/20 transition-all duration-150 cursor-pointer select-none active:scale-95"
-            title="Reset all input fields for today"
-          >
-            <Trash2 className="w-3.5 h-3.5 opacity-60" />
-            <span>Clear Entries</span>
-          </button>
         </div>
+
+        <span className="text-[10px] text-[#5A7465] font-mono">
+          cloud auto-sync
+        </span>
       </div>
 
       {/* History Drawer Modal */}
-      <HistoryDrawer
-        isOpen={showHistory}
-        onClose={() => onToggleHistory(false)}
-        dayLabel={dayConfig.label}
-        history={history}
-      />
+      {onToggleHistory && (
+        <HistoryDrawer
+          isOpen={showHistory}
+          onClose={() => onToggleHistory(false)}
+          dayLabel={dayConfig.label}
+          history={history}
+        />
+      )}
     </div>
   );
 };
