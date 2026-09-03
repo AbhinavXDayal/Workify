@@ -117,7 +117,9 @@ describe("Workout Logger Acceptance Tests", () => {
     fireEvent.click(saveBtn);
 
     // Status message should indicate setup or prompt
-    expect(await screen.findByText(/Supabase not configured|Please sign in/i)).toBeDefined();
+    expect(
+      await screen.findByText(/Supabase not configured|Please sign in/i),
+    ).toBeDefined();
   });
 
   it("opens and closes Auth Modal", async () => {

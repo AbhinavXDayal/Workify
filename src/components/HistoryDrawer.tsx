@@ -18,10 +18,10 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-xs">
-      <div className="bg-[#121214] border border-[#27272a] rounded-2xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+      <div className="bg-[#121215] border border-white/[0.08] rounded-2xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#27272a]">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-zinc-400" />
             <h2 className="text-sm font-semibold text-white">
@@ -31,14 +31,14 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-[#1f1f23] transition-colors"
+            className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-colors active:scale-95 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-5 overflow-y-auto space-y-4">
+        <div className="p-5 overflow-y-auto space-y-3.5">
           {history.length === 0 ? (
             <p className="text-zinc-500 text-xs text-center py-8">
               No saved workouts found for this day yet.
@@ -57,10 +57,10 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
               return (
                 <div
                   key={log.id}
-                  className="bg-[#18181b] border border-[#27272a] rounded-xl p-3.5 space-y-2.5"
+                  className="bg-[#16161b] border border-white/[0.06] rounded-xl p-3.5 space-y-2.5 shadow-xs"
                 >
-                  <div className="flex justify-between items-center text-xs text-zinc-400 pb-1.5 border-b border-[#27272a]/60">
-                    <span className="font-medium text-zinc-300">
+                  <div className="flex justify-between items-center text-xs text-zinc-400 pb-1.5 border-b border-white/[0.05]">
+                    <span className="font-medium text-zinc-200">
                       {formattedDate}
                     </span>
                     <span className="text-[11px] text-zinc-500">

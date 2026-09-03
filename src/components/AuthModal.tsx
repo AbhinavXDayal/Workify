@@ -79,12 +79,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-xs">
-      <div className="bg-[#121214] border border-[#27272a] rounded-2xl w-full max-w-sm p-5 sm:p-6 shadow-2xl relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+      <div className="bg-[#121215] border border-white/[0.08] rounded-2xl w-full max-w-sm p-5 sm:p-6 shadow-2xl relative transition-all duration-200">
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-[#1f1f23] transition-colors"
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-colors active:scale-95 cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
@@ -135,7 +135,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full bg-[#18181b] border border-[#27272a] rounded-xl pl-9 pr-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors"
+                className="w-full bg-[#16161b] border border-white/[0.07] hover:border-white/[0.14] focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400/30 rounded-xl pl-9 pr-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none transition-all duration-150"
               />
             </div>
           </div>
@@ -152,7 +152,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-[#18181b] border border-[#27272a] rounded-xl pl-9 pr-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors"
+                className="w-full bg-[#16161b] border border-white/[0.07] hover:border-white/[0.14] focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400/30 rounded-xl pl-9 pr-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none transition-all duration-150"
               />
             </div>
           </div>
@@ -160,7 +160,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-zinc-100 hover:bg-white text-zinc-950 text-sm font-semibold rounded-xl transition-colors cursor-pointer disabled:opacity-50 mt-2"
+            className="w-full py-3 bg-zinc-100 hover:bg-white active:scale-[0.985] text-zinc-950 text-sm font-semibold rounded-xl transition-all duration-150 cursor-pointer disabled:opacity-50 mt-2 shadow-sm"
           >
             {loading
               ? "Processing..."
