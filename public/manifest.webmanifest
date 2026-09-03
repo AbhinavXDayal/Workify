@@ -1,0 +1,19 @@
+{
+  "name": "Workout Logger",
+  "short_name": "Workout",
+  "description": "Minimalist responsive workout logger",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
