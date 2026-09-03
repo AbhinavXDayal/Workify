@@ -79,24 +79,16 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   });
 
   return (
-    <div
-      className="w-full flex-1 h-full min-h-0 bg-[#15221D] border border-[#253930] rounded-2xl sm:rounded-3xl p-2 sm:p-5 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-all duration-300 flex flex-col justify-between overflow-hidden"
-    >
+    <div className="w-full bg-[#15221D] border border-[#253930] rounded-2xl sm:rounded-3xl p-2.5 pb-6 sm:p-5 sm:pb-8 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.45)] space-y-2 sm:space-y-4 transition-all duration-200">
       {/* 1. Day Selector Tabs with soft rounded corners */}
       <div className="shrink-0 mb-1">
         <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
       </div>
 
-      {/* 2. Muscle Groups & Exercise Rows with smooth day-switch transition */}
-      <div
-        key={activeDay}
-        className="w-full flex-1 min-h-0 flex flex-col justify-around py-0.5 sm:py-1 overflow-y-auto sm:overflow-visible day-transition"
-      >
+      {/* 2. Muscle Groups & Exercise Rows: cohesive, compact spacing with fixed bottom */}
+      <div key={activeDay} className="space-y-2 sm:space-y-3.5 day-transition">
         {groupedSlots.map((group, groupIdx) => (
-          <div
-            key={group.name}
-            className="flex-1 flex flex-col justify-center space-y-0.5 sm:space-y-1.5"
-          >
+          <div key={group.name} className="space-y-1 sm:space-y-1.5">
             {/* Muscle Group Title with soft accent indicator */}
             <div className="flex items-center gap-1 px-1">
               <span className="w-1.5 h-1.5 rounded-full bg-[#7EA984]/80" />

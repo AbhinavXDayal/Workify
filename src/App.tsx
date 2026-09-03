@@ -55,12 +55,12 @@ export function App() {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative min-h-[100dvh] h-[100dvh] bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-1 sm:py-3 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#3E6349] selection:text-[#F2F7F4] overflow-hidden">
+    <div className="relative min-h-[100dvh] bg-[#0E1613] text-[#EAF1EC] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#3E6349] selection:text-[#F2F7F4]">
       {/* 1. Dynamic Ambient Background: small leaves, dot matrix, and connected moving graph */}
       <AmbientBackground />
 
       {/* Main Full-Width Content Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col gap-1 sm:gap-2.5 h-full min-h-0 overflow-hidden">
+      <div className="relative z-10 w-full max-w-6xl mx-auto space-y-1 sm:space-y-3">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
           <div className="bg-[#15221D]/90 backdrop-blur-md border border-amber-500/30 rounded-2xl p-2.5 text-xs text-amber-300/90 flex items-start gap-2 shadow-sm shrink-0">
@@ -80,18 +80,16 @@ export function App() {
         )}
 
         {/* Section 1: TOP SECTION (Workify Routine Card with embedded user account pill & toggle) */}
-        <div className="shrink-0">
-          <SplitHeader
-            user={user}
-            authLoading={authLoading}
-            onSignOut={signOut}
-            onOpenAuth={() => setIsAuthModalOpen(true)}
-            isOpen={isWorkifyOpen}
-            onToggle={handleToggleWorkify}
-          />
-        </div>
+        <SplitHeader
+          user={user}
+          authLoading={authLoading}
+          onSignOut={signOut}
+          onOpenAuth={() => setIsAuthModalOpen(true)}
+          isOpen={isWorkifyOpen}
+          onToggle={handleToggleWorkify}
+        />
 
-        {/* Section 2: MAIN TRACKER - Expands to take full space vertically when Workify is collapsed */}
+        {/* Section 2: MAIN TRACKER */}
         <WorkoutTracker
           activeDay={activeDay}
           onSelectDay={setActiveDay}
@@ -102,8 +100,10 @@ export function App() {
           history={history}
           showHistory={showHistory}
           onToggleHistory={setShowHistory}
-          isWorkifyCollapsed={!isWorkifyOpen}
         />
+
+        {/* Bottom space */}
+        <footer className="pb-4 sm:pb-6" />
       </div>
 
       {/* Auth Modal */}
