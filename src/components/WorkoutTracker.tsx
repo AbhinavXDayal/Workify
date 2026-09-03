@@ -121,37 +121,37 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   });
 
   return (
-    <div className="w-full bg-[#15221D]/90 backdrop-blur-md border border-[#253930] rounded-3xl p-4 sm:p-7 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.45)] space-y-6 transition-all duration-200">
+    <div className="w-full bg-[#15221D]/90 backdrop-blur-md border border-[#253930] rounded-2xl sm:rounded-3xl p-3 sm:p-5 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.45)] space-y-3 sm:space-y-4 transition-all duration-200">
       {/* 1. Day Selector Tabs with soft rounded corners */}
       <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
 
       {/* 2. Column Headers: Exercise | KG | Reps with portfolio sage green accent */}
-      <div className="flex items-center justify-between text-[11px] text-[#7EA984] font-semibold px-3 pt-1 tracking-wider uppercase select-none">
+      <div className="flex items-center justify-between text-[10.5px] sm:text-[11px] text-[#7EA984] font-semibold px-2.5 pt-0.5 tracking-wider uppercase select-none">
         <span className="flex-1">Exercise</span>
-        <div className="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <span className="w-16 sm:w-28 md:w-36 text-center">KG</span>
           <span className="w-16 sm:w-28 md:w-36 text-center">Reps</span>
         </div>
       </div>
 
       {/* 3. Muscle Groups & Exercise Rows with smooth day-switch transition */}
-      <div key={activeDay} className="space-y-6 day-transition">
+      <div key={activeDay} className="space-y-3 sm:space-y-4 day-transition">
         {groupedSlots.map((group, groupIdx) => (
-          <div key={group.name} className="space-y-3">
+          <div key={group.name} className="space-y-1.5 sm:space-y-2">
             {/* Muscle Group Title with soft accent indicator */}
-            <div className="flex items-center gap-2 px-1">
+            <div className="flex items-center gap-1.5 px-1">
               <span className="w-1.5 h-1.5 rounded-full bg-[#7EA984]/80" />
-              <h3 className="text-xs font-semibold text-[#EAF1EC] tracking-wider uppercase select-none">
+              <h3 className="text-[11px] sm:text-xs font-semibold text-[#EAF1EC] tracking-wider uppercase select-none">
                 {group.name}
               </h3>
             </div>
 
             {/* Exercise Slots */}
-            <div className="space-y-3">
+            <div className="space-y-1.5 sm:space-y-2">
               {group.slots.map(({ slot, globalIndex }) => (
                 <div
                   key={`${slot.muscleGroup}-${slot.slotNumber}`}
-                  className="group flex items-center gap-2.5 sm:gap-3.5"
+                  className="group flex items-center gap-2 sm:gap-3"
                 >
                   {/* Custom Aesthetic Dropdown with Soft Rounded Corners */}
                   <AestheticSelect
@@ -175,7 +175,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                         onUpdateSlot(globalIndex, "weightKg", e.target.value)
                       }
                       placeholder="kg"
-                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-2xl px-2 sm:px-3 py-2.5 sm:py-3 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs"
+                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-2xl px-2 sm:px-3 py-2 sm:py-2.5 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs"
                     />
                   </div>
 
@@ -191,7 +191,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                         onUpdateSlot(globalIndex, "reps", e.target.value)
                       }
                       placeholder={String(slot.defaultReps)}
-                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-2xl px-2 sm:px-3 py-2.5 sm:py-3 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs"
+                      className="w-full bg-[#1A2922] border border-[#253930] hover:border-[#3E6349] focus:border-[#7EA984] focus:ring-2 focus:ring-[#7EA984]/20 rounded-2xl px-2 sm:px-3 py-2 sm:py-2.5 text-center text-xs sm:text-sm text-[#EAF1EC] placeholder-[#5A7465] focus:outline-none transition-all duration-150 font-mono shadow-xs"
                     />
                   </div>
                 </div>
@@ -200,7 +200,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
 
             {/* Subtle sage separator between muscle groups */}
             {groupIdx < groupedSlots.length - 1 && (
-              <div className="h-[1px] bg-[#253930]/70 my-3.5" />
+              <div className="h-[1px] bg-[#253930]/70 my-2 sm:my-2.5" />
             )}
           </div>
         ))}
@@ -208,7 +208,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
 
       {/* 4. Small Status Indicator */}
       {status !== "idle" && (
-        <div className="flex items-center justify-center gap-2 py-1 text-xs">
+        <div className="flex items-center justify-center gap-2 py-0.5 text-xs">
           {status === "saving" && (
             <span className="flex items-center gap-1.5 text-[#8FA898]">
               <Loader2 className="w-3.5 h-3.5 animate-spin text-[#7EA984]" />
@@ -231,13 +231,13 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
       )}
 
       {/* 5. Safe, Ergonomic Action Area */}
-      <div className="pt-3 space-y-4">
+      <div className="pt-2 space-y-2.5">
         {/* Primary Hero Action: Full-width Save Workout button */}
         <button
           type="button"
           onClick={onSaveWorkout}
           disabled={status === "saving"}
-          className={`w-full py-4 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-150 cursor-pointer shadow-sm active:scale-[0.985] disabled:opacity-50 flex items-center justify-center gap-2 select-none ${
+          className={`w-full py-3 sm:py-3.5 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-150 cursor-pointer shadow-sm active:scale-[0.985] disabled:opacity-50 flex items-center justify-center gap-2 select-none ${
             status === "saved"
               ? "bg-[#7EA984] text-[#0E1613] shadow-[#7EA984]/25"
               : "bg-[#EAF1EC] hover:bg-[#A3CEB3] text-[#0E1613] hover:shadow-md"
