@@ -34,11 +34,23 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const recentlyRemovedRef = useRef<string | null>(null);
 
   // Sync customData when groupName changes
   useEffect(() => {
     setCustomData(getCustomExercises(groupName));
   }, [groupName]);
+
+  // Keep any existing exercise name in the options list for this muscle group
+  useEffect(() => {
+    if (value && value.trim()) {
+      if (recentlyRemovedRef.current === value.trim()) {
+        recentlyRemovedRef.current = null;
+        return;
+      }
+      saveCustomExercise(value.trim(), groupName);
+    }
+  }, [value, groupName]);
 
   // Subscribe to real-time custom exercise updates across ALL dropdowns
   useEffect(() => {
@@ -109,6 +121,11 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
     const trimmed = newExerciseInput.trim();
     if (!trimmed) return;
 
+    // Preserve previous exercise in options so adding another exercise doesn't delete it
+    if (value && value.trim()) {
+      saveCustomExercise(value.trim(), groupName);
+    }
+
     saveCustomExercise(trimmed, groupName);
     onChange(trimmed);
     onAddCustomOption?.(trimmed);
@@ -119,6 +136,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
 
   const handleRemoveCustom = (e: React.MouseEvent, opt: string) => {
     e.stopPropagation();
+    recentlyRemovedRef.current = opt;
     removeCustomExercise(opt, groupName);
     if (value === opt) {
       onChange("");
@@ -249,6 +267,9 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
               <div
                 key={opt}
                 onClick={() => {
+                  if (value && value.trim()) {
+                    saveCustomExercise(value.trim(), groupName);
+                  }
                   onChange(opt);
                   setIsOpen(false);
                 }}

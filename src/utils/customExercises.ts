@@ -73,13 +73,20 @@ export function saveCustomExercise(newExercise: string, group?: string): void {
     const currentGroupList: string[] = Array.isArray(data[key])
       ? (data[key] as string[])
       : [];
-    if (!currentGroupList.includes(trimmed)) {
-      data[key] = [...currentGroupList, trimmed];
-    }
+    const inGroup = currentGroupList.includes(trimmed);
 
     // 2. Add to global all list
     const currentAllList: string[] = Array.isArray(data.all) ? data.all : [];
-    if (!currentAllList.includes(trimmed)) {
+    const inAll = currentAllList.includes(trimmed);
+
+    if (inGroup && inAll) {
+      return;
+    }
+
+    if (!inGroup) {
+      data[key] = [...currentGroupList, trimmed];
+    }
+    if (!inAll) {
       data.all = [...currentAllList, trimmed];
     }
 

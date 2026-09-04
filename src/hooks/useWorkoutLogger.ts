@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { WORKOUT_DAYS_CONFIG } from '../constants/workoutConfig';
+import { saveCustomExercise } from '../utils/customExercises';
 import type {
   WorkoutDay,
   ExerciseSlotState,
@@ -85,6 +86,15 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
   const statusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isSwitchingDayRef = useRef<boolean>(false);
+
+  // Ensure any exercises present in slots are preserved in dropdown options for that muscle group
+  useEffect(() => {
+    slots.forEach((s) => {
+      if (s.exerciseName && s.exerciseName.trim()) {
+        saveCustomExercise(s.exerciseName.trim(), s.muscleGroup);
+      }
+    });
+  }, [slots]);
 
   // Auto-save routine to Supabase and LocalStorage
   const saveWorkout = useCallback(

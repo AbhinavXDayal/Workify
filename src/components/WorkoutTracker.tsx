@@ -146,11 +146,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                         onClick={() => {
                           const current = parseFloat(slot.weightKg) || 0;
                           const next = Math.round((current + 1) * 100) / 100;
-                          onUpdateSlot(
-                            globalIndex,
-                            "weightKg",
-                            String(next),
-                          );
+                          onUpdateSlot(globalIndex, "weightKg", String(next));
                         }}
                         className="h-8 sm:h-9 px-1 sm:px-1.5 min-w-[22px] sm:min-w-[26px] liquid-glass-input rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-bold font-mono text-[#7C583F] hover:text-[#382C24] hover:bg-white/70 active:scale-95 transition-all cursor-pointer flex items-center justify-center shadow-2xs select-none"
                         title="Add 1 kg"
@@ -163,11 +159,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                         onClick={() => {
                           const current = parseFloat(slot.weightKg) || 0;
                           const next = Math.round((current + 2) * 100) / 100;
-                          onUpdateSlot(
-                            globalIndex,
-                            "weightKg",
-                            String(next),
-                          );
+                          onUpdateSlot(globalIndex, "weightKg", String(next));
                         }}
                         className="h-8 sm:h-9 px-1 sm:px-1.5 min-w-[22px] sm:min-w-[26px] liquid-glass-input rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-bold font-mono text-[#7C583F] hover:text-[#382C24] hover:bg-white/70 active:scale-95 transition-all cursor-pointer flex items-center justify-center shadow-2xs select-none"
                         title="Add 2 kg"

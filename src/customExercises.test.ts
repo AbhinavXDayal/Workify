@@ -66,5 +66,19 @@ describe('Custom Exercises Synchronization & Persistence', () => {
 
     unsubscribe();
   });
+
+  it('preserves existing exercises in group options when adding another exercise to the same group', () => {
+    // 1. Add first exercise
+    saveCustomExercise('Pull up', 'Back');
+    let backRes = getCustomExercises('Back');
+    expect(backRes.combined).toEqual(['Pull up']);
+
+    // 2. Add second exercise in the same group/box
+    saveCustomExercise('Barbell row', 'Back');
+    backRes = getCustomExercises('Back');
+    expect(backRes.combined).toContain('Pull up');
+    expect(backRes.combined).toContain('Barbell row');
+    expect(backRes.groupExercises).toEqual(['Pull up', 'Barbell row']);
+  });
 });
 
