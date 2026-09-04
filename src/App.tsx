@@ -40,19 +40,19 @@ export function App() {
       <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-1 sm:space-y-3 overflow-hidden sm:overflow-visible overscroll-contain">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
-          <div className="liquid-glass-card border border-[#8A5633]/30 rounded-2xl p-2.5 text-xs text-[#2E1C12] flex items-start gap-2 shadow-sm shrink-0">
-            <Info className="w-4 h-4 text-[#8A5633] shrink-0 mt-0.5" />
+          <div className="liquid-glass-card border border-white/25 rounded-2xl p-2.5 text-xs text-[#FAF5EE] flex items-start gap-2 shadow-sm shrink-0">
+            <Info className="w-4 h-4 text-[#F0B888] shrink-0 mt-0.5" />
             <div className="space-y-0.5">
-              <p className="font-bold text-[#2E1C12]">
+              <p className="font-bold text-[#FFFDF8]">
                 Supabase Credentials Needed
               </p>
-              <p className="text-[#5C4434] text-[11px] leading-relaxed">
+              <p className="text-[#DDCBB8] text-[11px] leading-relaxed">
                 Add{" "}
-                <code className="text-[#8A5633] font-mono bg-[#2E1C12]/8 px-1 py-0.5 rounded">
+                <code className="text-[#F0B888] font-mono bg-black/25 px-1 py-0.5 rounded">
                   VITE_SUPABASE_URL
                 </code>{" "}
                 and{" "}
-                <code className="text-[#8A5633] font-mono bg-[#2E1C12]/8 px-1 py-0.5 rounded">
+                <code className="text-[#F0B888] font-mono bg-black/25 px-1 py-0.5 rounded">
                   VITE_SUPABASE_ANON_KEY
                 </code>{" "}
                 to your .env file to enable cross-device cloud sync.
@@ -71,7 +71,7 @@ export function App() {
           />
 
           {/* Seamless Subtle Divider connecting routine overview to tracker */}
-          <div className="h-[1px] bg-[#4A3222]/12 my-1.5 sm:my-2.5 shrink-0" />
+          <div className="h-[1px] bg-white/15 my-1.5 sm:my-2.5 shrink-0" />
 
           <WorkoutTracker
             activeDay={activeDay}

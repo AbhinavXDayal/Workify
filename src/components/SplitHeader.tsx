@@ -19,21 +19,21 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
   return (
     <div className="w-full max-w-full transition-all duration-200 shrink-0">
       {/* Header Bar: Title on left, Account pill embedded on right */}
-      <div className="flex items-center justify-between gap-2 pb-1 sm:pb-1.5 border-b border-[#4A3222]/12 min-w-0">
+      <div className="flex items-center justify-between gap-2 pb-1 sm:pb-1.5 border-b border-white/15 min-w-0">
         <a
           href="https://github.com/AbhinavXDayal/Workify"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 sm:gap-2 text-[#2E1C12] text-sm sm:text-lg font-extrabold tracking-wide select-none shrink-0 hover:text-[#9C663D] transition-colors duration-200 cursor-pointer no-underline group"
+          className="flex items-center gap-1.5 sm:gap-2 text-[#FFFDF8] text-sm sm:text-lg font-extrabold tracking-wide select-none shrink-0 hover:text-[#FFAE6B] transition-colors duration-200 cursor-pointer no-underline group drop-shadow-xs"
         >
           <img
             src="/workify-logo.jpg"
             alt="Workify Logo"
-            className="w-5 h-5 sm:w-7 sm:h-7 rounded-md object-cover shadow-xs"
+            className="w-5 h-5 sm:w-7 sm:h-7 rounded-md object-cover shadow-xs border border-white/20"
           />
           <h1 className="inline">{SPLIT_HEADER_TEXT.title}</h1>
           <svg
-            className="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-60 group-hover:opacity-100 transition-opacity fill-current"
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-75 group-hover:opacity-100 transition-opacity fill-current"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -47,7 +47,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
             <>
               {user ? (
                 <div className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full liquid-glass-pill transition-colors">
-                  <span className="text-[#2E1C12] text-[11px] sm:text-xs font-mono font-semibold tracking-tight max-w-[130px] sm:max-w-[200px] truncate">
+                  <span className="text-[#FAF5EE] text-[11px] sm:text-xs font-mono font-semibold tracking-tight max-w-[130px] sm:max-w-[200px] truncate">
                     {user.email}
                   </span>
                   {onSignOut && (
@@ -55,7 +55,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
                       type="button"
                       onClick={onSignOut}
                       title="Sign Out"
-                      className="p-0.5 rounded-full text-[#7A6253] hover:text-[#2E1C12] hover:bg-white/60 transition-colors cursor-pointer active:scale-95"
+                      className="p-0.5 rounded-full text-[#D4BEA8] hover:text-[#FFFDF8] hover:bg-white/20 transition-colors cursor-pointer active:scale-95"
                     >
                       <LogOut className="w-3 h-3" />
                     </button>
@@ -66,9 +66,9 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
                   <button
                     type="button"
                     onClick={onOpenAuth}
-                    className="inline-flex items-center gap-1.5 text-[#2E1C12] hover:text-[#1A0E08] text-[11px] sm:text-xs font-semibold liquid-glass-pill px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full transition-all duration-150 cursor-pointer active:scale-95"
+                    className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-white text-[11px] sm:text-xs font-semibold liquid-glass-pill px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full transition-all duration-150 cursor-pointer active:scale-95"
                   >
-                    <UserIcon className="w-3 h-3 text-[#8A5633]" />
+                    <UserIcon className="w-3 h-3 text-[#F0B888]" />
                     <span>Sign In</span>
                   </button>
                 )
@@ -78,15 +78,15 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         </div>
       </div>
 
-      {/* Routine Content: Permanently visible with warm hazy brown typography */}
+      {/* Routine Content: Permanently visible with elegant champagne typography */}
       <div className="mt-1 sm:mt-1.5">
         {/* Warmup flow */}
-        <p className="text-[#543E30] text-[10.5px] sm:text-xs mb-0.5 sm:mb-1 leading-tight text-center select-none font-semibold">
+        <p className="text-[#E6D5C3] text-[10.5px] sm:text-xs mb-0.5 sm:mb-1 leading-tight text-center select-none font-semibold">
           {SPLIT_HEADER_TEXT.overview}
         </p>
 
         {/* Days split - 3 columns on desktop, clean compact glass rows on mobile */}
-        <div className="space-y-0.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#422F22] text-[10.5px] sm:text-xs mb-0.5 sm:mb-1 font-medium">
+        <div className="space-y-0.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#FAF5EE] text-[10.5px] sm:text-xs mb-0.5 sm:mb-1 font-medium">
           {SPLIT_HEADER_TEXT.days.map((dayText, idx) => (
             <div
               key={idx}
@@ -98,15 +98,15 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         </div>
 
         {/* Thin separator line */}
-        <hr className="border-[#4A3222]/12 my-0.5 sm:my-1" />
+        <hr className="border-white/15 my-0.5 sm:my-1" />
 
         {/* Sets and reps guidelines */}
-        <p className="text-[#2E1C12] text-[10.5px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
+        <p className="text-[#FFFDF8] text-[10.5px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
           {SPLIT_HEADER_TEXT.guidelines}
         </p>
 
         {/* Short instruction */}
-        <p className="text-[#5A4333] text-[9.5px] sm:text-[11.5px] leading-tight sm:leading-snug text-center max-w-4xl mx-auto font-medium">
+        <p className="text-[#DDCBB8] text-[9.5px] sm:text-[11.5px] leading-tight sm:leading-snug text-center max-w-4xl mx-auto font-medium">
           {SPLIT_HEADER_TEXT.instruction}
         </p>
       </div>

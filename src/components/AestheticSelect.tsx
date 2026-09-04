@@ -214,15 +214,15 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
       <button
         type="button"
         onClick={handleToggleOpen}
-        className="w-full min-w-0 flex items-center justify-between liquid-glass-input rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-[#2E1C12] transition-all duration-150 cursor-pointer text-left group active:scale-[0.99] min-h-[32px] sm:min-h-[38px]"
+        className="w-full min-w-0 flex items-center justify-between liquid-glass-input rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-[#FAF5EE] transition-all duration-150 cursor-pointer text-left group active:scale-[0.99] min-h-[32px] sm:min-h-[38px]"
       >
         <span
-          className={`truncate min-w-0 ${!value ? "text-[#8E7564]" : "text-[#2E1C12] font-semibold"}`}
+          className={`truncate min-w-0 ${!value ? "text-[#BFA894]" : "text-[#FFFFFF] font-semibold"}`}
         >
           {value || placeholder}
         </span>
         <ChevronDown
-          className={`w-4 h-4 text-[#8A5633] transition-transform duration-200 shrink-0 ml-2 ${
+          className={`w-4 h-4 text-[#F0B888] transition-transform duration-200 shrink-0 ml-2 ${
             isOpen ? "rotate-180" : ""
           }`}
         />
@@ -232,7 +232,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
       {isOpen && (
         <div
           style={{ position: "absolute" }}
-          className={`left-0 right-0 z-50 liquid-glass-card rounded-2xl p-1.5 shadow-2xl max-h-56 sm:max-h-64 overflow-y-auto custom-glass-scrollbar space-y-0.5 animate-in fade-in duration-150 ${
+          className={`left-0 right-0 z-50 liquid-glass-card rounded-2xl p-1.5 shadow-2xl max-h-56 sm:max-h-64 overflow-y-auto custom-glass-scrollbar space-y-0.5 animate-in fade-in duration-150 border border-white/25 ${
             openDirection === "up"
               ? "bottom-full mb-1.5 origin-bottom zoom-in-95"
               : "top-full mt-1.5 origin-top zoom-in-95"
@@ -246,16 +246,16 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
             }}
             className={`w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs sm:text-sm text-left transition-colors cursor-pointer ${
               !value
-                ? "bg-white/95 text-[#8A5633] font-bold shadow-xs"
-                : "text-[#6A5243] hover:bg-white/40 hover:text-[#2E1C12]"
+                ? "bg-white/20 text-[#FFFDF8] font-bold shadow-xs border border-white/30"
+                : "text-[#DDCBB8] hover:bg-white/12 hover:text-[#FFFFFF]"
             }`}
           >
             <span>{placeholder}</span>
-            {!value && <Check className="w-3.5 h-3.5 text-[#8A5633]" />}
+            {!value && <Check className="w-3.5 h-3.5 text-[#F0B888]" />}
           </button>
 
           {allOptions.length === 0 && !isAdding && (
-            <div className="px-3.5 py-2 text-center text-xs text-[#7A6253] font-medium">
+            <div className="px-3.5 py-2 text-center text-xs text-[#DDCBB8] font-medium">
               No exercises added yet
             </div>
           )}
@@ -275,8 +275,8 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
                 }}
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm text-left transition-colors cursor-pointer group/opt ${
                   isSelected
-                    ? "bg-white/95 text-[#2E1C12] font-bold shadow-xs border border-white/70"
-                    : "text-[#422F22] hover:bg-white/50 hover:text-[#2A180E]"
+                    ? "bg-white/25 text-[#FFFFFF] font-bold shadow-xs border border-white/40"
+                    : "text-[#FAF5EE] hover:bg-white/15 hover:text-[#FFFFFF]"
                 }`}
               >
                 <div className="flex items-center gap-1.5 min-w-0 flex-1">
@@ -289,13 +289,13 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
                       type="button"
                       onClick={(e) => handleRemoveCustom(e, opt)}
                       title="Remove exercise"
-                      className="p-1 rounded-md text-[#8E7564] hover:text-red-700 hover:bg-red-100/70 transition-colors"
+                      className="p-1 rounded-md text-[#D4BEA8] hover:text-red-400 hover:bg-red-950/40 transition-colors"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   )}
                   {isSelected && (
-                    <Check className="w-3.5 h-3.5 text-[#8A5633]" />
+                    <Check className="w-3.5 h-3.5 text-[#F0B888]" />
                   )}
                 </div>
               </div>
@@ -303,7 +303,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
           })}
 
           {/* Divider & Option to Add Exercise */}
-          <div className="pt-1 mt-1 border-t border-[#4A3222]/12">
+          <div className="pt-1 mt-1 border-t border-white/15">
             {isAdding ? (
               <form
                 onSubmit={handleSaveCustom}
@@ -315,12 +315,12 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
                   value={newExerciseInput}
                   onChange={(e) => setNewExerciseInput(e.target.value)}
                   placeholder="Enter exercise name..."
-                  className="flex-1 bg-transparent px-2 py-1 text-xs sm:text-sm text-[#2E1C12] placeholder-[#9C8472] focus:outline-none min-w-0 font-medium"
+                  className="flex-1 bg-transparent px-2 py-1 text-xs sm:text-sm text-[#FFFFFF] placeholder-[#BFA894] focus:outline-none min-w-0 font-medium"
                 />
                 <button
                   type="submit"
                   disabled={!newExerciseInput.trim()}
-                  className="px-2.5 py-1 bg-[#8A5633] hover:bg-[#744426] text-white disabled:opacity-40 disabled:cursor-not-allowed rounded-lg text-xs font-semibold transition-colors cursor-pointer shrink-0 shadow-xs"
+                  className="px-2.5 py-1 bg-[#C48454] hover:bg-[#B07242] text-white disabled:opacity-40 disabled:cursor-not-allowed rounded-lg text-xs font-semibold transition-colors cursor-pointer shrink-0 shadow-xs"
                 >
                   Add
                 </button>
@@ -330,7 +330,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
                     setIsAdding(false);
                     setNewExerciseInput("");
                   }}
-                  className="p-1 text-[#7A6253] hover:text-[#2E1C12] transition-colors cursor-pointer shrink-0"
+                  className="p-1 text-[#D4BEA8] hover:text-[#FFFFFF] transition-colors cursor-pointer shrink-0"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -339,7 +339,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
               <button
                 type="button"
                 onClick={handleStartAdding}
-                className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-[#8A5633] hover:text-[#744426] hover:bg-white/40 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-[#F0B888] hover:text-[#FFFFFF] hover:bg-white/10 transition-colors cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add exercise</span>
