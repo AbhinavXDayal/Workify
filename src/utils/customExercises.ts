@@ -144,3 +144,4 @@ export function subscribeToCustomExercises(callback: () => void): () => void {
     window.removeEventListener('storage', callback);
   };
 }
+

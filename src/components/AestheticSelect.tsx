@@ -135,7 +135,12 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
     setIsOpen((prev) => {
       const next = !prev;
       // If there are truly 0 options anywhere, start in adding mode
-      if (next && latest.combined.length === 0 && options.length === 0 && !value) {
+      if (
+        next &&
+        latest.combined.length === 0 &&
+        options.length === 0 &&
+        !value
+      ) {
         setIsAdding(true);
         setTimeout(() => inputRef.current?.focus(), 50);
       }

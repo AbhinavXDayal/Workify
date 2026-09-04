@@ -65,3 +65,4 @@ describe('Custom Exercises Synchronization & Persistence', () => {
     unsubscribe();
   });
 });
+
