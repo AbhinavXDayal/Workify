@@ -10,13 +10,6 @@ import type {
 
 export type SaveStatus = 'idle' | 'saving' | 'saved' | 'error';
 
-const OLD_DEFAULT_EXERCISES = [
-  'T bar row - upper back',
-  'Lat pull down - lats',
-  'Lower back extensions - lower back',
-  'Seated cable row - mid back',
-];
-
 // Helper to load cached slots from localStorage
 function getLocalSlots(day: WorkoutDay): ExerciseSlotState[] | null {
   try {
@@ -24,11 +17,21 @@ function getLocalSlots(day: WorkoutDay): ExerciseSlotState[] | null {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed.map((s) => {
-          if (OLD_DEFAULT_EXERCISES.includes(s.exerciseName) && !s.weightKg) {
-            return { ...s, exerciseName: '' };
+        const defaults = createDefaultSlots(day);
+        // Ensure every slot is present and user-added exercises are never cleared
+        return defaults.map((d) => {
+          const found = parsed.find(
+            (p) => p.muscleGroup === d.muscleGroup && p.slotNumber === d.slotNumber
+          );
+          if (found) {
+            return {
+              ...d,
+              exerciseName: found.exerciseName || '',
+              weightKg: found.weightKg || '',
+              reps: found.reps || String(d.defaultReps),
+            };
           }
-          return s;
+          return d;
         });
       }
     }

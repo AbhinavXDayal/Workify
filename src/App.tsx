@@ -83,7 +83,10 @@ export function App() {
         />
 
         {/* Fixed bottom spacer of the website (expandable to user liking) */}
-        <footer className="h-6 sm:h-8 shrink-0" aria-label="Fixed website bottom space" />
+        <footer
+          className="h-6 sm:h-8 shrink-0"
+          aria-label="Fixed website bottom space"
+        />
       </div>
 
       {/* Auth Modal */}

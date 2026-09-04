@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronDown, Check, Plus, X } from "lucide-react";
+import {
+  getCustomExercises,
+  saveCustomExercise,
+  removeCustomExercise,
+  subscribeToCustomExercises,
+} from "../utils/customExercises";
 
 interface AestheticSelectProps {
   value: string;
@@ -9,60 +15,6 @@ interface AestheticSelectProps {
   groupName?: string;
   onAddCustomOption?: (newExercise: string) => void;
 }
-
-const getCustomOptionsFromStorage = (group?: string): string[] => {
-  if (typeof window === "undefined") return [];
-  const key = group || "general";
-  try {
-    const raw = localStorage.getItem("workify_custom_exercises");
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (parsed && Array.isArray(parsed[key])) {
-      return parsed[key];
-    }
-  } catch {
-    // Ignore storage errors
-  }
-  return [];
-};
-
-const saveCustomOptionToStorage = (
-  group: string | undefined,
-  newOption: string,
-) => {
-  if (typeof window === "undefined") return;
-  const key = group || "general";
-  try {
-    const raw = localStorage.getItem("workify_custom_exercises");
-    const parsed = raw ? JSON.parse(raw) : {};
-    const existing: string[] = Array.isArray(parsed[key]) ? parsed[key] : [];
-    if (!existing.includes(newOption)) {
-      parsed[key] = [...existing, newOption];
-      localStorage.setItem("workify_custom_exercises", JSON.stringify(parsed));
-    }
-  } catch {
-    // Ignore storage errors
-  }
-};
-
-const removeCustomOptionFromStorage = (
-  group: string | undefined,
-  optionToRemove: string,
-) => {
-  if (typeof window === "undefined") return;
-  const key = group || "general";
-  try {
-    const raw = localStorage.getItem("workify_custom_exercises");
-    if (!raw) return;
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed[key])) {
-      parsed[key] = parsed[key].filter((opt: string) => opt !== optionToRemove);
-      localStorage.setItem("workify_custom_exercises", JSON.stringify(parsed));
-    }
-  } catch {
-    // Ignore storage errors
-  }
-};
 
 export const AestheticSelect: React.FC<AestheticSelectProps> = ({
   value,
@@ -75,31 +27,46 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [newExerciseInput, setNewExerciseInput] = useState("");
-  const [customList, setCustomList] = useState<string[]>(() =>
-    getCustomOptionsFromStorage(groupName),
+  const [customData, setCustomData] = useState(() =>
+    getCustomExercises(groupName),
   );
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Sync customList if groupName changes
+  // Sync customData when groupName changes
   useEffect(() => {
-    setCustomList(getCustomOptionsFromStorage(groupName));
+    setCustomData(getCustomExercises(groupName));
   }, [groupName]);
 
-  // Combined options: predefined + user custom options + current value if custom
+  // Subscribe to real-time custom exercise updates across ALL dropdowns
+  useEffect(() => {
+    const unsubscribe = subscribeToCustomExercises(() => {
+      setCustomData(getCustomExercises(groupName));
+    });
+    return unsubscribe;
+  }, [groupName]);
+
+  // Combined options: group custom exercises + predefined + other custom exercises + current value
   const allOptions = useMemo(() => {
-    const combined = [...options];
-    for (const c of customList) {
-      if (!combined.includes(c)) {
-        combined.push(c);
-      }
+    const combinedSet = new Set<string>();
+
+    // 1. Group custom exercises first
+    customData.groupExercises.forEach((e) => combinedSet.add(e));
+
+    // 2. Predefined options (if any)
+    options.forEach((e) => combinedSet.add(e));
+
+    // 3. Other custom exercises added anywhere in the app
+    customData.allExercises.forEach((e) => combinedSet.add(e));
+
+    // 4. Current value (if set and not empty)
+    if (value && value.trim()) {
+      combinedSet.add(value.trim());
     }
-    if (value && !combined.includes(value)) {
-      combined.push(value);
-    }
-    return combined;
-  }, [options, customList, value]);
+
+    return Array.from(combinedSet);
+  }, [options, customData, value]);
 
   // Close on outside click or Escape key
   useEffect(() => {
@@ -144,12 +111,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
     const trimmed = newExerciseInput.trim();
     if (!trimmed) return;
 
-    if (groupName) {
-      saveCustomOptionToStorage(groupName, trimmed);
-    }
-    setCustomList((prev) =>
-      prev.includes(trimmed) ? prev : [...prev, trimmed],
-    );
+    saveCustomExercise(trimmed, groupName);
     onChange(trimmed);
     onAddCustomOption?.(trimmed);
     setNewExerciseInput("");
@@ -159,19 +121,21 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
 
   const handleRemoveCustom = (e: React.MouseEvent, opt: string) => {
     e.stopPropagation();
-    if (groupName) {
-      removeCustomOptionFromStorage(groupName, opt);
-    }
-    setCustomList((prev) => prev.filter((o) => o !== opt));
+    removeCustomExercise(opt, groupName);
     if (value === opt) {
       onChange("");
     }
   };
 
   const handleToggleOpen = () => {
+    // Refresh latest custom exercises from storage on every open
+    const latest = getCustomExercises(groupName);
+    setCustomData(latest);
+
     setIsOpen((prev) => {
       const next = !prev;
-      if (next && allOptions.length === 0) {
+      // If there are truly 0 options anywhere, start in adding mode
+      if (next && latest.combined.length === 0 && options.length === 0 && !value) {
         setIsAdding(true);
         setTimeout(() => inputRef.current?.focus(), 50);
       }
@@ -240,7 +204,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
 
           {allOptions.map((opt) => {
             const isSelected = value === opt;
-            const isCustom = customList.includes(opt);
+            const isCustom = customData.combined.includes(opt);
             return (
               <div
                 key={opt}
