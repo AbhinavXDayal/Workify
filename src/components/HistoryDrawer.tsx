@@ -20,11 +20,11 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-lg">
-      <div className="liquid-glass-card rounded-3xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-[#437A56]/30">
+      <div className="liquid-glass-card rounded-3xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-[#4A5A4F]/30">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[#437A56]/20">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[#4A5A4F]/20">
           <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-[#5EA379]" />
+            <Calendar className="w-4 h-4 text-[#859D8E]" />
             <h2 className="text-sm font-bold text-[#FFFDF8]">
               History — {dayLabel}
             </h2>
@@ -32,7 +32,7 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#769683] hover:text-[#FFFFFF] hover:bg-white/10 transition-colors active:scale-95 cursor-pointer"
+            className="p-1.5 rounded-full text-[#829288] hover:text-[#FFFFFF] hover:bg-white/10 transition-colors active:scale-95 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -41,7 +41,7 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
         {/* Content */}
         <div className="p-6 overflow-y-auto space-y-4 custom-glass-scrollbar">
           {history.length === 0 ? (
-            <p className="text-[#8FA898] text-xs text-center py-8">
+            <p className="text-[#8A968E] text-xs text-center py-8">
               No saved workouts found for this day yet.
             </p>
           ) : (
@@ -58,13 +58,13 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
               return (
                 <div
                   key={log.id}
-                  className="liquid-glass-pill rounded-2xl p-4 space-y-3 shadow-xs border border-[#437A56]/25"
+                  className="liquid-glass-pill rounded-2xl p-4 space-y-3 shadow-xs border border-[#4A5A4F]/25"
                 >
-                  <div className="flex justify-between items-center text-xs pb-2 border-b border-[#437A56]/20">
+                  <div className="flex justify-between items-center text-xs pb-2 border-b border-[#4A5A4F]/20">
                     <span className="font-semibold text-[#FFFDF8]">
                       {formattedDate}
                     </span>
-                    <span className="text-[11px] text-[#8FA898]">
+                    <span className="text-[11px] text-[#8A968E]">
                       2 Sets per exercise
                     </span>
                   </div>
@@ -73,18 +73,18 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
                     {log.exercises.map((ex) => (
                       <div
                         key={ex.id}
-                        className="flex justify-between items-center text-xs text-[#E8F1EB]"
+                        className="flex justify-between items-center text-xs text-[#E2E8E4]"
                       >
-                        <span className="truncate pr-2 text-[#E8F1EB] font-medium">
+                        <span className="truncate pr-2 text-[#E2E8E4] font-medium">
                           {ex.exercise_name || "Exercise"}
                         </span>
-                        <div className="flex gap-3 text-[#5EA379] shrink-0 font-mono text-[11px] font-semibold items-center">
+                        <div className="flex gap-3 text-[#859D8E] shrink-0 font-mono text-[11px] font-semibold items-center">
                           {isRatingGroup(ex.muscle_group) ? (
-                            <span className="flex items-center gap-1 text-[#48B87B]">
-                              <Star className="w-3 h-3 fill-[#48B87B]" />
+                            <span className="flex items-center gap-1 text-[#859D8E]">
+                              <Star className="w-3 h-3 fill-[#859D8E]" />
                               <span>
                                 {ex.reps !== null && ex.reps > 0
-                                  ? `${ex.reps}/5`
+                                   ? `${ex.reps}/5`
                                   : "Unrated"}
                               </span>
                             </span>

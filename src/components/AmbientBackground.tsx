@@ -140,31 +140,31 @@ export const AmbientBackground: React.FC = React.memo(() => {
       context.quadraticCurveTo(length * 0.44, leafW * 0.58, 0, 0);
       context.closePath();
 
-      // Soft sage/forest leaf fill
+      // Soft desaturated dusty sage leaf fill
       if (variant === "light") {
-        context.fillStyle = `rgba(141, 185, 158, ${Math.min(alpha * 0.94, 0.96)})`;
+        context.fillStyle = `rgba(125, 150, 136, ${Math.min(alpha * 0.9, 0.92)})`;
       } else {
-        context.fillStyle = `rgba(66, 102, 77, ${Math.min(alpha * 0.96, 0.98)})`;
+        context.fillStyle = `rgba(75, 95, 84, ${Math.min(alpha * 0.92, 0.95)})`;
       }
       context.fill();
 
       // Outer rim stroke
       if (variant === "light") {
-        context.strokeStyle = `rgba(172, 212, 188, ${Math.min(alpha * 0.88, 0.94)})`;
+        context.strokeStyle = `rgba(145, 170, 156, ${Math.min(alpha * 0.85, 0.9)})`;
       } else {
-        context.strokeStyle = `rgba(88, 130, 102, ${Math.min(alpha * 0.9, 0.96)})`;
+        context.strokeStyle = `rgba(90, 112, 100, ${Math.min(alpha * 0.88, 0.92)})`;
       }
       context.lineWidth = 0.85;
       context.stroke();
 
-      // 2. Crisp center midrib vein (pale mint / ivory vein)
+      // 2. Crisp center midrib vein (pale muted ivory vein)
       context.beginPath();
       context.moveTo(0, 0);
       context.lineTo(length * 0.88, 0);
       context.strokeStyle =
         variant === "light"
-          ? `rgba(230, 248, 238, ${Math.min(alpha * 0.98, 1.0)})`
-          : `rgba(152, 186, 166, ${Math.min(alpha * 0.95, 0.98)})`;
+          ? `rgba(225, 238, 230, ${Math.min(alpha * 0.95, 0.98)})`
+          : `rgba(140, 165, 150, ${Math.min(alpha * 0.92, 0.95)})`;
       context.lineWidth = 1.05;
       context.stroke();
 
@@ -207,8 +207,9 @@ export const AmbientBackground: React.FC = React.memo(() => {
             const alpha = Math.min(ratio * 0.75, 0.65);
 
             // Primary connecting edge line (soft sage/forest)
+            // Primary connecting edge line (soft desaturated sage)
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(62, 108, 85, ${alpha})`;
+            ctx.strokeStyle = `rgba(72, 96, 84, ${alpha * 0.75})`;
             ctx.lineWidth = 1.1;
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -219,7 +220,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
               const nx = (-dy / dist) * 1.2;
               const ny = (dx / dist) * 1.2;
               ctx.beginPath();
-              ctx.strokeStyle = `rgba(62, 108, 85, ${alpha * 0.42})`;
+              ctx.strokeStyle = `rgba(72, 96, 84, ${alpha * 0.32})`;
               ctx.lineWidth = 0.75;
               ctx.moveTo(nodes[i].x + nx, nodes[i].y + ny);
               ctx.lineTo(nodes[j].x + nx, nodes[j].y + ny);
@@ -254,16 +255,16 @@ export const AmbientBackground: React.FC = React.memo(() => {
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
 
-        // Node junction circle (soft sage/mint tone from reference image)
+        // Node junction circle (soft muted dusty sage)
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(125, 177, 151, 0.92)";
+        ctx.fillStyle = "rgba(115, 142, 128, 0.85)";
         ctx.fill();
 
         // Subtle soft outer glow border around junction
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius + 0.8, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(168, 212, 188, 0.40)";
+        ctx.strokeStyle = "rgba(135, 160, 148, 0.30)";
         ctx.lineWidth = 0.75;
         ctx.stroke();
 
@@ -287,7 +288,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
           ctx.beginPath();
           ctx.moveTo(node.x, node.y);
           ctx.lineTo(tipX, tipY);
-          ctx.strokeStyle = "rgba(82, 128, 102, 0.82)";
+          ctx.strokeStyle = "rgba(85, 108, 96, 0.75)";
           ctx.lineWidth = 1.2;
           ctx.stroke();
 
@@ -389,16 +390,16 @@ export const AmbientBackground: React.FC = React.memo(() => {
       aria-hidden="true"
     >
       {/* 1. Base Hazy Dark Obsidian & Forest Gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_65%_at_50%_-10%,_#131F17_0%,_#0C120E_50%,_#080C0A_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_65%_at_50%_-10%,_#111713_0%,_#0B0E0C_50%,_#070908_100%)]" />
 
       {/* 2. Soft Diffuse Hazy Ambient Glows */}
-      <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(62,125,88,0.09)_0%,_rgba(35,75,52,0.03)_45%,_transparent_70%)] animate-ambient-1" />
-      <div className="absolute top-1/3 -right-12 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(62,125,88,0.07)_0%,_rgba(30,65,45,0.02)_50%,_transparent_70%)] animate-ambient-2" />
-      <div className="absolute -bottom-16 left-1/4 w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(45,95,68,0.08)_0%,_transparent_65%)] animate-ambient-3" />
+      <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(85,115,98,0.05)_0%,_rgba(45,65,55,0.02)_45%,_transparent_70%)] animate-ambient-1" />
+      <div className="absolute top-1/3 -right-12 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(85,115,98,0.04)_0%,_rgba(45,65,55,0.015)_50%,_transparent_70%)] animate-ambient-2" />
+      <div className="absolute -bottom-16 left-1/4 w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(65,90,78,0.04)_0%,_transparent_65%)] animate-ambient-3" />
 
       {/* 3. Crisp Background Dot Matrix Grid */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-95"
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-90"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -411,9 +412,9 @@ export const AmbientBackground: React.FC = React.memo(() => {
             <circle
               cx="16"
               cy="16"
-              r="1.35"
-              fill="#4E755D"
-              fillOpacity="0.42"
+              r="1.25"
+              fill="#455A4E"
+              fillOpacity="0.28"
             />
           </pattern>
         </defs>
@@ -426,30 +427,30 @@ export const AmbientBackground: React.FC = React.memo(() => {
         className="absolute inset-0 w-full h-full opacity-100 pointer-events-none"
       />
 
-      {/* 5. Subtle Drifting Ambient Leaves in Sage */}
+      {/* 5. Subtle Drifting Ambient Leaves in Faded Sage */}
       <div className="absolute top-[12%] left-[7%] animate-leaf-drift-1">
-        <SmallLeaf className="w-4 h-4 text-[#6AA884]/25 transform -rotate-12" />
+        <SmallLeaf className="w-4 h-4 text-[#738C7E]/16 transform -rotate-12" />
       </div>
 
       <div
         className="absolute top-[24%] right-[9%] animate-leaf-drift-2"
         style={{ animationDelay: "3.5s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#82B89A]/22 transform rotate-45" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#82998C]/15 transform rotate-45" />
       </div>
 
       <div
         className="absolute top-[68%] left-[5%] animate-leaf-drift-3"
         style={{ animationDelay: "7s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#6AA884]/22 transform -rotate-30" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#738C7E]/15 transform -rotate-30" />
       </div>
 
       <div
         className="absolute top-[82%] right-[11%] animate-leaf-drift-1"
         style={{ animationDelay: "5s" }}
       >
-        <SmallLeaf className="w-4 h-4 text-[#82B89A]/25 transform rotate-20" />
+        <SmallLeaf className="w-4 h-4 text-[#82998C]/16 transform rotate-20" />
       </div>
     </div>
   );
