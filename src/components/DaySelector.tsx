@@ -14,7 +14,7 @@ export const DaySelector: React.FC<DaySelectorProps> = ({
   const days: WorkoutDay[] = ["mon_thu", "tue_fri", "wed"];
 
   return (
-    <div className="p-0.5 sm:p-1 hazy-pill rounded-xl sm:rounded-2xl grid grid-cols-3 gap-0.5 w-full">
+    <div className="p-0.5 sm:p-1 liquid-glass-pill rounded-xl sm:rounded-2xl grid grid-cols-3 gap-0.5 w-full">
       {days.map((dayKey) => {
         const isActive = activeDay === dayKey;
         const config = WORKOUT_DAYS_CONFIG[dayKey];
@@ -26,7 +26,7 @@ export const DaySelector: React.FC<DaySelectorProps> = ({
             onClick={() => onSelectDay(dayKey)}
             className={`py-1 sm:py-1.5 px-1 sm:px-3 rounded-lg sm:rounded-xl text-[11px] sm:text-xs transition-all duration-150 text-center cursor-pointer select-none border ${
               isActive
-                ? "bg-white/22 border-white/25 text-[#FFFFFF] shadow-xs font-bold"
+                ? "bg-white/25 border-white/60 text-[#FFFFFF] shadow-[0_2px_12px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.6)] font-bold"
                 : "bg-transparent border-transparent text-[#D4BEA8] hover:text-[#FFFFFF] hover:bg-white/10 active:scale-[0.98] font-medium"
             }`}
           >

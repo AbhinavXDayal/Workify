@@ -21,7 +21,7 @@ describe('Workout Configuration & Reps Logic', () => {
 
     const arms = monThu.groups.find((g) => g.name === 'Arms');
     expect(arms?.slotsCount).toBe(2);
-    expect(arms?.defaultReps).toBe(15); // Small muscle = 15
+    expect(arms?.defaultReps).toBe(12); // Mid muscle = 12
 
     const shoulders = monThu.groups.find((g) => g.name === 'Shoulders');
     expect(shoulders?.slotsCount).toBe(1);
@@ -29,6 +29,7 @@ describe('Workout Configuration & Reps Logic', () => {
 
     const cardio = monThu.groups.find((g) => g.name === 'Cardio sports / MMA');
     expect(cardio?.slotsCount).toBe(1);
+    expect(cardio?.hideKgReps).toBe(true);
   });
 
   it('verifies Tue / Fri structure and muscle sizes', () => {
@@ -46,6 +47,10 @@ describe('Workout Configuration & Reps Logic', () => {
     const abs = tueFri.groups.find((g) => g.name === 'Abs');
     expect(abs?.slotsCount).toBe(1);
     expect(abs?.defaultReps).toBe(15); // Small muscle = 15
+
+    const cardio = tueFri.groups.find((g) => g.name === 'Cardio sports / MMA');
+    expect(cardio?.slotsCount).toBe(1);
+    expect(cardio?.hideKgReps).toBe(true);
   });
 
   it('verifies Wed structure', () => {
@@ -54,11 +59,11 @@ describe('Workout Configuration & Reps Logic', () => {
 
     const calisthenics = wed.groups.find((g) => g.name === 'Calisthenics');
     expect(calisthenics?.slotsCount).toBe(3);
-    expect(calisthenics?.defaultReps).toBe(10); // Big muscle = 10
+    expect(calisthenics?.hideKgReps).toBe(true);
 
     const selfDefence = wed.groups.find((g) => g.name === 'Self defence w tools');
     expect(selfDefence?.slotsCount).toBe(2);
-    expect(selfDefence?.defaultReps).toBe(12);
+    expect(selfDefence?.hideKgReps).toBe(true);
 
     const neck = wed.groups.find((g) => g.name === 'Neck');
     expect(neck?.slotsCount).toBe(2);
@@ -66,6 +71,7 @@ describe('Workout Configuration & Reps Logic', () => {
 
     const run = wed.groups.find((g) => g.name === 'Long run');
     expect(run?.slotsCount).toBe(1);
+    expect(run?.hideKgReps).toBe(true);
   });
 });
 

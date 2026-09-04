@@ -29,11 +29,18 @@ function getLocalSlots(day: WorkoutDay): ExerciseSlotState[] | null {
             (p) => p.muscleGroup === d.muscleGroup && p.slotNumber === d.slotNumber
           );
           if (found) {
+            const repsVal = d.hideKgReps
+              ? ''
+              : d.muscleGroup === 'Arms' && (found.reps === '15' || !found.reps) && !found.weightKg
+                ? '12'
+                : (found.reps || String(d.defaultReps));
             return {
               ...d,
               exerciseName: found.exerciseName || '',
-              weightKg: found.weightKg || '',
-              reps: found.reps || String(d.defaultReps),
+              weightKg: d.hideKgReps ? '' : (found.weightKg || ''),
+              reps: repsVal,
+              defaultReps: d.defaultReps,
+              hideKgReps: d.hideKgReps,
             };
           }
           return d;
@@ -67,8 +74,9 @@ export function createDefaultSlots(day: WorkoutDay): ExerciseSlotState[] {
         slotNumber: i,
         exerciseName: '',
         weightKg: '',
-        reps: String(group.defaultReps),
+        reps: group.hideKgReps ? '' : String(group.defaultReps),
         defaultReps: group.defaultReps,
+        hideKgReps: group.hideKgReps,
       });
     }
   });
@@ -303,12 +311,14 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
               return {
                 ...slot,
                 exerciseName: matchedExercise.exercise_name || slot.exerciseName,
-                weightKg:
-                  matchedExercise.weight_kg !== null && matchedExercise.weight_kg !== undefined
+                weightKg: slot.hideKgReps
+                  ? ''
+                  : matchedExercise.weight_kg !== null && matchedExercise.weight_kg !== undefined
                     ? String(matchedExercise.weight_kg)
                     : '',
-                reps:
-                  matchedExercise.reps !== null && matchedExercise.reps !== undefined
+                reps: slot.hideKgReps
+                  ? ''
+                  : matchedExercise.reps !== null && matchedExercise.reps !== undefined
                     ? String(matchedExercise.reps)
                     : String(slot.defaultReps),
               };

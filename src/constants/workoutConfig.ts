@@ -30,7 +30,7 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
       {
         name: 'Arms',
         slotsCount: 2,
-        defaultReps: 15, // Small muscles = 15
+        defaultReps: 12, // Mid muscles = 12
         options: [],
       },
       {
@@ -42,8 +42,9 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
       {
         name: 'Cardio sports / MMA',
         slotsCount: 1,
-        defaultReps: 15,
+        defaultReps: 0,
         options: [],
+        hideKgReps: true,
       },
     ],
   },
@@ -72,8 +73,9 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
       {
         name: 'Cardio sports / MMA',
         slotsCount: 1,
-        defaultReps: 15,
+        defaultReps: 0,
         options: [],
+        hideKgReps: true,
       },
     ],
   },
@@ -84,14 +86,16 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
       {
         name: 'Calisthenics',
         slotsCount: 3,
-        defaultReps: 10, // Big muscles = 10
+        defaultReps: 0,
         options: [],
+        hideKgReps: true,
       },
       {
         name: 'Self defence w tools',
         slotsCount: 2,
-        defaultReps: 12, // Mid muscles = 12
+        defaultReps: 0,
         options: [],
+        hideKgReps: true,
       },
       {
         name: 'Neck',
@@ -102,8 +106,9 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
       {
         name: 'Long run',
         slotsCount: 1,
-        defaultReps: 10,
+        defaultReps: 0,
         options: [],
+        hideKgReps: true,
       },
     ],
   },

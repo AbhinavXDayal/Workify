@@ -152,7 +152,6 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
       const rect = containerRef.current.getBoundingClientRect();
       const scrollParent =
         containerRef.current.closest(".overflow-y-auto") ||
-        containerRef.current.closest(".hazy-card") ||
         containerRef.current.closest(".liquid-glass-card");
       const parentRect = scrollParent?.getBoundingClientRect();
       const availableBelow = parentRect
@@ -211,11 +210,11 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
         ))}
       </select>
 
-      {/* Visible aesthetic trigger button with soft rounded corners & hazy styling */}
+      {/* Visible aesthetic trigger button with soft rounded corners & liquid glass */}
       <button
         type="button"
         onClick={handleToggleOpen}
-        className="w-full min-w-0 flex items-center justify-between hazy-input rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-[#FAF5EE] transition-all duration-150 cursor-pointer text-left group active:scale-[0.99] min-h-[32px] sm:min-h-[38px]"
+        className="w-full min-w-0 flex items-center justify-between liquid-glass-input rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-[#FAF5EE] transition-all duration-150 cursor-pointer text-left group active:scale-[0.99] min-h-[32px] sm:min-h-[38px]"
       >
         <span
           className={`truncate min-w-0 ${!value ? "text-[#BFA894]" : "text-[#FFFFFF] font-semibold"}`}
@@ -229,11 +228,11 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
         />
       </button>
 
-      {/* Custom aesthetic dropdown popover with hazy styling */}
+      {/* Custom aesthetic dropdown popover with liquid glass */}
       {isOpen && (
         <div
           style={{ position: "absolute" }}
-          className={`left-0 right-0 z-50 hazy-card rounded-2xl p-1.5 shadow-2xl max-h-56 sm:max-h-64 overflow-y-auto custom-glass-scrollbar space-y-0.5 animate-in fade-in duration-150 border border-white/20 ${
+          className={`left-0 right-0 z-50 liquid-glass-card rounded-2xl p-1.5 shadow-2xl max-h-56 sm:max-h-64 overflow-y-auto custom-glass-scrollbar space-y-0.5 animate-in fade-in duration-150 border border-white/25 ${
             openDirection === "up"
               ? "bottom-full mb-1.5 origin-bottom zoom-in-95"
               : "top-full mt-1.5 origin-top zoom-in-95"
@@ -308,7 +307,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
             {isAdding ? (
               <form
                 onSubmit={handleSaveCustom}
-                className="flex items-center gap-1 p-1 hazy-input rounded-xl"
+                className="flex items-center gap-1 p-1 liquid-glass-input rounded-xl"
               >
                 <input
                   ref={inputRef}

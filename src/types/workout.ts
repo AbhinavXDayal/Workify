@@ -15,6 +15,7 @@ export interface DayWorkoutConfig {
     slotsCount: number;
     defaultReps: number;
     options: string[];
+    hideKgReps?: boolean;
   }[];
 }
 
@@ -25,6 +26,7 @@ export interface ExerciseSlotState {
   weightKg: string; // string representation in input, can be parsed to number or empty
   reps: string;     // string representation in input, can be parsed to number or empty
   defaultReps: number;
+  hideKgReps?: boolean;
 }
 
 export interface WorkoutLogRecord {

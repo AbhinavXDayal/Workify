@@ -63,8 +63,9 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             slotNumber: i,
             exerciseName: "",
             weightKg: "",
-            reps: String(group.defaultReps),
+            reps: group.hideKgReps ? "" : String(group.defaultReps),
             defaultReps: group.defaultReps,
+            hideKgReps: group.hideKgReps,
           },
           globalIndex: -1,
         });
@@ -73,6 +74,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
     return {
       name: group.name,
       options: group.options,
+      hideKgReps: group.hideKgReps,
       slots: groupSlotsWithIndex,
     };
   });
@@ -110,59 +112,67 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       onUpdateSlot(globalIndex, "exerciseName", val)
                     }
                     options={group.options}
-                    placeholder="Select exercise"
+                    placeholder={
+                      group.hideKgReps
+                        ? "Select activity"
+                        : "Select exercise"
+                    }
                     groupName={group.name}
                   />
 
-                  {/* KG Input with inline 'kg' unit badge */}
-                  <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 hazy-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
-                    <input
-                      type="text"
-                      inputMode="decimal"
-                      pattern="[0-9]*[.]?[0-9]*"
-                      value={slot.weightKg}
-                      onFocus={(e) => e.target.select()}
-                      onChange={(e) =>
-                        onUpdateSlot(globalIndex, "weightKg", e.target.value)
-                      }
-                      placeholder="0"
-                      aria-label="Weight (kg)"
-                      className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#BFA894] focus:outline-none font-mono pr-0.5"
-                    />
-                    <span className="text-[9.5px] sm:text-xs text-[#F0B888] font-bold select-none shrink-0 pointer-events-none ml-0.5">
-                      kg
-                    </span>
-                  </div>
+                  {!group.hideKgReps && (
+                    <>
+                      {/* KG Input with inline 'kg' unit badge */}
+                      <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 hazy-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
+                        <input
+                          type="text"
+                          inputMode="decimal"
+                          pattern="[0-9]*[.]?[0-9]*"
+                          value={slot.weightKg}
+                          onFocus={(e) => e.target.select()}
+                          onChange={(e) =>
+                            onUpdateSlot(globalIndex, "weightKg", e.target.value)
+                          }
+                          placeholder="0"
+                          aria-label="Weight (kg)"
+                          className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#BFA894] focus:outline-none font-mono pr-0.5"
+                        />
+                        <span className="text-[9.5px] sm:text-xs text-[#F0B888] font-bold select-none shrink-0 pointer-events-none ml-0.5">
+                          kg
+                        </span>
+                      </div>
 
-                  {/* Reps Input with inline 'reps' unit badge inside the same box */}
-                  <div className="relative w-[62px] sm:w-24 md:w-28 h-8 sm:h-9 hazy-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      value={slot.reps}
-                      onFocus={(e) => e.target.select()}
-                      onChange={(e) => {
-                        const raw = e.target.value;
-                        // Allow empty or partial typing
-                        if (raw === "") {
-                          onUpdateSlot(globalIndex, "reps", "");
-                          return;
-                        }
-                        const num = parseInt(raw, 10);
-                        if (isNaN(num)) return;
-                        // Cap at defaultReps (10/12/15), allow lower
-                        const capped = Math.min(num, slot.defaultReps);
-                        onUpdateSlot(globalIndex, "reps", String(capped));
-                      }}
-                      placeholder={String(slot.defaultReps)}
-                      aria-label="Reps"
-                      className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#BFA894] focus:outline-none font-mono pr-0.5"
-                    />
-                    <span className="text-[9.5px] sm:text-xs text-[#F0B888] font-bold select-none shrink-0 pointer-events-none ml-0.5">
-                      reps
-                    </span>
-                  </div>
+                      {/* Reps Input with inline 'reps' unit badge inside the same box */}
+                      <div className="relative w-[62px] sm:w-24 md:w-28 h-8 sm:h-9 hazy-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          value={slot.reps}
+                          onFocus={(e) => e.target.select()}
+                          onChange={(e) => {
+                            const raw = e.target.value;
+                            // Allow empty or partial typing
+                            if (raw === "") {
+                              onUpdateSlot(globalIndex, "reps", "");
+                              return;
+                            }
+                            const num = parseInt(raw, 10);
+                            if (isNaN(num)) return;
+                            // Cap at defaultReps (10/12/15), allow lower
+                            const capped = Math.min(num, slot.defaultReps);
+                            onUpdateSlot(globalIndex, "reps", String(capped));
+                          }}
+                          placeholder={String(slot.defaultReps)}
+                          aria-label="Reps"
+                          className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#BFA894] focus:outline-none font-mono pr-0.5"
+                        />
+                        <span className="text-[9.5px] sm:text-xs text-[#F0B888] font-bold select-none shrink-0 pointer-events-none ml-0.5">
+                          reps
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
               ))}
             </div>

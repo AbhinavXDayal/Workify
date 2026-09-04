@@ -40,7 +40,7 @@ export function App() {
       <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-1 sm:space-y-3 overflow-hidden sm:overflow-visible overscroll-contain">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
-          <div className="hazy-card border border-white/20 rounded-2xl p-2.5 text-xs text-[#FAF5EE] flex items-start gap-2 shadow-sm shrink-0">
+          <div className="liquid-glass-card border border-white/25 rounded-2xl p-2.5 text-xs text-[#FAF5EE] flex items-start gap-2 shadow-sm shrink-0">
             <Info className="w-4 h-4 text-[#F0B888] shrink-0 mt-0.5" />
             <div className="space-y-0.5">
               <p className="font-bold text-[#FFFDF8]">
@@ -61,8 +61,8 @@ export function App() {
           </div>
         )}
 
-        {/* Unified Continuous Hazy Card: Clean, non-reflective matte container */}
-        <div className="w-full max-w-full hazy-card rounded-2xl sm:rounded-3xl p-2.5 sm:p-5 md:p-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
+        {/* Unified Continuous Liquid-Glass Card: No middle section breaking the app in half */}
+        <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2.5 sm:p-5 md:p-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
           <SplitHeader
             user={user}
             authLoading={authLoading}

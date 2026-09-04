@@ -80,7 +80,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 p-4 backdrop-blur-lg">
-      <div className="hazy-card rounded-3xl w-full max-w-sm p-6 sm:p-7 shadow-2xl relative transition-all duration-200 border border-white/20">
+      <div className="liquid-glass-card rounded-3xl w-full max-w-sm p-6 sm:p-7 shadow-2xl relative transition-all duration-200 border border-white/25">
         <button
           type="button"
           onClick={onClose}
@@ -138,7 +138,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="athlete@example.com"
-                className="w-full hazy-input rounded-2xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-[#FFFFFF] placeholder-[#BFA894] focus:outline-none font-medium"
+                className="w-full liquid-glass-input rounded-2xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-[#FFFFFF] placeholder-[#BFA894] focus:outline-none font-medium"
               />
             </div>
           </div>
@@ -155,7 +155,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full hazy-input rounded-2xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-[#FFFFFF] placeholder-[#BFA894] focus:outline-none font-medium"
+                className="w-full liquid-glass-input rounded-2xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-[#FFFFFF] placeholder-[#BFA894] focus:outline-none font-medium"
               />
             </div>
           </div>

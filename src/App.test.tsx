@@ -155,4 +155,46 @@ describe("Workout Logger Acceptance Tests", () => {
       screen.queryByRole("button", { name: /workout progress radar/i }),
     ).toBeNull();
   });
+
+  it("applies correct default reps for muscle groups and hides kg/reps for cardio and other activities", () => {
+    render(<App />);
+
+    // Mon / Thu: 3 Back (10), 2 Arms (12), 1 Shoulders (15), 1 Cardio (no kg/reps)
+    // Total comboboxes: 7. Total weight & reps inputs: 6 (Cardio does not have them)
+    const comboboxes = screen.getAllByRole("combobox");
+    expect(comboboxes).toHaveLength(7);
+
+    const kgInputs = screen.getAllByLabelText(/weight/i);
+    const repsInputs = screen.getAllByLabelText(/reps/i);
+    expect(kgInputs).toHaveLength(6);
+    expect(repsInputs).toHaveLength(6);
+
+    // Back (slots 0, 1, 2) has 10 reps
+    expect((repsInputs[0] as HTMLInputElement).value).toBe("10");
+    expect((repsInputs[1] as HTMLInputElement).value).toBe("10");
+    expect((repsInputs[2] as HTMLInputElement).value).toBe("10");
+
+    // Arms (slots 3, 4) has 12 reps
+    expect((repsInputs[3] as HTMLInputElement).value).toBe("12");
+    expect((repsInputs[4] as HTMLInputElement).value).toBe("12");
+
+    // Shoulders (slot 5) has 15 reps
+    expect((repsInputs[5] as HTMLInputElement).value).toBe("15");
+
+    // Switch to Wed: 3 Calisthenics (no kg/reps), 2 Self defence (no kg/reps), 2 Neck (15 reps), 1 Long run (no kg/reps)
+    fireEvent.click(screen.getByRole("button", { name: /wed/i }));
+
+    const wedComboboxes = screen.getAllByRole("combobox");
+    expect(wedComboboxes).toHaveLength(8);
+
+    // Only the 2 Neck slots have kg and reps!
+    const wedKgInputs = screen.getAllByLabelText(/weight/i);
+    const wedRepsInputs = screen.getAllByLabelText(/reps/i);
+    expect(wedKgInputs).toHaveLength(2);
+    expect(wedRepsInputs).toHaveLength(2);
+
+    // Neck default reps is 15
+    expect((wedRepsInputs[0] as HTMLInputElement).value).toBe("15");
+    expect((wedRepsInputs[1] as HTMLInputElement).value).toBe("15");
+  });
 });
