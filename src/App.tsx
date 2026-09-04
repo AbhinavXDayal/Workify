@@ -12,7 +12,8 @@ import type { WorkoutDay } from "./types/workout";
 export function App() {
   const [activeDay, setActiveDay] = useState<WorkoutDay>("mon_thu");
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
-  const [isProgressRadarOpen, setIsProgressRadarOpen] = useState<boolean>(false);
+  const [isProgressRadarOpen, setIsProgressRadarOpen] =
+    useState<boolean>(false);
 
   const {
     user,

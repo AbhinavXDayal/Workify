@@ -4,7 +4,10 @@ import {
   calculateWorkoutAnalytics,
   type RadarAxisData,
 } from "../utils/workoutAnalytics";
-import type { ExerciseSlotState, WorkoutLogHistoryItem } from "../types/workout";
+import type {
+  ExerciseSlotState,
+  WorkoutLogHistoryItem,
+} from "../types/workout";
 
 interface ProgressRadarModalProps {
   isOpen: boolean;
@@ -102,13 +105,7 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
                   <stop offset="70%" stopColor="#D48E58" stopOpacity="0.35" />
                   <stop offset="100%" stopColor="#8C5228" stopOpacity="0.18" />
                 </radialGradient>
-                <filter
-                  id="glow"
-                  x="-20%"
-                  y="-20%"
-                  width="140%"
-                  height="140%"
-                >
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                   <feGaussianBlur stdDeviation="3" result="blur" />
                   <feComposite in="SourceGraphic" in2="blur" operator="over" />
                 </filter>

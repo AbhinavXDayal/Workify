@@ -62,10 +62,22 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <circle cx="12" cy="12" r="9" strokeDasharray="3 3" opacity="0.6" />
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+                strokeDasharray="3 3"
+                opacity="0.6"
+              />
               <path d="M12 3v18" opacity="0.6" />
               <path d="M3 12h18" opacity="0.6" />
-              <circle cx="12" cy="12" r="5" strokeDasharray="2 2" opacity="0.8" />
+              <circle
+                cx="12"
+                cy="12"
+                r="5"
+                strokeDasharray="2 2"
+                opacity="0.8"
+              />
               <polygon
                 points="12 6 16.5 9.5 15.5 15 12 17.5 8.5 15 7.5 9.5"
                 fill="#FFAE6B"
@@ -83,21 +95,20 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
           {!authLoading && (
             <>
               {user ? (
-                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full liquid-glass-pill transition-colors">
-                  <span className="text-[#FAF5EE] text-[11px] sm:text-xs font-mono font-semibold tracking-tight max-w-[130px] sm:max-w-[200px] truncate">
-                    {user.email}
-                  </span>
-                  {onSignOut && (
-                    <button
-                      type="button"
-                      onClick={onSignOut}
-                      title="Sign Out"
-                      className="p-0.5 rounded-full text-[#D4BEA8] hover:text-[#FFFDF8] hover:bg-white/20 transition-colors cursor-pointer active:scale-95"
-                    >
-                      <LogOut className="w-3 h-3" />
-                    </button>
-                  )}
-                </div>
+                onSignOut && (
+                  <button
+                    type="button"
+                    onClick={onSignOut}
+                    title={`Signed in as ${user.email}. Click to sign out.`}
+                    aria-label="Sign out"
+                    className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-[#FFAE6B] text-[10px] sm:text-[11px] font-medium liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-white/25 shadow-xs group"
+                  >
+                    <LogOut className="w-3 h-3 text-[#F0B888] group-hover:text-[#FFAE6B] transition-transform duration-200 group-hover:scale-110" />
+                    <span className="text-[10px] sm:text-[11px] font-medium tracking-tight">
+                      sign out
+                    </span>
+                  </button>
+                )
               ) : (
                 onOpenAuth && (
                   <button

@@ -177,3 +177,4 @@ describe("Workout Analytics & Spider Web Calculation", () => {
     expect(analytics.recommendations.overdueArea.actionableStep).toContain("Legs");
   });
 });
+
