@@ -20,9 +20,14 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
     <div className="w-full max-w-full overflow-hidden liquid-glass-card rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:px-4 sm:py-2.5 transition-all duration-200 shrink-0">
       {/* Header Bar: Title on left, Account pill embedded on right */}
       <div className="flex items-center justify-between gap-2 pb-1 sm:pb-1.5 border-b border-[#382C24]/12 min-w-0">
-        <h1 className="text-[#382C24] text-xs sm:text-base font-bold tracking-wide select-none shrink-0">
-          {SPLIT_HEADER_TEXT.title}
-        </h1>
+        <a
+          href="https://github.com/AbhinavXDayal/Workify"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#382C24] text-sm sm:text-lg font-extrabold tracking-wide select-none shrink-0 hover:text-[#85583D] transition-colors duration-200 cursor-pointer no-underline"
+        >
+          <h1 className="inline">{SPLIT_HEADER_TEXT.title}</h1>
+        </a>
 
         {/* User Account / Sign In embedded inside Workify section */}
         <div className="flex items-center">
