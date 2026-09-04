@@ -7,9 +7,16 @@ import { AmbientBackground } from "./components/AmbientBackground";
 import { useAuth } from "./hooks/useAuth";
 import { useWorkoutLogger } from "./hooks/useWorkoutLogger";
 import type { WorkoutDay } from "./types/workout";
+import { getTodaysWorkoutDay } from "./constants/workoutConfig";
 
-export function App() {
-  const [activeDay, setActiveDay] = useState<WorkoutDay>("mon_thu");
+interface AppProps {
+  initialDay?: WorkoutDay;
+}
+
+export function App({ initialDay }: AppProps = {}) {
+  const [activeDay, setActiveDay] = useState<WorkoutDay>(
+    () => initialDay || getTodaysWorkoutDay(),
+  );
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
 
   const {

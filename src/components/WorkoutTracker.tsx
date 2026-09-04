@@ -117,9 +117,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             {/* Exercise Slots */}
             <div
               className={
-                isWed
-                  ? "space-y-0.5 sm:space-y-1.5"
-                  : "space-y-1 sm:space-y-2"
+                isWed ? "space-y-0.5 sm:space-y-1.5" : "space-y-1 sm:space-y-2"
               }
             >
               {group.slots.map(({ slot, globalIndex }) => (

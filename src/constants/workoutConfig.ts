@@ -114,6 +114,31 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
 };
 
 /**
+ * Automatically determines which workout tab to open based on the day of the week:
+ * - Monday (1) or Thursday (4) -> 'mon_thu'
+ * - Tuesday (2) or Friday (5) -> 'tue_fri'
+ * - Wednesday (3) -> 'wed'
+ * - Saturday (6) or Sunday (0) -> 'mon_thu' (start of next cycle)
+ */
+export function getTodaysWorkoutDay(date: Date = new Date()): WorkoutDay {
+  const day = date.getDay();
+  switch (day) {
+    case 1: // Monday
+    case 4: // Thursday
+      return 'mon_thu';
+    case 2: // Tuesday
+    case 5: // Friday
+      return 'tue_fri';
+    case 3: // Wednesday
+      return 'wed';
+    case 6: // Saturday
+    case 0: // Sunday
+    default:
+      return 'mon_thu';
+  }
+}
+
+/**
  * Checks if a workout group uses a star rating rather than KG and Reps
  */
 export function isRatingGroup(groupName: string): boolean {
@@ -125,5 +150,3 @@ export function isRatingGroup(groupName: string): boolean {
     normalized.includes('self defence')
   );
 }
-
-

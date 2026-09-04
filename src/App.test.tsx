@@ -4,12 +4,13 @@ import App from "./App";
 import {
   BACK_EXERCISE_OPTIONS,
   SPLIT_HEADER_TEXT,
+  getTodaysWorkoutDay,
 } from "./constants/workoutConfig";
 import { saveCustomExercise } from "./utils/customExercises";
 
 describe("Workout Logger Acceptance Tests", () => {
   it("renders top Split section with exactly one heading and exact text", () => {
-    render(<App />);
+    render(<App initialDay="mon_thu" />);
 
     // Exactly one heading titled "Workify"
     const headings = screen.getAllByRole("heading", { name: /workify/i });
@@ -26,7 +27,7 @@ describe("Workout Logger Acceptance Tests", () => {
   });
 
   it("renders all three interactive day selectors and switches workout views", () => {
-    render(<App />);
+    render(<App initialDay="mon_thu" />);
 
     const monThuBtn = screen.getByRole("button", { name: /mon \/ thu/i });
     const tueFriBtn = screen.getByRole("button", { name: /tue \/ fri/i });
@@ -82,7 +83,7 @@ describe("Workout Logger Acceptance Tests", () => {
   });
 
   it("supports updating KG and Reps with automatic saving", () => {
-    render(<App />);
+    render(<App initialDay="mon_thu" />);
 
     // Find inputs
     const kgInputs = screen.getAllByLabelText(/weight/i);
@@ -101,7 +102,7 @@ describe("Workout Logger Acceptance Tests", () => {
   });
 
   it("persists slot updates automatically across sessions", () => {
-    render(<App />);
+    render(<App initialDay="mon_thu" />);
 
     const kgInputs = screen.getAllByLabelText(/weight/i);
     fireEvent.change(kgInputs[0], { target: { value: "75" } });
@@ -112,7 +113,7 @@ describe("Workout Logger Acceptance Tests", () => {
     saveCustomExercise("Bicep curls", "Back");
     saveCustomExercise("Triceps", "Back");
 
-    render(<App />);
+    render(<App initialDay="mon_thu" />);
 
     const selects = screen.getAllByRole("combobox");
     const kgInputs = screen.getAllByLabelText(/weight/i);
@@ -219,5 +220,38 @@ describe("Workout Logger Acceptance Tests", () => {
     expect(
       screen.getAllByRole("radiogroup", { name: /self defence w tools rating/i }).length,
     ).toBe(2);
+  });
+
+  describe("Automatic Day Tab Selection", () => {
+    it("maps days of week correctly: Mon/Thu -> mon_thu, Tue/Fri -> tue_fri, Wed -> wed", () => {
+      // Monday = 1
+      expect(getTodaysWorkoutDay(new Date("2026-08-31T10:00:00Z"))).toBe("mon_thu");
+      // Tuesday = 2
+      expect(getTodaysWorkoutDay(new Date("2026-09-01T10:00:00Z"))).toBe("tue_fri");
+      // Wednesday = 3
+      expect(getTodaysWorkoutDay(new Date("2026-09-02T10:00:00Z"))).toBe("wed");
+      // Thursday = 4
+      expect(getTodaysWorkoutDay(new Date("2026-09-03T10:00:00Z"))).toBe("mon_thu");
+      // Friday = 5
+      expect(getTodaysWorkoutDay(new Date("2026-09-04T10:00:00Z"))).toBe("tue_fri");
+      // Saturday = 6
+      expect(getTodaysWorkoutDay(new Date("2026-09-05T10:00:00Z"))).toBe("mon_thu");
+      // Sunday = 0
+      expect(getTodaysWorkoutDay(new Date("2026-09-06T10:00:00Z"))).toBe("mon_thu");
+    });
+
+    it("opens the corresponding day tab by default according to today's date", () => {
+      // When rendered without initialDay, it opens today's tab
+      const expectedDay = getTodaysWorkoutDay();
+      render(<App />);
+
+      if (expectedDay === "mon_thu") {
+        expect(screen.getByRole("heading", { name: /^back$/i })).toBeDefined();
+      } else if (expectedDay === "tue_fri") {
+        expect(screen.getByRole("heading", { name: /^legs$/i })).toBeDefined();
+      } else if (expectedDay === "wed") {
+        expect(screen.getByRole("heading", { name: /^calisthenics$/i })).toBeDefined();
+      }
+    });
   });
 });
