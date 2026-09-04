@@ -218,26 +218,40 @@ describe("Workout Logger Acceptance Tests", () => {
       screen.getByRole("radiogroup", { name: /long run rating/i }),
     ).toBeDefined();
     expect(
-      screen.getAllByRole("radiogroup", { name: /self defence w tools rating/i }).length,
+      screen.getAllByRole("radiogroup", {
+        name: /self defence w tools rating/i,
+      }).length,
     ).toBe(2);
   });
 
   describe("Automatic Day Tab Selection", () => {
     it("maps days of week correctly: Mon/Thu -> mon_thu, Tue/Fri -> tue_fri, Wed -> wed", () => {
       // Monday = 1
-      expect(getTodaysWorkoutDay(new Date("2026-08-31T10:00:00Z"))).toBe("mon_thu");
+      expect(getTodaysWorkoutDay(new Date("2026-08-31T10:00:00Z"))).toBe(
+        "mon_thu",
+      );
       // Tuesday = 2
-      expect(getTodaysWorkoutDay(new Date("2026-09-01T10:00:00Z"))).toBe("tue_fri");
+      expect(getTodaysWorkoutDay(new Date("2026-09-01T10:00:00Z"))).toBe(
+        "tue_fri",
+      );
       // Wednesday = 3
       expect(getTodaysWorkoutDay(new Date("2026-09-02T10:00:00Z"))).toBe("wed");
       // Thursday = 4
-      expect(getTodaysWorkoutDay(new Date("2026-09-03T10:00:00Z"))).toBe("mon_thu");
+      expect(getTodaysWorkoutDay(new Date("2026-09-03T10:00:00Z"))).toBe(
+        "mon_thu",
+      );
       // Friday = 5
-      expect(getTodaysWorkoutDay(new Date("2026-09-04T10:00:00Z"))).toBe("tue_fri");
+      expect(getTodaysWorkoutDay(new Date("2026-09-04T10:00:00Z"))).toBe(
+        "tue_fri",
+      );
       // Saturday = 6
-      expect(getTodaysWorkoutDay(new Date("2026-09-05T10:00:00Z"))).toBe("mon_thu");
+      expect(getTodaysWorkoutDay(new Date("2026-09-05T10:00:00Z"))).toBe(
+        "mon_thu",
+      );
       // Sunday = 0
-      expect(getTodaysWorkoutDay(new Date("2026-09-06T10:00:00Z"))).toBe("mon_thu");
+      expect(getTodaysWorkoutDay(new Date("2026-09-06T10:00:00Z"))).toBe(
+        "mon_thu",
+      );
     });
 
     it("opens the corresponding day tab by default according to today's date", () => {
@@ -250,7 +264,9 @@ describe("Workout Logger Acceptance Tests", () => {
       } else if (expectedDay === "tue_fri") {
         expect(screen.getByRole("heading", { name: /^legs$/i })).toBeDefined();
       } else if (expectedDay === "wed") {
-        expect(screen.getByRole("heading", { name: /^calisthenics$/i })).toBeDefined();
+        expect(
+          screen.getByRole("heading", { name: /^calisthenics$/i }),
+        ).toBeDefined();
       }
     });
   });

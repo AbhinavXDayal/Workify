@@ -2,18 +2,18 @@
 
 :root {
   color-scheme: dark;
-  --background: #1c1714;
-  --foreground: #faf5ee;
-  --muted: #2d2521;
-  --muted-foreground: #b8a696;
-  --card: #241e1a;
-  --border: #3d332c;
-  --input: #221c19;
-  --primary: #faf5ee;
-  --secondary: #2f2722;
-  --brand-accent: #a89178;
-  --brand-accent-hover: #b8a087;
-  --ring: #a89178;
+  --background: #0c100d;
+  --foreground: #e8f1eb;
+  --muted: #152219;
+  --muted-foreground: #8fa898;
+  --card: #101712;
+  --border: #244230;
+  --input: #121c15;
+  --primary: #48b87b;
+  --secondary: #1a2e22;
+  --brand-accent: #48b87b;
+  --brand-accent-hover: #5ec78d;
+  --ring: #48b87b;
 }
 
 html,
@@ -23,8 +23,8 @@ body {
   width: 100%;
   height: 100%;
   min-height: 100%;
-  background-color: #1c1714;
-  color: #faf5ee;
+  background-color: #0c100d;
+  color: #e8f1eb;
   font-family:
     "Geist",
     "Inter",
@@ -42,25 +42,25 @@ body {
 }
 
 ::selection {
-  background-color: #6b5845;
-  color: #fffdf8;
+  background-color: #244230;
+  color: #e6f8ee;
 }
 
-/* Desaturated Dull Espresso Design System */
+/* Botanical Obsidian & Emerald Design System */
 .hazy-card,
 .liquid-glass-card {
   background: linear-gradient(
     145deg,
-    rgba(44, 37, 32, 0.9) 0%,
-    rgba(36, 30, 26, 0.92) 50%,
-    rgba(29, 24, 21, 0.95) 100%
+    rgba(18, 26, 21, 0.92) 0%,
+    rgba(14, 20, 16, 0.94) 50%,
+    rgba(10, 15, 12, 0.96) 100%
   );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(168, 145, 120, 0.16);
+  border: 1px solid rgba(75, 130, 95, 0.22);
   box-shadow:
-    0 16px 40px -10px rgba(8, 6, 5, 0.6),
-    0 0 0 1px rgba(0, 0, 0, 0.25);
+    0 16px 40px -10px rgba(4, 8, 5, 0.7),
+    0 0 0 1px rgba(0, 0, 0, 0.35);
   transform: translateZ(0);
 }
 
@@ -70,44 +70,44 @@ body {
 
 .hazy-pill,
 .liquid-glass-pill {
-  background: rgba(50, 42, 36, 0.72);
+  background: rgba(22, 34, 26, 0.72);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(168, 145, 120, 0.18);
-  box-shadow: 0 2px 8px 0 rgba(8, 6, 5, 0.35);
+  border: 1px solid rgba(75, 130, 95, 0.24);
+  box-shadow: 0 2px 8px 0 rgba(4, 8, 5, 0.4);
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hazy-pill:hover,
 .liquid-glass-pill:hover {
-  background: rgba(62, 52, 45, 0.85);
-  border-color: rgba(184, 160, 135, 0.28);
-  box-shadow: 0 4px 12px 0 rgba(8, 6, 5, 0.45);
+  background: rgba(30, 46, 36, 0.85);
+  border-color: rgba(94, 163, 121, 0.36);
+  box-shadow: 0 4px 12px 0 rgba(4, 8, 5, 0.5);
 }
 
 .hazy-input,
 .liquid-glass-input {
-  background: rgba(40, 33, 29, 0.75);
+  background: rgba(16, 25, 19, 0.78);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(168, 145, 120, 0.16);
-  box-shadow: 0 1.5px 6px 0 rgba(8, 6, 5, 0.3);
+  border: 1px solid rgba(75, 130, 95, 0.22);
+  box-shadow: 0 1.5px 6px 0 rgba(4, 8, 5, 0.35);
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hazy-input:hover,
 .liquid-glass-input:hover {
-  background: rgba(48, 40, 35, 0.85);
-  border-color: rgba(184, 160, 135, 0.25);
+  background: rgba(22, 34, 26, 0.88);
+  border-color: rgba(94, 163, 121, 0.32);
 }
 
 .hazy-input:focus-within,
 .liquid-glass-input:focus-within {
-  background: rgba(54, 45, 39, 0.95);
-  border-color: #a89178;
+  background: rgba(24, 38, 29, 0.96);
+  border-color: #48b87b;
   box-shadow:
-    0 0 0 3px rgba(168, 145, 120, 0.2),
-    0 4px 12px 0 rgba(8, 6, 5, 0.4);
+    0 0 0 3px rgba(72, 184, 123, 0.25),
+    0 4px 12px 0 rgba(4, 8, 5, 0.45);
 }
 
 .custom-glass-scrollbar::-webkit-scrollbar {
@@ -117,11 +117,11 @@ body {
   background: transparent;
 }
 .custom-glass-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(168, 145, 120, 0.3);
+  background: rgba(75, 130, 95, 0.35);
   border-radius: 9999px;
 }
 .custom-glass-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 145, 120, 0.55);
+  background: rgba(94, 163, 121, 0.6);
 }
 
 /* Custom select chevron and input styles */

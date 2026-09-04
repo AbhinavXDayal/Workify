@@ -47,8 +47,8 @@ export const StarRatingBox: React.FC<StarRatingBoxProps> = ({
             <Star
               className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-all duration-150 ${
                 isFilled
-                  ? "fill-[#BA9F7F] text-[#BA9F7F] drop-shadow-[0_0_3px_rgba(186,159,127,0.3)]"
-                  : "fill-transparent text-[#6E6054]/50 hover:text-[#BA9F7F]/75"
+                  ? "fill-[#48B87B] text-[#48B87B] drop-shadow-[0_0_4px_rgba(72,184,123,0.5)]"
+                  : "fill-transparent text-[#3B5445]/60 hover:text-[#5EA379]/80"
               }`}
             />
           </button>

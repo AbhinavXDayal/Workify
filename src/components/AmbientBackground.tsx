@@ -388,15 +388,15 @@ export const AmbientBackground: React.FC = React.memo(() => {
       className="pointer-events-none fixed inset-0 w-full h-full max-w-full overflow-hidden z-0 select-none"
       aria-hidden="true"
     >
-      {/* 1. Base Hazy Dark Espresso Gradient (desaturated #26201B to #14100E) */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_65%_at_50%_-10%,_#26201B_0%,_#1C1714_50%,_#14100E_100%)]" />
+      {/* 1. Base Hazy Dark Obsidian & Forest Gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_65%_at_50%_-10%,_#131F17_0%,_#0C120E_50%,_#080C0A_100%)]" />
 
-      {/* 2. Fast GPU Hazy Amber/Mocha Radial Ambient Glows */}
-      <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(168,145,120,0.05)_0%,_rgba(125,105,90,0.02)_45%,_transparent_70%)] animate-ambient-1" />
-      <div className="absolute top-1/3 -right-12 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(168,145,120,0.04)_0%,_rgba(105,90,75,0.02)_50%,_transparent_70%)] animate-ambient-2" />
-      <div className="absolute -bottom-16 left-1/4 w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(125,105,90,0.05)_0%,_transparent_65%)] animate-ambient-3" />
+      {/* 2. Fast GPU Emerald/Sage Radial Ambient Glows */}
+      <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(62,130,92,0.09)_0%,_rgba(38,80,56,0.03)_45%,_transparent_70%)] animate-ambient-1" />
+      <div className="absolute top-1/3 -right-12 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(62,130,92,0.07)_0%,_rgba(30,65,45,0.03)_50%,_transparent_70%)] animate-ambient-2" />
+      <div className="absolute -bottom-16 left-1/4 w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(45,95,68,0.08)_0%,_transparent_65%)] animate-ambient-3" />
 
-      {/* 3. Crisp Background Dot Matrix Grid (sampled from reference image #1B2822 at 32px spacing) */}
+      {/* 3. Crisp Background Dot Matrix Grid */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none opacity-95"
         xmlns="http://www.w3.org/2000/svg"
@@ -412,8 +412,8 @@ export const AmbientBackground: React.FC = React.memo(() => {
               cx="16"
               cy="16"
               r="1.35"
-              fill="#527863"
-              fillOpacity="0.45"
+              fill="#4E755D"
+              fillOpacity="0.42"
             />
           </pattern>
         </defs>
@@ -426,30 +426,30 @@ export const AmbientBackground: React.FC = React.memo(() => {
         className="absolute inset-0 w-full h-full opacity-100 pointer-events-none"
       />
 
-      {/* 5. Subtle Drifting Ambient Leaves in Sage-Taupe */}
+      {/* 5. Subtle Drifting Ambient Leaves in Sage */}
       <div className="absolute top-[12%] left-[7%] animate-leaf-drift-1">
-        <SmallLeaf className="w-4 h-4 text-[#7A9C88]/20 transform -rotate-12" />
+        <SmallLeaf className="w-4 h-4 text-[#6AA884]/25 transform -rotate-12" />
       </div>
 
       <div
         className="absolute top-[24%] right-[9%] animate-leaf-drift-2"
         style={{ animationDelay: "3.5s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#88AB96]/18 transform rotate-45" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#82B89A]/22 transform rotate-45" />
       </div>
 
       <div
         className="absolute top-[68%] left-[5%] animate-leaf-drift-3"
         style={{ animationDelay: "7s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#7A9C88]/18 transform -rotate-30" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#6AA884]/22 transform -rotate-30" />
       </div>
 
       <div
         className="absolute top-[82%] right-[11%] animate-leaf-drift-1"
         style={{ animationDelay: "5s" }}
       >
-        <SmallLeaf className="w-4 h-4 text-[#88AB96]/20 transform rotate-20" />
+        <SmallLeaf className="w-4 h-4 text-[#82B89A]/25 transform rotate-20" />
       </div>
     </div>
   );
