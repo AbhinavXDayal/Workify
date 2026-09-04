@@ -214,7 +214,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
       <button
         type="button"
         onClick={handleToggleOpen}
-        className="w-full min-w-0 flex items-center justify-between liquid-glass-input rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-[#FAF5EE] transition-all duration-150 cursor-pointer text-left group active:scale-[0.99] min-h-[32px] sm:min-h-[38px]"
+        className="w-full min-w-0 flex items-center justify-between liquid-glass-input rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-[#FAF5EE] transition-all duration-150 cursor-pointer text-left group active:scale-[0.99] min-h-[38px] sm:min-h-[40px]"
       >
         <span
           className={`truncate min-w-0 ${!value ? "text-[#786B60]" : "text-[#FFFFFF] font-semibold"}`}

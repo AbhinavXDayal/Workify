@@ -86,7 +86,7 @@ export function App() {
           />
         </div>
 
-        {/* Compact bottom spacer: moves card end bottom point just a little down while preserving single-screen fit */}
+        {/* Compact bottom spacer: keeps bottom page fixed without any page scrolling */}
         <footer
           className="h-3 sm:h-5 shrink-0"
           aria-label="Website bottom space"
