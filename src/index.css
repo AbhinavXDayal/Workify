@@ -50,7 +50,7 @@ body {
 .liquid-glass-card {
   background: linear-gradient(
     140deg,
-    rgba(142, 102, 72, 0.70) 0%,
+    rgba(142, 102, 72, 0.7) 0%,
     rgba(112, 76, 50, 0.75) 45%,
     rgba(86, 54, 34, 0.82) 100%
   );

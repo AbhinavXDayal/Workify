@@ -103,7 +103,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#F0B888]" />
             <span>
               Supabase is not configured yet. Please add your credentials to{" "}
-              <code className="bg-black/30 px-1 py-0.5 rounded text-[#F0B888]">.env</code> to enable cloud authentication.
+              <code className="bg-black/30 px-1 py-0.5 rounded text-[#F0B888]">
+                .env
+              </code>{" "}
+              to enable cloud authentication.
             </span>
           </div>
         )}
