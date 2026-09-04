@@ -2,18 +2,18 @@
 
 :root {
   color-scheme: dark;
-  --background: #20140e;
+  --background: #1c1714;
   --foreground: #faf5ee;
-  --muted: #38241a;
-  --muted-foreground: #c5b09e;
-  --card: #2c1c14;
-  --border: #4d3324;
-  --input: #291811;
+  --muted: #2d2521;
+  --muted-foreground: #b8a696;
+  --card: #241e1a;
+  --border: #3d332c;
+  --input: #221c19;
   --primary: #faf5ee;
-  --secondary: #3b271d;
-  --brand-accent: #bf7839;
-  --brand-accent-hover: #cf8748;
-  --ring: #bf7839;
+  --secondary: #2f2722;
+  --brand-accent: #a89178;
+  --brand-accent-hover: #b8a087;
+  --ring: #a89178;
 }
 
 html,
@@ -23,7 +23,7 @@ body {
   width: 100%;
   height: 100%;
   min-height: 100%;
-  background-color: #20140e;
+  background-color: #1c1714;
   color: #faf5ee;
   font-family:
     "Geist",
@@ -42,25 +42,25 @@ body {
 }
 
 ::selection {
-  background-color: #8f5c2f;
+  background-color: #6b5845;
   color: #fffdf8;
 }
 
-/* Dull Dark Coffee & Espresso Design System */
+/* Desaturated Dull Espresso Design System */
 .hazy-card,
 .liquid-glass-card {
   background: linear-gradient(
     145deg,
-    rgba(53, 34, 25, 0.88) 0%,
-    rgba(44, 28, 20, 0.90) 50%,
-    rgba(36, 23, 16, 0.94) 100%
+    rgba(44, 37, 32, 0.90) 0%,
+    rgba(36, 30, 26, 0.92) 50%,
+    rgba(29, 24, 21, 0.95) 100%
   );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(191, 120, 57, 0.18);
+  border: 1px solid rgba(168, 145, 120, 0.16);
   box-shadow:
-    0 16px 40px -10px rgba(10, 5, 2, 0.6),
-    0 0 0 1px rgba(0, 0, 0, 0.2);
+    0 16px 40px -10px rgba(8, 6, 5, 0.6),
+    0 0 0 1px rgba(0, 0, 0, 0.25);
   transform: translateZ(0);
 }
 
@@ -70,44 +70,44 @@ body {
 
 .hazy-pill,
 .liquid-glass-pill {
-  background: rgba(62, 41, 30, 0.72);
+  background: rgba(50, 42, 36, 0.72);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(191, 120, 57, 0.2);
-  box-shadow: 0 2px 8px 0 rgba(10, 5, 2, 0.35);
+  border: 1px solid rgba(168, 145, 120, 0.18);
+  box-shadow: 0 2px 8px 0 rgba(8, 6, 5, 0.35);
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hazy-pill:hover,
 .liquid-glass-pill:hover {
-  background: rgba(78, 52, 38, 0.85);
-  border-color: rgba(210, 140, 75, 0.35);
-  box-shadow: 0 4px 12px 0 rgba(10, 5, 2, 0.45);
+  background: rgba(62, 52, 45, 0.85);
+  border-color: rgba(184, 160, 135, 0.28);
+  box-shadow: 0 4px 12px 0 rgba(8, 6, 5, 0.45);
 }
 
 .hazy-input,
 .liquid-glass-input {
-  background: rgba(48, 31, 22, 0.75);
+  background: rgba(40, 33, 29, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(191, 120, 57, 0.18);
-  box-shadow: 0 1.5px 6px 0 rgba(10, 5, 2, 0.3);
+  border: 1px solid rgba(168, 145, 120, 0.16);
+  box-shadow: 0 1.5px 6px 0 rgba(8, 6, 5, 0.3);
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hazy-input:hover,
 .liquid-glass-input:hover {
-  background: rgba(60, 39, 28, 0.85);
-  border-color: rgba(210, 140, 75, 0.3);
+  background: rgba(48, 40, 35, 0.85);
+  border-color: rgba(184, 160, 135, 0.25);
 }
 
 .hazy-input:focus-within,
 .liquid-glass-input:focus-within {
-  background: rgba(68, 44, 32, 0.95);
-  border-color: #bf7839;
+  background: rgba(54, 45, 39, 0.95);
+  border-color: #a89178;
   box-shadow:
-    0 0 0 3px rgba(191, 120, 57, 0.25),
-    0 4px 12px 0 rgba(10, 5, 2, 0.4);
+    0 0 0 3px rgba(168, 145, 120, 0.2),
+    0 4px 12px 0 rgba(8, 6, 5, 0.4);
 }
 
 .custom-glass-scrollbar::-webkit-scrollbar {
@@ -117,11 +117,11 @@ body {
   background: transparent;
 }
 .custom-glass-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(191, 120, 57, 0.35);
+  background: rgba(168, 145, 120, 0.3);
   border-radius: 9999px;
 }
 .custom-glass-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(191, 120, 57, 0.65);
+  background: rgba(168, 145, 120, 0.55);
 }
 
 /* Custom select chevron and input styles */
