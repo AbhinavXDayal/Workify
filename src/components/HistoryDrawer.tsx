@@ -84,7 +84,7 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
                               <Star className="w-3 h-3 fill-[#48B87B]" />
                               <span>
                                 {ex.reps !== null && ex.reps > 0
-                                   ? `${ex.reps}/5`
+                                  ? `${ex.reps}/5`
                                   : "Unrated"}
                               </span>
                             </span>
