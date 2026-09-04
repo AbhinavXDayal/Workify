@@ -162,3 +162,47 @@ export function subscribeToCustomExercises(callback: () => void): () => void {
   };
 }
 
+export interface ExerciseStats {
+  weightKg: string;
+  reps: string;
+}
+
+const STATS_STORAGE_KEY = 'workify_exercise_stats';
+
+export function getExerciseStats(exerciseName: string): ExerciseStats | null {
+  if (typeof window === 'undefined') return null;
+  const trimmed = exerciseName.trim().toLowerCase();
+  if (!trimmed) return null;
+
+  try {
+    const raw = localStorage.getItem(STATS_STORAGE_KEY);
+    if (!raw) return null;
+    const data: Record<string, ExerciseStats> = JSON.parse(raw);
+    return data[trimmed] || null;
+  } catch {
+    return null;
+  }
+}
+
+export function saveExerciseStats(
+  exerciseName: string,
+  weightKg: string,
+  reps?: string
+): void {
+  if (typeof window === 'undefined') return;
+  const trimmed = exerciseName.trim().toLowerCase();
+  if (!trimmed) return;
+
+  try {
+    const raw = localStorage.getItem(STATS_STORAGE_KEY);
+    const data: Record<string, ExerciseStats> = raw ? JSON.parse(raw) : {};
+    data[trimmed] = {
+      weightKg: weightKg || '',
+      reps: reps || '',
+    };
+    localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(data));
+  } catch {
+    // Ignore storage quota errors
+  }
+}
+

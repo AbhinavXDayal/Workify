@@ -2,7 +2,11 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { WORKOUT_DAYS_CONFIG } from '../constants/workoutConfig';
-import { saveCustomExercise } from '../utils/customExercises';
+import {
+  saveCustomExercise,
+  getExerciseStats,
+  saveExerciseStats,
+} from '../utils/customExercises';
 import type {
   WorkoutDay,
   ExerciseSlotState,
@@ -329,26 +333,50 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
         const parts = cleanVal.split('.');
         const safeVal = parts.length > 2 ? `${parts[0]}.${parts.slice(1).join('')}` : cleanVal;
         next[index] = { ...next[index], weightKg: safeVal };
+
+        // Save weight to this exercise's memory cache
+        if (next[index].exerciseName) {
+          saveExerciseStats(next[index].exerciseName, safeVal, next[index].reps);
+        }
       } else if (field === 'reps') {
         const cleanVal = value.replace(/[^0-9]/g, '');
         next[index] = { ...next[index], reps: cleanVal };
-      } else {
-        let defaultWeight = next[index].weightKg;
-        let defaultReps = next[index].reps;
 
-        if (value && history.length > 0) {
-          for (const session of history) {
-            const prior = session.exercises.find(
-              (e) => e.exercise_name?.toLowerCase() === value.toLowerCase()
-            );
-            if (prior) {
-              if (prior.weight_kg !== null && !defaultWeight) {
-                defaultWeight = String(prior.weight_kg);
+        // Save reps to this exercise's memory cache
+        if (next[index].exerciseName) {
+          saveExerciseStats(next[index].exerciseName, next[index].weightKg, cleanVal);
+        }
+      } else {
+        // Field is 'exerciseName': switching exercise in this box
+        const oldExercise = next[index].exerciseName;
+        // 1. Remember the outgoing exercise's weight and reps so switching back restores them
+        if (oldExercise && next[index].weightKg) {
+          saveExerciseStats(oldExercise, next[index].weightKg, next[index].reps);
+        }
+
+        // 2. Determine weight and reps for the newly selected exercise
+        let newWeight = '';
+        let newReps = String(next[index].defaultReps);
+
+        if (value && value.trim()) {
+          const cached = getExerciseStats(value.trim());
+          if (cached) {
+            newWeight = cached.weightKg || '';
+            newReps = cached.reps || String(next[index].defaultReps);
+          } else if (history.length > 0) {
+            for (const session of history) {
+              const prior = session.exercises.find(
+                (e) => e.exercise_name?.toLowerCase() === value.trim().toLowerCase()
+              );
+              if (prior) {
+                if (prior.weight_kg !== null && prior.weight_kg !== undefined) {
+                  newWeight = String(prior.weight_kg);
+                }
+                if (prior.reps !== null && prior.reps !== undefined) {
+                  newReps = String(prior.reps);
+                }
+                break;
               }
-              if (prior.reps !== null && (!defaultReps || defaultReps === String(next[index].defaultReps))) {
-                defaultReps = String(prior.reps);
-              }
-              break;
             }
           }
         }
@@ -356,8 +384,8 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
         next[index] = {
           ...next[index],
           exerciseName: value,
-          weightKg: defaultWeight,
-          reps: defaultReps || String(next[index].defaultReps),
+          weightKg: newWeight,
+          reps: newReps,
         };
       }
 

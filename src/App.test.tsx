@@ -5,6 +5,7 @@ import {
   BACK_EXERCISE_OPTIONS,
   SPLIT_HEADER_TEXT,
 } from "./constants/workoutConfig";
+import { saveCustomExercise } from "./utils/customExercises";
 
 describe("Workout Logger Acceptance Tests", () => {
   it("renders top Split section with exactly one heading and exact text", () => {
@@ -105,6 +106,31 @@ describe("Workout Logger Acceptance Tests", () => {
     const kgInputs = screen.getAllByLabelText(/weight/i);
     fireEvent.change(kgInputs[0], { target: { value: "75" } });
     expect((kgInputs[0] as HTMLInputElement).value).toBe("75");
+  });
+
+  it("does not leak weight from one exercise to another when switching exercise in the same slot", () => {
+    saveCustomExercise("Bicep curls", "Back");
+    saveCustomExercise("Triceps", "Back");
+
+    render(<App />);
+
+    const selects = screen.getAllByRole("combobox");
+    const kgInputs = screen.getAllByLabelText(/weight/i);
+
+    // 1. Select Bicep curls in a slot
+    fireEvent.change(selects[0], { target: { value: "Bicep curls" } });
+    fireEvent.change(kgInputs[0], { target: { value: "12" } });
+    expect((kgInputs[0] as HTMLInputElement).value).toBe("12");
+
+    // 2. Switch slot to Triceps
+    fireEvent.change(selects[0], { target: { value: "Triceps" } });
+    // Weight should NOT be 12 kg for Triceps!
+    expect((kgInputs[0] as HTMLInputElement).value).toBe("");
+
+    // 3. Switch back to Bicep curls
+    fireEvent.change(selects[0], { target: { value: "Bicep curls" } });
+    // Bicep curls remembers its 12 kg!
+    expect((kgInputs[0] as HTMLInputElement).value).toBe("12");
   });
 
   it("opens and closes Auth Modal", async () => {

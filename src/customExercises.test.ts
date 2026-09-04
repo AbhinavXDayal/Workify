@@ -4,6 +4,8 @@ import {
   saveCustomExercise,
   removeCustomExercise,
   subscribeToCustomExercises,
+  getExerciseStats,
+  saveExerciseStats,
 } from './utils/customExercises';
 
 describe('Custom Exercises Synchronization & Persistence', () => {
@@ -79,6 +81,19 @@ describe('Custom Exercises Synchronization & Persistence', () => {
     expect(backRes.combined).toContain('Pull up');
     expect(backRes.combined).toContain('Barbell row');
     expect(backRes.groupExercises).toEqual(['Pull up', 'Barbell row']);
+  });
+
+  it('maintains exercise-specific weight and reps memory and isolates between exercises', () => {
+    saveExerciseStats('Bicep curls', '12', '10');
+    expect(getExerciseStats('Bicep curls')).toEqual({ weightKg: '12', reps: '10' });
+
+    // Different exercise does not have bicep curls' weight
+    expect(getExerciseStats('Tricep')).toBeNull();
+
+    // Saving stats for tricep keeps bicep curls intact
+    saveExerciseStats('Tricep', '25', '12');
+    expect(getExerciseStats('Tricep')).toEqual({ weightKg: '25', reps: '12' });
+    expect(getExerciseStats('Bicep curls')).toEqual({ weightKg: '12', reps: '10' });
   });
 });
 
