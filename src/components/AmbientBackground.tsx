@@ -152,7 +152,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
       if (variant === "light") {
         context.strokeStyle = `rgba(172, 212, 188, ${Math.min(alpha * 0.88, 0.94)})`;
       } else {
-        context.strokeStyle = `rgba(88, 130, 102, ${Math.min(alpha * 0.90, 0.96)})`;
+        context.strokeStyle = `rgba(88, 130, 102, ${Math.min(alpha * 0.9, 0.96)})`;
       }
       context.lineWidth = 0.85;
       context.stroke();
@@ -233,8 +233,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
               const lx = nodes[i].x + dx * t;
               const ly = nodes[i].y + dy * t;
               const edgeAngle = Math.atan2(dy, dx);
-              const leafSway =
-                Math.sin(timestamp * 0.0018 + i + j) * 0.12;
+              const leafSway = Math.sin(timestamp * 0.0018 + i + j) * 0.12;
 
               drawBotanicalLeaf(
                 ctx,
@@ -270,10 +269,15 @@ export const AmbientBackground: React.FC = React.memo(() => {
 
         // Dynamic botanical leaf sprouts
         if (node.sprout) {
-          const { type, stemLength, baseAngle, leafLength, leafWidth, variant } =
-            node.sprout;
-          const currentSway =
-            Math.sin(timestamp * 0.0018 + node.phase) * 0.15;
+          const {
+            type,
+            stemLength,
+            baseAngle,
+            leafLength,
+            leafWidth,
+            variant,
+          } = node.sprout;
+          const currentSway = Math.sin(timestamp * 0.0018 + node.phase) * 0.15;
           const stemAngle = baseAngle + currentSway;
 
           const tipX = node.x + Math.cos(stemAngle) * stemLength;
@@ -289,8 +293,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
 
           if (type === "pair") {
             // Two leaves sprouting from stem tip in V-shape with gentle breeze flutter
-            const flutter1 =
-              Math.sin(timestamp * 0.0024 + node.phase) * 0.07;
+            const flutter1 = Math.sin(timestamp * 0.0024 + node.phase) * 0.07;
             const flutter2 =
               Math.sin(timestamp * 0.0024 + node.phase + 1.2) * 0.07;
 
@@ -405,7 +408,13 @@ export const AmbientBackground: React.FC = React.memo(() => {
             height="32"
             patternUnits="userSpaceOnUse"
           >
-            <circle cx="16" cy="16" r="1.35" fill="#527863" fillOpacity="0.45" />
+            <circle
+              cx="16"
+              cy="16"
+              r="1.35"
+              fill="#527863"
+              fillOpacity="0.45"
+            />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#ambient-dot-matrix)" />

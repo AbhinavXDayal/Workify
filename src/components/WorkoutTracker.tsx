@@ -88,7 +88,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
       </div>
 
       {/* 2. Muscle Groups & Exercise Rows: cohesive, smooth scrollable on mobile, natural on desktop */}
-      <div className="flex-1 min-h-0 overflow-y-auto sm:overflow-visible overscroll-contain pr-0.5 pb-2 sm:pb-4 space-y-1.5 sm:space-y-3.5 custom-glass-scrollbar">
+      <div className="flex-1 min-h-0 overflow-y-auto sm:overflow-visible overscroll-contain pr-0.5 pb-5 sm:pb-8 space-y-1.5 sm:space-y-3.5 custom-glass-scrollbar">
         {groupedSlots.map((group, groupIdx) => (
           <div key={group.name} className="space-y-1 sm:space-y-1.5">
             {/* Muscle Group Title with glowing amber accent indicator */}

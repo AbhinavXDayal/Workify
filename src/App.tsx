@@ -32,12 +32,12 @@ export function App() {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] w-full max-w-full overflow-hidden sm:overflow-x-hidden sm:overflow-y-auto bg-[#1C1714] text-[#FAF5EE] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#6B5845] selection:text-[#FFFDF8]">
+    <div className="relative min-h-[100dvh] w-full max-w-full overflow-x-hidden overflow-y-auto bg-[#1C1714] text-[#FAF5EE] flex flex-col items-center pt-1.5 sm:pt-5 pb-12 sm:pb-24 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#6B5845] selection:text-[#FFFDF8]">
       {/* 1. Dynamic Ambient Background: small leaves, dot matrix, and connected moving graph */}
       <AmbientBackground />
 
       {/* Main Full-Width Content Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-1 sm:space-y-3 overflow-hidden sm:overflow-visible overscroll-contain">
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col justify-start space-y-1.5 sm:space-y-3.5">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
           <div className="liquid-glass-card border border-[#A89178]/25 rounded-2xl p-2.5 text-xs text-[#FAF5EE] flex items-start gap-2 shadow-sm shrink-0">
@@ -62,7 +62,7 @@ export function App() {
         )}
 
         {/* Unified Continuous Liquid-Glass Card: No middle section breaking the app in half */}
-        <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2.5 sm:p-5 md:p-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
+        <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2.5 sm:p-5 md:p-6 pb-4 sm:pb-8 flex flex-col transition-all duration-200">
           <SplitHeader
             user={user}
             authLoading={authLoading}
@@ -86,10 +86,10 @@ export function App() {
           />
         </div>
 
-        {/* Fixed bottom spacer of the website (expandable to user liking) */}
+        {/* Extended bottom spacer to allow generous scroll room down */}
         <footer
-          className="h-6 sm:h-8 shrink-0"
-          aria-label="Fixed website bottom space"
+          className="h-12 sm:h-20 shrink-0"
+          aria-label="Extended website bottom space"
         />
       </div>
 
