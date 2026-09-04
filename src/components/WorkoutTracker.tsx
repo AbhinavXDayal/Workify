@@ -91,10 +91,10 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
       >
         {groupedSlots.map((group, groupIdx) => (
           <div key={group.name} className="space-y-1 sm:space-y-1.5">
-            {/* Muscle Group Title with warm brown accent indicator */}
+            {/* Muscle Group Title with warm amber accent indicator */}
             <div className="flex items-center gap-1 px-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#85583D] shadow-[0_0_6px_rgba(133,88,61,0.5)]" />
-              <h3 className="text-[9px] sm:text-[10.5px] font-semibold text-[#4A3B30] tracking-wider uppercase select-none leading-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A8683D] shadow-[0_0_8px_rgba(168,104,61,0.65)]" />
+              <h3 className="text-[9px] sm:text-[10.5px] font-semibold text-[#463224] tracking-wider uppercase select-none leading-none">
                 {group.name}
               </h3>
             </div>
@@ -130,9 +130,9 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       }
                       placeholder="0"
                       aria-label="Weight (kg)"
-                      className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#382C24] font-semibold placeholder-[#998677] focus:outline-none font-mono pr-0.5"
+                      className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#2E1C12] font-semibold placeholder-[#9C8472] focus:outline-none font-mono pr-0.5"
                     />
-                    <span className="text-[9.5px] sm:text-xs text-[#7C583F] font-bold select-none shrink-0 pointer-events-none ml-0.5">
+                    <span className="text-[9.5px] sm:text-xs text-[#8A5633] font-bold select-none shrink-0 pointer-events-none ml-0.5">
                       kg
                     </span>
                   </div>
@@ -160,9 +160,9 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       }}
                       placeholder={String(slot.defaultReps)}
                       aria-label="Reps"
-                      className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#382C24] font-semibold placeholder-[#998677] focus:outline-none font-mono pr-0.5"
+                      className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#2E1C12] font-semibold placeholder-[#9C8472] focus:outline-none font-mono pr-0.5"
                     />
-                    <span className="text-[9.5px] sm:text-xs text-[#7C583F] font-bold select-none shrink-0 pointer-events-none ml-0.5">
+                    <span className="text-[9.5px] sm:text-xs text-[#8A5633] font-bold select-none shrink-0 pointer-events-none ml-0.5">
                       reps
                     </span>
                   </div>
@@ -172,7 +172,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
 
             {/* Subtle separator between muscle groups */}
             {groupIdx < groupedSlots.length - 1 && (
-              <div className="h-[1px] bg-[#382C24]/10 my-0.5 sm:my-2" />
+              <div className="h-[1px] bg-[#4A3222]/10 my-0.5 sm:my-2" />
             )}
           </div>
         ))}

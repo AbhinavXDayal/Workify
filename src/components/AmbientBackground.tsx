@@ -103,20 +103,20 @@ export const AmbientBackground: React.FC = () => {
       context.quadraticCurveTo(length * 0.45, width * 0.6, 0, 0);
       context.closePath();
 
-      // Soft luminous sage green fill
-      context.fillStyle = `rgba(132, 178, 142, ${Math.min(alpha * 0.85, 0.9)})`;
+      // Soft luminous warm amber-bronze leaf fill
+      context.fillStyle = `rgba(186, 126, 82, ${Math.min(alpha * 0.85, 0.9)})`;
       context.fill();
 
-      // Delicate outer rim stroke
-      context.strokeStyle = `rgba(172, 215, 182, ${Math.min(alpha * 0.9, 0.95)})`;
+      // Delicate golden amber outer rim stroke
+      context.strokeStyle = `rgba(224, 168, 120, ${Math.min(alpha * 0.9, 0.95)})`;
       context.lineWidth = 0.85;
       context.stroke();
 
-      // 2. Center midrib / vein (delicate lighter rib)
+      // 2. Center midrib / vein (delicate warm cream vein)
       context.beginPath();
       context.moveTo(0, 0);
       context.lineTo(length * 0.9, 0);
-      context.strokeStyle = `rgba(224, 246, 230, ${Math.min(alpha * 1.1, 1.0)})`;
+      context.strokeStyle = `rgba(252, 230, 206, ${Math.min(alpha * 1.1, 1.0)})`;
       context.lineWidth = 0.95;
       context.stroke();
 
@@ -155,7 +155,7 @@ export const AmbientBackground: React.FC = () => {
 
             // Draw edge line
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(126, 169, 132, ${alpha})`;
+            ctx.strokeStyle = `rgba(186, 128, 86, ${alpha})`;
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
             ctx.stroke();
@@ -191,7 +191,7 @@ export const AmbientBackground: React.FC = () => {
         // Node dot
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(132, 178, 142, 0.65)";
+        ctx.fillStyle = "rgba(214, 154, 106, 0.72)";
         ctx.fill();
 
         // If node has sprout: draw stem and two sprouting leaves (seedling)
@@ -205,7 +205,7 @@ export const AmbientBackground: React.FC = () => {
           ctx.beginPath();
           ctx.moveTo(node.x, node.y);
           ctx.lineTo(tipX, tipY);
-          ctx.strokeStyle = "rgba(132, 178, 142, 0.7)";
+          ctx.strokeStyle = "rgba(186, 128, 86, 0.75)";
           ctx.lineWidth = 1.1;
           ctx.stroke();
 
@@ -250,11 +250,15 @@ export const AmbientBackground: React.FC = () => {
       className="pointer-events-none fixed inset-0 w-full h-full max-w-full overflow-hidden z-0 select-none"
       aria-hidden="true"
     >
-      {/* 1. Fast GPU Radial Gradients (No heavy blur filters to avoid mobile lag) */}
-      <div className="absolute -top-24 -left-16 w-[360px] h-[350px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(91,139,103,0.12)_0%,_transparent_70%)] animate-ambient-1" />
-      <div className="absolute top-1/3 right-0 w-[340px] h-[340px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(126,169,132,0.09)_0%,_transparent_70%)] animate-ambient-2" />
+      {/* 1. Base Hazy Smoky Brown Ambient Gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,_rgba(104,62,34,0.38)_0%,_rgba(22,15,11,0.96)_100%)]" />
 
-      {/* 2. Ultra-Light Dot Matrix Grid */}
+      {/* 2. Fast GPU Hazy Amber/Mocha Radial Gradients */}
+      <div className="absolute -top-24 -left-16 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(196,126,76,0.18)_0%,_rgba(138,82,45,0.08)_45%,_transparent_70%)] animate-ambient-1" />
+      <div className="absolute top-1/3 -right-12 w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(218,154,100,0.14)_0%,_rgba(164,102,56,0.06)_50%,_transparent_70%)] animate-ambient-2" />
+      <div className="absolute -bottom-16 left-1/4 w-[340px] h-[340px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(152,92,54,0.16)_0%,_transparent_65%)] animate-ambient-3" />
+
+      {/* 3. Ultra-Light Dot Matrix Grid in Warm Amber Stardust */}
       <svg
         className="absolute inset-0 w-full h-full opacity-[0.22] animate-dot-matrix"
         xmlns="http://www.w3.org/2000/svg"
@@ -266,42 +270,42 @@ export const AmbientBackground: React.FC = () => {
             height="28"
             patternUnits="userSpaceOnUse"
           >
-            <circle cx="2" cy="2" r="1.1" fill="#7EA984" fillOpacity="0.65" />
+            <circle cx="2" cy="2" r="1.1" fill="#C48E62" fillOpacity="0.45" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#ambient-dot-matrix)" />
       </svg>
 
-      {/* 3. Smooth Connected Graph Canvas with Dynamic Botanical Leaves */}
+      {/* 4. Smooth Connected Graph Canvas with Dynamic Botanical Leaves */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full opacity-85"
       />
 
-      {/* 4. Elegant Drifting Small Leaves (GPU-composited translate3d) */}
+      {/* 5. Elegant Drifting Small Leaves in Warm Golden-Amber (GPU-composited translate3d) */}
       <div className="absolute top-[10%] left-[8%] animate-leaf-drift-1">
-        <SmallLeaf className="w-4 h-4 text-[#7EA984]/20 transform -rotate-12" />
+        <SmallLeaf className="w-4 h-4 text-[#C48E62]/24 transform -rotate-12" />
       </div>
 
       <div
         className="absolute top-[22%] right-[10%] animate-leaf-drift-2"
         style={{ animationDelay: "3.5s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#7EA984]/18 transform rotate-45" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#D49E72]/20 transform rotate-45" />
       </div>
 
       <div
         className="absolute top-[65%] left-[6%] animate-leaf-drift-3"
         style={{ animationDelay: "7s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#7EA984]/18 transform -rotate-30" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#C48E62]/20 transform -rotate-30" />
       </div>
 
       <div
         className="absolute top-[80%] right-[12%] animate-leaf-drift-1"
         style={{ animationDelay: "5s" }}
       >
-        <SmallLeaf className="w-4 h-4 text-[#7EA984]/20 transform rotate-20" />
+        <SmallLeaf className="w-4 h-4 text-[#D49E72]/22 transform rotate-20" />
       </div>
     </div>
   );
