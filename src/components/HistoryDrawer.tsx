@@ -1,5 +1,6 @@
 import React from "react";
-import { X, Calendar } from "lucide-react";
+import { Calendar, X, Star } from "lucide-react";
+import { isRatingGroup } from "../constants/workoutConfig";
 import type { WorkoutLogHistoryItem } from "../types/workout";
 
 interface HistoryDrawerProps {
@@ -77,15 +78,24 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
                         <span className="truncate pr-2 text-[#FAF5EE] font-medium">
                           {ex.exercise_name || "Exercise"}
                         </span>
-                        <div className="flex gap-3 text-[#F0B888] shrink-0 font-mono text-[11px] font-semibold">
-                          <span>
-                            {ex.weight_kg !== null
-                              ? `${ex.weight_kg} kg`
-                              : "— kg"}
-                          </span>
-                          <span>
-                            {ex.reps !== null ? `${ex.reps} reps` : "—"}
-                          </span>
+                        <div className="flex gap-3 text-[#F0B888] shrink-0 font-mono text-[11px] font-semibold items-center">
+                          {isRatingGroup(ex.muscle_group) ? (
+                            <span className="flex items-center gap-1 text-[#FFAE6B]">
+                              <Star className="w-3 h-3 fill-[#FFAE6B]" />
+                              <span>{ex.reps !== null && ex.reps > 0 ? `${ex.reps}/5` : "Unrated"}</span>
+                            </span>
+                          ) : (
+                            <>
+                              <span>
+                                {ex.weight_kg !== null
+                                  ? `${ex.weight_kg} kg`
+                                  : "— kg"}
+                              </span>
+                              <span>
+                                {ex.reps !== null ? `${ex.reps} reps` : "—"}
+                              </span>
+                            </>
+                          )}
                         </div>
                       </div>
                     ))}

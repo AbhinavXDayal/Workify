@@ -2,7 +2,8 @@ import React from "react";
 import { DaySelector } from "./DaySelector";
 import { AestheticSelect } from "./AestheticSelect";
 import { HistoryDrawer } from "./HistoryDrawer";
-import { WORKOUT_DAYS_CONFIG } from "../constants/workoutConfig";
+import { StarRatingBox } from "./StarRatingBox";
+import { WORKOUT_DAYS_CONFIG, isRatingGroup } from "../constants/workoutConfig";
 import type {
   WorkoutDay,
   ExerciseSlotState,
@@ -15,7 +16,7 @@ interface WorkoutTrackerProps {
   slots: ExerciseSlotState[];
   onUpdateSlot: (
     index: number,
-    field: "exerciseName" | "weightKg" | "reps",
+    field: "exerciseName" | "weightKg" | "reps" | "rating",
     value: string,
   ) => void;
   onSaveWorkout?: () => void;
@@ -63,9 +64,9 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             slotNumber: i,
             exerciseName: "",
             weightKg: "",
-            reps: group.hideKgReps ? "" : String(group.defaultReps),
+            reps: String(group.defaultReps),
             defaultReps: group.defaultReps,
-            hideKgReps: group.hideKgReps,
+            rating: 0,
           },
           globalIndex: -1,
         });
@@ -74,7 +75,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
     return {
       name: group.name,
       options: group.options,
-      hideKgReps: group.hideKgReps,
+      trackingType: group.trackingType,
       slots: groupSlotsWithIndex,
     };
   });
@@ -100,81 +101,99 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
 
             {/* Exercise Slots */}
             <div className="space-y-1 sm:space-y-1.5">
-              {group.slots.map(({ slot, globalIndex }) => (
-                <div
-                  key={`${slot.muscleGroup}-${slot.slotNumber}`}
-                  className="group flex items-center gap-1.5 sm:gap-3 w-full min-w-0"
-                >
-                  {/* Custom Aesthetic Dropdown with Soft Rounded Corners */}
-                  <AestheticSelect
-                    value={slot.exerciseName}
-                    onChange={(val) =>
-                      onUpdateSlot(globalIndex, "exerciseName", val)
-                    }
-                    options={group.options}
-                    placeholder={
-                      group.hideKgReps
-                        ? "Select activity"
-                        : "Select exercise"
-                    }
-                    groupName={group.name}
-                  />
+              {group.slots.map(({ slot, globalIndex }) => {
+                const isRating =
+                  group.trackingType === "stars" || isRatingGroup(group.name);
 
-                  {!group.hideKgReps && (
-                    <>
-                      {/* KG Input with inline 'kg' unit badge */}
-                      <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 hazy-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
-                        <input
-                          type="text"
-                          inputMode="decimal"
-                          pattern="[0-9]*[.]?[0-9]*"
-                          value={slot.weightKg}
-                          onFocus={(e) => e.target.select()}
-                          onChange={(e) =>
-                            onUpdateSlot(globalIndex, "weightKg", e.target.value)
-                          }
-                          placeholder="0"
-                          aria-label="Weight (kg)"
-                          className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#BFA894] focus:outline-none font-mono pr-0.5"
-                        />
-                        <span className="text-[9.5px] sm:text-xs text-[#F0B888] font-bold select-none shrink-0 pointer-events-none ml-0.5">
-                          kg
-                        </span>
-                      </div>
+                return (
+                  <div
+                    key={`${slot.muscleGroup}-${slot.slotNumber}`}
+                    className="group flex items-center gap-1.5 sm:gap-3 w-full min-w-0"
+                  >
+                    {/* Custom Aesthetic Dropdown with Soft Rounded Corners */}
+                    <AestheticSelect
+                      value={slot.exerciseName}
+                      onChange={(val) =>
+                        onUpdateSlot(globalIndex, "exerciseName", val)
+                      }
+                      options={group.options}
+                      placeholder="Select exercise"
+                      groupName={group.name}
+                    />
 
-                      {/* Reps Input with inline 'reps' unit badge inside the same box */}
-                      <div className="relative w-[62px] sm:w-24 md:w-28 h-8 sm:h-9 hazy-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
-                        <input
-                          type="text"
-                          inputMode="numeric"
-                          pattern="[0-9]*"
-                          value={slot.reps}
-                          onFocus={(e) => e.target.select()}
-                          onChange={(e) => {
-                            const raw = e.target.value;
-                            // Allow empty or partial typing
-                            if (raw === "") {
-                              onUpdateSlot(globalIndex, "reps", "");
-                              return;
+                    {isRating ? (
+                      /* Star Rating Box for cardio sports and non-weight activities */
+                      <StarRatingBox
+                        rating={
+                          slot.rating !== undefined && slot.rating > 0
+                            ? slot.rating
+                            : parseInt(slot.reps, 10) || 0
+                        }
+                        onChange={(newRating) =>
+                          onUpdateSlot(globalIndex, "rating", String(newRating))
+                        }
+                        ariaLabel={`${slot.exerciseName || group.name} rating`}
+                      />
+                    ) : (
+                      <>
+                        {/* KG Input with inline 'kg' unit badge */}
+                        <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 hazy-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
+                          <input
+                            type="text"
+                            inputMode="decimal"
+                            pattern="[0-9]*[.]?[0-9]*"
+                            value={slot.weightKg}
+                            onFocus={(e) => e.target.select()}
+                            onChange={(e) =>
+                              onUpdateSlot(
+                                globalIndex,
+                                "weightKg",
+                                e.target.value,
+                              )
                             }
-                            const num = parseInt(raw, 10);
-                            if (isNaN(num)) return;
-                            // Cap at defaultReps (10/12/15), allow lower
-                            const capped = Math.min(num, slot.defaultReps);
-                            onUpdateSlot(globalIndex, "reps", String(capped));
-                          }}
-                          placeholder={String(slot.defaultReps)}
-                          aria-label="Reps"
-                          className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#BFA894] focus:outline-none font-mono pr-0.5"
-                        />
-                        <span className="text-[9.5px] sm:text-xs text-[#F0B888] font-bold select-none shrink-0 pointer-events-none ml-0.5">
-                          reps
-                        </span>
-                      </div>
-                    </>
-                  )}
-                </div>
-              ))}
+                            placeholder="0"
+                            aria-label="Weight (kg)"
+                            className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#BFA894] focus:outline-none font-mono pr-0.5"
+                          />
+                          <span className="text-[9.5px] sm:text-xs text-[#F0B888] font-bold select-none shrink-0 pointer-events-none ml-0.5">
+                            kg
+                          </span>
+                        </div>
+
+                        {/* Reps Input with inline 'reps' unit badge inside the same box */}
+                        <div className="relative w-[62px] sm:w-24 md:w-28 h-8 sm:h-9 hazy-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
+                          <input
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            value={slot.reps}
+                            onFocus={(e) => e.target.select()}
+                            onChange={(e) => {
+                              const raw = e.target.value;
+                              // Allow empty or partial typing
+                              if (raw === "") {
+                                onUpdateSlot(globalIndex, "reps", "");
+                                return;
+                              }
+                              const num = parseInt(raw, 10);
+                              if (isNaN(num)) return;
+                              // Cap at defaultReps (10/12/15), allow lower
+                              const capped = Math.min(num, slot.defaultReps);
+                              onUpdateSlot(globalIndex, "reps", String(capped));
+                            }}
+                            placeholder={String(slot.defaultReps)}
+                            aria-label="Reps"
+                            className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#BFA894] focus:outline-none font-mono pr-0.5"
+                          />
+                          <span className="text-[9.5px] sm:text-xs text-[#F0B888] font-bold select-none shrink-0 pointer-events-none ml-0.5">
+                            reps
+                          </span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             {/* Subtle separator between muscle groups */}

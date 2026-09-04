@@ -7,16 +7,18 @@ export interface ExerciseSlotConfig {
   defaultReps: number;
 }
 
+export interface DayWorkoutGroup {
+  name: string;
+  slotsCount: number;
+  defaultReps: number;
+  options: string[];
+  trackingType?: 'reps' | 'stars';
+}
+
 export interface DayWorkoutConfig {
   id: WorkoutDay;
   label: string;
-  groups: {
-    name: string;
-    slotsCount: number;
-    defaultReps: number;
-    options: string[];
-    hideKgReps?: boolean;
-  }[];
+  groups: DayWorkoutGroup[];
 }
 
 export interface ExerciseSlotState {
@@ -26,7 +28,7 @@ export interface ExerciseSlotState {
   weightKg: string; // string representation in input, can be parsed to number or empty
   reps: string;     // string representation in input, can be parsed to number or empty
   defaultReps: number;
-  hideKgReps?: boolean;
+  rating?: number;  // 1 to 5 stars for rating-based activities
 }
 
 export interface WorkoutLogRecord {

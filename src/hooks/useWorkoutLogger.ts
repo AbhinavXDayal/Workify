@@ -29,18 +29,22 @@ function getLocalSlots(day: WorkoutDay): ExerciseSlotState[] | null {
             (p) => p.muscleGroup === d.muscleGroup && p.slotNumber === d.slotNumber
           );
           if (found) {
-            const repsVal = d.hideKgReps
-              ? ''
-              : d.muscleGroup === 'Arms' && (found.reps === '15' || !found.reps) && !found.weightKg
-                ? '12'
-                : (found.reps || String(d.defaultReps));
+            let repsVal = found.reps || String(d.defaultReps);
+            // If defaultReps is set (>0) and cached reps exceeds it (e.g. Arms was 15, now 12)
+            if (d.defaultReps > 0 && parseInt(repsVal, 10) > d.defaultReps) {
+              repsVal = String(d.defaultReps);
+            }
+            const ratingVal =
+              found.rating !== undefined && found.rating !== null
+                ? Number(found.rating)
+                : (found.reps ? parseInt(found.reps, 10) : 0);
+
             return {
               ...d,
               exerciseName: found.exerciseName || '',
-              weightKg: d.hideKgReps ? '' : (found.weightKg || ''),
+              weightKg: found.weightKg || '',
               reps: repsVal,
-              defaultReps: d.defaultReps,
-              hideKgReps: d.hideKgReps,
+              rating: Number.isFinite(ratingVal) ? ratingVal : 0,
             };
           }
           return d;
@@ -74,9 +78,9 @@ export function createDefaultSlots(day: WorkoutDay): ExerciseSlotState[] {
         slotNumber: i,
         exerciseName: '',
         weightKg: '',
-        reps: group.hideKgReps ? '' : String(group.defaultReps),
+        reps: String(group.defaultReps),
         defaultReps: group.defaultReps,
-        hideKgReps: group.hideKgReps,
+        rating: 0,
       });
     }
   });
@@ -190,7 +194,7 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
           .filter((s) => s.exerciseName && s.exerciseName.trim().length > 0)
           .map((s) => {
             const parsedKg = s.weightKg !== '' ? parseFloat(s.weightKg) : null;
-            const parsedReps = s.reps !== '' ? parseInt(s.reps, 10) : null;
+            const parsedReps = s.reps !== '' ? parseInt(s.reps, 10) : (s.rating || null);
 
             return {
               workout_log_id: logId,
@@ -311,14 +315,12 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
               return {
                 ...slot,
                 exerciseName: matchedExercise.exercise_name || slot.exerciseName,
-                weightKg: slot.hideKgReps
-                  ? ''
-                  : matchedExercise.weight_kg !== null && matchedExercise.weight_kg !== undefined
+                weightKg:
+                  matchedExercise.weight_kg !== null && matchedExercise.weight_kg !== undefined
                     ? String(matchedExercise.weight_kg)
                     : '',
-                reps: slot.hideKgReps
-                  ? ''
-                  : matchedExercise.reps !== null && matchedExercise.reps !== undefined
+                reps:
+                  matchedExercise.reps !== null && matchedExercise.reps !== undefined
                     ? String(matchedExercise.reps)
                     : String(slot.defaultReps),
               };
@@ -361,7 +363,7 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
   // Update a specific slot's field and auto-save
   const updateSlot = (
     index: number,
-    field: 'exerciseName' | 'weightKg' | 'reps',
+    field: 'exerciseName' | 'weightKg' | 'reps' | 'rating',
     value: string
   ) => {
     setSlotsByDay((prev) => {
@@ -387,23 +389,37 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
         if (next[index].exerciseName) {
           saveExerciseStats(next[index].exerciseName, next[index].weightKg, cleanVal);
         }
+      } else if (field === 'rating') {
+        const cleanRating = parseInt(value, 10) || 0;
+        next[index] = {
+          ...next[index],
+          rating: cleanRating,
+          reps: value,
+        };
+
+        // Save rating to this exercise's memory cache
+        if (next[index].exerciseName) {
+          saveExerciseStats(next[index].exerciseName, next[index].weightKg, value);
+        }
       } else {
         // Field is 'exerciseName': switching exercise in this box
         const oldExercise = next[index].exerciseName;
         // 1. Remember the outgoing exercise's weight and reps so switching back restores them
-        if (oldExercise && next[index].weightKg) {
+        if (oldExercise && (next[index].weightKg || next[index].reps)) {
           saveExerciseStats(oldExercise, next[index].weightKg, next[index].reps);
         }
 
         // 2. Determine weight and reps for the newly selected exercise
         let newWeight = '';
         let newReps = String(next[index].defaultReps);
+        let newRating = 0;
 
         if (value && value.trim()) {
           const cached = getExerciseStats(value.trim());
           if (cached) {
             newWeight = cached.weightKg || '';
             newReps = cached.reps || String(next[index].defaultReps);
+            newRating = parseInt(cached.reps, 10) || 0;
           } else if (history.length > 0) {
             for (const session of history) {
               const prior = session.exercises.find(
@@ -415,6 +431,7 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
                 }
                 if (prior.reps !== null && prior.reps !== undefined) {
                   newReps = String(prior.reps);
+                  newRating = prior.reps;
                 }
                 break;
               }
@@ -427,6 +444,7 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
           exerciseName: value,
           weightKg: newWeight,
           reps: newReps,
+          rating: newRating,
         };
       }
 

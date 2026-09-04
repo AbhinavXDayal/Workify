@@ -43,8 +43,8 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         name: 'Cardio sports / MMA',
         slotsCount: 1,
         defaultReps: 0,
+        trackingType: 'stars',
         options: [],
-        hideKgReps: true,
       },
     ],
   },
@@ -74,8 +74,8 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         name: 'Cardio sports / MMA',
         slotsCount: 1,
         defaultReps: 0,
+        trackingType: 'stars',
         options: [],
-        hideKgReps: true,
       },
     ],
   },
@@ -86,16 +86,15 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
       {
         name: 'Calisthenics',
         slotsCount: 3,
-        defaultReps: 0,
+        defaultReps: 10, // Big muscles = 10
         options: [],
-        hideKgReps: true,
       },
       {
         name: 'Self defence w tools',
         slotsCount: 2,
         defaultReps: 0,
+        trackingType: 'stars',
         options: [],
-        hideKgReps: true,
       },
       {
         name: 'Neck',
@@ -107,10 +106,24 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         name: 'Long run',
         slotsCount: 1,
         defaultReps: 0,
+        trackingType: 'stars',
         options: [],
-        hideKgReps: true,
       },
     ],
   },
 };
+
+/**
+ * Checks if a workout group uses a star rating rather than KG and Reps
+ */
+export function isRatingGroup(groupName: string): boolean {
+  const normalized = groupName.toLowerCase();
+  return (
+    normalized.includes('cardio') ||
+    normalized.includes('mma') ||
+    normalized.includes('run') ||
+    normalized.includes('self defence')
+  );
+}
+
 
