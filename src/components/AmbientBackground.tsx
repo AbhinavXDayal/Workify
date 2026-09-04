@@ -391,13 +391,10 @@ export const AmbientBackground: React.FC = React.memo(() => {
       {/* 1. Base Hazy Dark Obsidian & Forest Gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_65%_at_50%_-10%,_#131F17_0%,_#0C120E_50%,_#080C0A_100%)]" />
 
-      {/* Atmospheric Haze Mist Layer */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_35%,_rgba(42,96,65,0.14)_0%,_transparent_75%)] pointer-events-none" />
-
-      {/* 2. Fast GPU Emerald/Sage Radial Ambient Glows with hazy atmospheric bloom */}
-      <div className="absolute -top-24 -left-16 w-[460px] h-[460px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(68,148,102,0.16)_0%,_rgba(35,85,55,0.05)_45%,_transparent_70%)] animate-ambient-1 blur-[32px]" />
-      <div className="absolute top-1/3 -right-12 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(62,142,96,0.13)_0%,_rgba(30,75,48,0.04)_50%,_transparent_70%)] animate-ambient-2 blur-[36px]" />
-      <div className="absolute -bottom-16 left-1/4 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(48,115,75,0.15)_0%,_transparent_65%)] animate-ambient-3 blur-[30px]" />
+      {/* 2. Soft Diffuse Hazy Ambient Glows */}
+      <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(62,125,88,0.09)_0%,_rgba(35,75,52,0.03)_45%,_transparent_70%)] animate-ambient-1" />
+      <div className="absolute top-1/3 -right-12 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(62,125,88,0.07)_0%,_rgba(30,65,45,0.02)_50%,_transparent_70%)] animate-ambient-2" />
+      <div className="absolute -bottom-16 left-1/4 w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(45,95,68,0.08)_0%,_transparent_65%)] animate-ambient-3" />
 
       {/* 3. Crisp Background Dot Matrix Grid */}
       <svg

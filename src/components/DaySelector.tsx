@@ -26,7 +26,7 @@ export const DaySelector: React.FC<DaySelectorProps> = ({
             onClick={() => onSelectDay(dayKey)}
             className={`py-1 sm:py-1.5 px-1 sm:px-3 rounded-lg sm:rounded-xl text-[11px] sm:text-xs transition-all duration-150 text-center cursor-pointer select-none border ${
               isActive
-                ? "bg-gradient-to-b from-[#2d563e] to-[#1d3a2a] border-[#55a072]/80 text-[#FFFFFF] shadow-[0_2px_12px_rgba(20,60,35,0.5),inset_0_1px_1px_rgba(255,255,255,0.18)] font-bold"
+                ? "bg-[#244230] border-[#437A56]/80 text-[#FFFFFF] shadow-sm font-bold"
                 : "bg-transparent border-transparent text-[#8FA898] hover:text-[#FFFFFF] hover:bg-white/5 active:scale-[0.98] font-medium"
             }`}
           >
