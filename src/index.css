@@ -54,8 +54,8 @@ body {
     rgba(112, 76, 50, 0.75) 45%,
     rgba(86, 54, 34, 0.82) 100%
   );
-  backdrop-filter: blur(28px) saturate(190%) contrast(105%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(105%);
+  backdrop-filter: blur(20px) saturate(180%) contrast(102%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%) contrast(102%);
   border: 1px solid rgba(224, 180, 144, 0.35);
   border-top: 1.5px solid rgba(255, 238, 220, 0.65);
   border-left: 1.5px solid rgba(255, 238, 220, 0.45);
@@ -64,6 +64,7 @@ body {
     inset 0 -2px 3px 0 rgba(35, 18, 8, 0.55),
     0 25px 60px -12px rgba(16, 8, 4, 0.75),
     0 0 45px -5px rgba(186, 122, 70, 0.18);
+  transform: translateZ(0);
 }
 
 :where(.liquid-glass-card) {

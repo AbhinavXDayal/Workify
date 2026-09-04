@@ -20,8 +20,8 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
 }) => {
   return (
     <div className="w-full max-w-full transition-all duration-200 shrink-0">
-      {/* Header Bar: Title on left, Actions & Account on right */}
-      <div className="flex items-center justify-between gap-2 pb-1 sm:pb-1.5 border-b border-[#D4A37C]/15 min-w-0">
+      {/* Header Bar: Title on left, Graph button in middle, Account pill on right */}
+      <div className="flex items-center justify-between gap-2 pb-1 sm:pb-1.5 border-b border-white/15 min-w-0">
         <a
           href="https://github.com/AbhinavXDayal/Workify"
           target="_blank"
@@ -31,7 +31,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
           <img
             src="/workify-logo.jpg"
             alt="Workify Logo"
-            className="w-5 h-5 sm:w-7 sm:h-7 rounded-md object-cover shadow-xs border border-[#D4A37C]/20"
+            className="w-5 h-5 sm:w-7 sm:h-7 rounded-md object-cover shadow-xs border border-white/20"
           />
           <h1 className="inline">{SPLIT_HEADER_TEXT.title}</h1>
           <svg
@@ -43,84 +43,82 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
           </svg>
         </a>
 
-        {/* Right Actions: Graph button next to Sign Out / Sign In */}
-        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          {onOpenProgressRadar && (
-            <button
-              type="button"
-              onClick={onOpenProgressRadar}
-              title="Workout Progress Radar & Progressive Overload"
-              aria-label="Workout Progress Radar"
-              className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-white text-[10.5px] sm:text-xs font-semibold liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 group shadow-xs"
+        {/* Graph Button in between Workify and Gmail/Account button */}
+        {onOpenProgressRadar && (
+          <button
+            type="button"
+            onClick={onOpenProgressRadar}
+            title="Workout Progress Radar & Progressive Overload"
+            aria-label="Workout Progress Radar"
+            className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-white text-[11px] sm:text-xs font-semibold liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 group shadow-xs border border-white/25"
+          >
+            {/* Spider Web / Radar SVG Icon */}
+            <svg
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FFAE6B] transition-transform duration-200 group-hover:scale-110"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              {/* Spider Web / Radar SVG Icon */}
-              <svg
-                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FFAE6B] transition-transform duration-200 group-hover:scale-110"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="9"
-                  strokeDasharray="3 3"
-                  opacity="0.6"
-                />
-                <path d="M12 3v18" opacity="0.6" />
-                <path d="M3 12h18" opacity="0.6" />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="5"
-                  strokeDasharray="2 2"
-                  opacity="0.8"
-                />
-                <polygon
-                  points="12 6 16.5 9.5 15.5 15 12 17.5 8.5 15 7.5 9.5"
-                  fill="#FFAE6B"
-                  fillOpacity="0.4"
-                  stroke="#FFAE6B"
-                  strokeWidth="1.5"
-                />
-              </svg>
-              <span className="hidden xs:inline sm:inline">Progress</span>
-            </button>
-          )}
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+                strokeDasharray="3 3"
+                opacity="0.6"
+              />
+              <path d="M12 3v18" opacity="0.6" />
+              <path d="M3 12h18" opacity="0.6" />
+              <circle
+                cx="12"
+                cy="12"
+                r="5"
+                strokeDasharray="2 2"
+                opacity="0.8"
+              />
+              <polygon
+                points="12 6 16.5 9.5 15.5 15 12 17.5 8.5 15 7.5 9.5"
+                fill="#FFAE6B"
+                fillOpacity="0.4"
+                stroke="#FFAE6B"
+                strokeWidth="1.5"
+              />
+            </svg>
+            <span className="hidden xs:inline sm:inline">Progress</span>
+          </button>
+        )}
 
-          {/* User Account / Sign In */}
+        {/* User Account / Sign In embedded inside Workify section */}
+        <div className="flex items-center">
           {!authLoading && (
             <>
-              {user ? (
-                onSignOut && (
-                  <button
-                    type="button"
-                    onClick={onSignOut}
-                    title={`Signed in as ${user.email}. Click to sign out.`}
-                    aria-label="Sign out"
-                    className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-[#FFAE6B] text-[10px] sm:text-[11px] font-medium liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 shadow-xs group"
-                  >
-                    <LogOut className="w-3 h-3 text-[#F0B888] group-hover:text-[#FFAE6B] transition-transform duration-200 group-hover:scale-110" />
-                    <span className="text-[10px] sm:text-[11px] font-medium tracking-tight">
-                      sign out
-                    </span>
-                  </button>
-                )
-              ) : (
-                onOpenAuth && (
-                  <button
-                    type="button"
-                    onClick={onOpenAuth}
-                    className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-white text-[11px] sm:text-xs font-semibold liquid-glass-pill px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full transition-all duration-150 cursor-pointer active:scale-95"
-                  >
-                    <UserIcon className="w-3 h-3 text-[#F0B888]" />
-                    <span>Sign In</span>
-                  </button>
-                )
-              )}
+              {user
+                ? onSignOut && (
+                    <button
+                      type="button"
+                      onClick={onSignOut}
+                      title={`Signed in as ${user.email}. Click to sign out.`}
+                      aria-label="Sign out"
+                      className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-[#FFAE6B] text-[10px] sm:text-[11px] font-medium liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-white/25 shadow-xs group"
+                    >
+                      <LogOut className="w-3 h-3 text-[#F0B888] group-hover:text-[#FFAE6B] transition-transform duration-200 group-hover:scale-110" />
+                      <span className="text-[10px] sm:text-[11px] font-medium tracking-tight">
+                        sign out
+                      </span>
+                    </button>
+                  )
+                : onOpenAuth && (
+                    <button
+                      type="button"
+                      onClick={onOpenAuth}
+                      className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-white text-[11px] sm:text-xs font-semibold liquid-glass-pill px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full transition-all duration-150 cursor-pointer active:scale-95"
+                    >
+                      <UserIcon className="w-3 h-3 text-[#F0B888]" />
+                      <span>Sign In</span>
+                    </button>
+                  )}
             </>
           )}
         </div>
@@ -146,7 +144,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         </div>
 
         {/* Thin separator line */}
-        <hr className="border-[#D4A37C]/12 my-0.5 sm:my-1" />
+        <hr className="border-white/15 my-0.5 sm:my-1" />
 
         {/* Sets and reps guidelines */}
         <p className="text-[#FFFDF8] text-[10.5px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">

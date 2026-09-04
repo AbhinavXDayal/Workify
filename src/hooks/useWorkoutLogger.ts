@@ -77,9 +77,15 @@ export function createDefaultSlots(day: WorkoutDay): ExerciseSlotState[] {
 }
 
 export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
-  const [slots, setSlots] = useState<ExerciseSlotState[]>(() =>
-    getLocalSlots(activeDay) || createDefaultSlots(activeDay)
-  );
+  // Store all 3 days in memory so switching days is 100% instantaneous with 0ms latency
+  const [slotsByDay, setSlotsByDay] = useState<Record<WorkoutDay, ExerciseSlotState[]>>(() => ({
+    mon_thu: getLocalSlots('mon_thu') || createDefaultSlots('mon_thu'),
+    tue_fri: getLocalSlots('tue_fri') || createDefaultSlots('tue_fri'),
+    wed: getLocalSlots('wed') || createDefaultSlots('wed'),
+  }));
+
+  const slots = slotsByDay[activeDay] || [];
+
   const [status, setStatus] = useState<SaveStatus>('saved');
   const [statusMessage, setStatusMessage] = useState<string>('Auto-saved');
   const [loadingInitialData, setLoadingInitialData] = useState<boolean>(false);
@@ -91,14 +97,20 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isSwitchingDayRef = useRef<boolean>(false);
 
-  // Ensure any exercises present in slots are preserved in dropdown options for that muscle group
+  // Seed custom exercises once on mount across all saved days
   useEffect(() => {
-    slots.forEach((s) => {
-      if (s.exerciseName && s.exerciseName.trim()) {
-        saveCustomExercise(s.exerciseName.trim(), s.muscleGroup);
+    const days: WorkoutDay[] = ['mon_thu', 'tue_fri', 'wed'];
+    days.forEach((d) => {
+      const saved = getLocalSlots(d);
+      if (saved) {
+        saved.forEach((s) => {
+          if (s.exerciseName && s.exerciseName.trim()) {
+            saveCustomExercise(s.exerciseName.trim(), s.muscleGroup);
+          }
+        });
       }
     });
-  }, [slots]);
+  }, []);
 
   // Auto-save routine to Supabase and LocalStorage
   const saveWorkout = useCallback(
@@ -213,7 +225,10 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
     const local = getLocalSlots(activeDay);
 
     if (!isSupabaseConfigured() || !user) {
-      setSlots(local || createDefaultSlots(activeDay));
+      setSlotsByDay((prev) => ({
+        ...prev,
+        [activeDay]: local || createDefaultSlots(activeDay),
+      }));
       setHistory([]);
       setTimeout(() => {
         isSwitchingDayRef.current = false;
@@ -249,7 +264,10 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
 
       if (logsError) {
         console.error('Failed to fetch workout logs:', logsError);
-        setSlots(local || createDefaultSlots(activeDay));
+        setSlotsByDay((prev) => ({
+          ...prev,
+          [activeDay]: local || createDefaultSlots(activeDay),
+        }));
         return;
       }
 
@@ -266,7 +284,10 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
 
         // If local data exists and is newer, prefer local; otherwise use latest cloud log
         if (local) {
-          setSlots(local);
+          setSlotsByDay((prev) => ({
+            ...prev,
+            [activeDay]: local,
+          }));
         } else {
           const latestLog = formattedHistory[0];
           const defaultSlots = createDefaultSlots(activeDay);
@@ -295,16 +316,25 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
             return slot;
           });
 
-          setSlots(mergedSlots);
+          setSlotsByDay((prev) => ({
+            ...prev,
+            [activeDay]: mergedSlots,
+          }));
           setLocalSlots(activeDay, mergedSlots);
         }
       } else {
-        setSlots(local || createDefaultSlots(activeDay));
+        setSlotsByDay((prev) => ({
+          ...prev,
+          [activeDay]: local || createDefaultSlots(activeDay),
+        }));
         setHistory([]);
       }
     } catch (err) {
       console.error('Error in loadDayData:', err);
-      setSlots(local || createDefaultSlots(activeDay));
+      setSlotsByDay((prev) => ({
+        ...prev,
+        [activeDay]: local || createDefaultSlots(activeDay),
+      }));
     } finally {
       setLoadingInitialData(false);
       setTimeout(() => {
@@ -324,8 +354,9 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
     field: 'exerciseName' | 'weightKg' | 'reps',
     value: string
   ) => {
-    setSlots((prev) => {
-      const next = [...prev];
+    setSlotsByDay((prev) => {
+      const currentDaySlots = prev[activeDay] || createDefaultSlots(activeDay);
+      const next = [...currentDaySlots];
       if (!next[index]) return prev;
 
       if (field === 'weightKg') {
@@ -405,14 +436,20 @@ export function useWorkoutLogger(activeDay: WorkoutDay, user: User | null) {
         }, 500);
       }
 
-      return next;
+      return {
+        ...prev,
+        [activeDay]: next,
+      };
     });
   };
 
   // Clear current input fields (maintained as a helper)
   const clearEntries = () => {
     const blank = createDefaultSlots(activeDay);
-    setSlots(blank);
+    setSlotsByDay((prev) => ({
+      ...prev,
+      [activeDay]: blank,
+    }));
     setLocalSlots(activeDay, blank);
     saveWorkout(blank);
   };

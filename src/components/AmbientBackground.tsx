@@ -24,7 +24,7 @@ const SmallLeaf: React.FC<{
   </svg>
 );
 
-export const AmbientBackground: React.FC = () => {
+export const AmbientBackground: React.FC = React.memo(() => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -39,11 +39,10 @@ export const AmbientBackground: React.FC = () => {
     }
     if (!ctx) return;
 
-    let animationFrameId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Highly optimized node count for buttery mobile performance
+    // Optimized node count for buttery-smooth performance
     const isMobile = width < 768;
     const nodeCount = isMobile ? 14 : 24;
     const maxDistance = isMobile ? 95 : 125;
@@ -53,33 +52,22 @@ export const AmbientBackground: React.FC = () => {
       hasSprout: boolean;
       sproutAngle: number;
       stemLength: number;
-      phase: number;
     }
 
     const nodes: LeafGraphNode[] = [];
     for (let i = 0; i < nodeCount; i++) {
-      // Designate ~25% of nodes to have a seedling/leaf pair sprout
       const hasSprout = i % 4 === 0;
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.32,
-        vy: (Math.random() - 0.5) * 0.32,
+        vx: 0,
+        vy: 0,
         radius: Math.random() * 0.6 + 1.2,
         hasSprout,
-        sproutAngle: Math.random() * 0.8 - 0.4 - Math.PI / 2, // pointing generally upward
+        sproutAngle: Math.random() * 0.8 - 0.4 - Math.PI / 2,
         stemLength: Math.random() * 6 + 14,
-        phase: Math.random() * Math.PI * 2,
       });
     }
-
-    const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener("resize", handleResize, { passive: true });
 
     // Draw an organic almond/pointed leaf matching reference image
     const drawBotanicalLeaf = (
@@ -88,7 +76,7 @@ export const AmbientBackground: React.FC = () => {
       y: number,
       angle: number,
       length: number,
-      width: number,
+      leafWidth: number,
       alpha: number,
     ) => {
       if (alpha <= 0.02) return;
@@ -99,8 +87,8 @@ export const AmbientBackground: React.FC = () => {
       // 1. Leaf body (almond/oval pointed curve)
       context.beginPath();
       context.moveTo(0, 0);
-      context.quadraticCurveTo(length * 0.45, -width * 0.6, length, 0);
-      context.quadraticCurveTo(length * 0.45, width * 0.6, 0, 0);
+      context.quadraticCurveTo(length * 0.45, -leafWidth * 0.6, length, 0);
+      context.quadraticCurveTo(length * 0.45, leafWidth * 0.6, 0, 0);
       context.closePath();
 
       // Soft luminous warm amber-bronze leaf fill
@@ -123,24 +111,11 @@ export const AmbientBackground: React.FC = () => {
       context.restore();
     };
 
-    let time = 0;
-
-    // 60fps high-efficiency rendering
-    const render = () => {
-      time += 0.018;
+    const drawConstellation = () => {
+      if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Move nodes
-      for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
-        node.x += node.vx;
-        node.y += node.vy;
-
-        if (node.x < 0 || node.x > width) node.vx *= -1;
-        if (node.y < 0 || node.y > height) node.vy *= -1;
-      }
-
-      // 2. Draw connecting edges and attached leaves along edges
+      // 1. Draw connecting edges and attached leaves along edges
       ctx.lineWidth = 0.8;
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
@@ -160,8 +135,7 @@ export const AmbientBackground: React.FC = () => {
             ctx.lineTo(nodes[j].x, nodes[j].y);
             ctx.stroke();
 
-            // Place leaves along certain edges (e.g. deterministic pair hash)
-            // Leaves stay attached as nodes move!
+            // Place leaves along certain edges
             const isLeafEdge = (i * 7 + j * 11) % 4 === 0;
             if (isLeafEdge && edgeRatio > 0.18) {
               const leafT = 0.48; // placed near midpoint
@@ -184,7 +158,7 @@ export const AmbientBackground: React.FC = () => {
         }
       }
 
-      // 3. Draw node dots & sprout leaf pairs
+      // 2. Draw node dots & sprout leaf pairs
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
 
@@ -196,8 +170,7 @@ export const AmbientBackground: React.FC = () => {
 
         // If node has sprout: draw stem and two sprouting leaves (seedling)
         if (node.hasSprout) {
-          const sway = Math.sin(time + node.phase) * 0.1;
-          const currentStemAngle = node.sproutAngle + sway;
+          const currentStemAngle = node.sproutAngle;
           const tipX = node.x + Math.cos(currentStemAngle) * node.stemLength;
           const tipY = node.y + Math.sin(currentStemAngle) * node.stemLength;
 
@@ -233,15 +206,21 @@ export const AmbientBackground: React.FC = () => {
           );
         }
       }
-
-      animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    drawConstellation();
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      drawConstellation();
+    };
+
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -309,4 +288,6 @@ export const AmbientBackground: React.FC = () => {
       </div>
     </div>
   );
-};
+});
+
+AmbientBackground.displayName = "AmbientBackground";
