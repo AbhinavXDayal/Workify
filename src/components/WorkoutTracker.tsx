@@ -92,9 +92,9 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         {groupedSlots.map((group, groupIdx) => (
           <div key={group.name} className="space-y-1 sm:space-y-1.5">
             {/* Muscle Group Title with warm brown accent indicator */}
-            <div className="flex items-center gap-1.5 px-1">
+            <div className="flex items-center gap-1 px-1">
               <span className="w-1.5 h-1.5 rounded-full bg-[#85583D] shadow-[0_0_6px_rgba(133,88,61,0.5)]" />
-              <h3 className="text-[10px] sm:text-xs font-bold text-[#382C24] tracking-wider uppercase select-none">
+              <h3 className="text-[9px] sm:text-[10.5px] font-semibold text-[#4A3B30] tracking-wider uppercase select-none leading-none">
                 {group.name}
               </h3>
             </div>
