@@ -94,9 +94,9 @@ describe("Workout Logger Acceptance Tests", () => {
     fireEvent.change(kgInputs[0], { target: { value: "62.5" } });
     expect((kgInputs[0] as HTMLInputElement).value).toBe("62.5");
 
-    // Edit first Reps input
-    fireEvent.change(repsInputs[0], { target: { value: "11" } });
-    expect((repsInputs[0] as HTMLInputElement).value).toBe("11");
+    // Edit first Reps input (capped at defaultReps=10 for Back)
+    fireEvent.change(repsInputs[0], { target: { value: "8" } });
+    expect((repsInputs[0] as HTMLInputElement).value).toBe("8");
   });
 
   it("persists slot updates automatically across sessions", () => {

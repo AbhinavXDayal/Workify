@@ -1,4 +1,5 @@
 import React from "react";
+import { ChevronUp, ChevronDown } from "lucide-react";
 import { DaySelector } from "./DaySelector";
 import { AestheticSelect } from "./AestheticSelect";
 import { HistoryDrawer } from "./HistoryDrawer";
@@ -117,24 +118,54 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                     groupName={group.name}
                   />
 
-                  {/* KG Input with inline 'kg' unit badge inside the same box */}
-                  <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
-                    <input
-                      type="text"
-                      inputMode="decimal"
-                      pattern="[0-9]*[.]?[0-9]*"
-                      value={slot.weightKg}
-                      onFocus={(e) => e.target.select()}
-                      onChange={(e) =>
-                        onUpdateSlot(globalIndex, "weightKg", e.target.value)
-                      }
-                      placeholder="0"
-                      aria-label="Weight (kg)"
-                      className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#382C24] font-semibold placeholder-[#998677] focus:outline-none font-mono pr-0.5"
-                    />
-                    <span className="text-[9.5px] sm:text-xs text-[#7C583F] font-bold select-none shrink-0 pointer-events-none ml-0.5">
-                      kg
-                    </span>
+                  {/* KG Input with inline 'kg' unit badge + stepper arrows */}
+                  <div className="flex items-center gap-0.5 shrink-0">
+                    <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono cursor-text">
+                      <input
+                        type="text"
+                        inputMode="decimal"
+                        pattern="[0-9]*[.]?[0-9]*"
+                        value={slot.weightKg}
+                        onFocus={(e) => e.target.select()}
+                        onChange={(e) =>
+                          onUpdateSlot(globalIndex, "weightKg", e.target.value)
+                        }
+                        placeholder="0"
+                        aria-label="Weight (kg)"
+                        className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#382C24] font-semibold placeholder-[#998677] focus:outline-none font-mono pr-0.5"
+                      />
+                      <span className="text-[9.5px] sm:text-xs text-[#7C583F] font-bold select-none shrink-0 pointer-events-none ml-0.5">
+                        kg
+                      </span>
+                    </div>
+                    {/* Stepper arrows: random +1 or +2 kg */}
+                    <div className="flex flex-col gap-0 shrink-0">
+                      <button
+                        type="button"
+                        aria-label="Increase weight"
+                        onClick={() => {
+                          const current = parseFloat(slot.weightKg) || 0;
+                          const step = Math.random() < 0.5 ? 1 : 2;
+                          onUpdateSlot(globalIndex, "weightKg", String(current + step));
+                        }}
+                        className="p-0 w-4 h-3.5 sm:w-5 sm:h-4 flex items-center justify-center rounded-t-md text-[#7C583F] hover:text-[#382C24] hover:bg-white/50 active:scale-90 transition-all cursor-pointer"
+                      >
+                        <ChevronUp className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="Decrease weight"
+                        onClick={() => {
+                          const current = parseFloat(slot.weightKg) || 0;
+                          const step = Math.random() < 0.5 ? 1 : 2;
+                          const next = Math.max(0, current - step);
+                          onUpdateSlot(globalIndex, "weightKg", String(next));
+                        }}
+                        className="p-0 w-4 h-3.5 sm:w-5 sm:h-4 flex items-center justify-center rounded-b-md text-[#7C583F] hover:text-[#382C24] hover:bg-white/50 active:scale-90 transition-all cursor-pointer"
+                      >
+                        <ChevronDown className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                      </button>
+                    </div>
                   </div>
 
                   {/* Reps Input with inline 'reps' unit badge inside the same box */}
@@ -145,9 +176,19 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       pattern="[0-9]*"
                       value={slot.reps}
                       onFocus={(e) => e.target.select()}
-                      onChange={(e) =>
-                        onUpdateSlot(globalIndex, "reps", e.target.value)
-                      }
+                      onChange={(e) => {
+                        const raw = e.target.value;
+                        // Allow empty or partial typing
+                        if (raw === '') {
+                          onUpdateSlot(globalIndex, "reps", '');
+                          return;
+                        }
+                        const num = parseInt(raw, 10);
+                        if (isNaN(num)) return;
+                        // Cap at defaultReps (10/12/15), allow lower
+                        const capped = Math.min(num, slot.defaultReps);
+                        onUpdateSlot(globalIndex, "reps", String(capped));
+                      }}
                       placeholder={String(slot.defaultReps)}
                       aria-label="Reps"
                       className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#382C24] font-semibold placeholder-[#998677] focus:outline-none font-mono pr-0.5"
