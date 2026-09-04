@@ -92,14 +92,14 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
       {/* 2. Muscle Groups & Exercise Rows: cohesive, non-scrollable on mobile, natural on desktop */}
       <div
         className={`flex-1 min-h-0 overflow-y-auto sm:overflow-visible overscroll-contain pr-0.5 pb-0.5 sm:pb-3 custom-glass-scrollbar ${
-          isWed ? "space-y-1 sm:space-y-3" : "space-y-2 sm:space-y-3"
+          isWed ? "space-y-1 sm:space-y-3" : "space-y-1.5 sm:space-y-3"
         }`}
       >
         {groupedSlots.map((group, groupIdx) => (
           <div
             key={group.name}
             className={
-              isWed ? "space-y-0.5 sm:space-y-1.5" : "space-y-1.5 sm:space-y-2"
+              isWed ? "space-y-0.5 sm:space-y-1.5" : "space-y-1 sm:space-y-2"
             }
           >
             {/* Muscle Group Title with glowing amber accent indicator */}
@@ -119,7 +119,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
               className={
                 isWed
                   ? "space-y-0.5 sm:space-y-1.5"
-                  : "space-y-1.5 sm:space-y-2"
+                  : "space-y-1 sm:space-y-2"
               }
             >
               {group.slots.map(({ slot, globalIndex }) => (
@@ -159,7 +159,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       {/* KG Input with inline 'kg' unit badge */}
                       <div
                         className={`relative w-[58px] sm:w-24 md:w-28 ${
-                          isWed ? "h-[31px] sm:h-9" : "h-[35px] sm:h-9"
+                          isWed ? "h-[31px] sm:h-9" : "h-[34px] sm:h-9"
                         } liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text`}
                       >
                         <input
@@ -187,7 +187,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       {/* Reps Input with inline 'reps' unit badge inside the same box */}
                       <div
                         className={`relative w-[64px] sm:w-24 md:w-28 ${
-                          isWed ? "h-[31px] sm:h-9" : "h-[35px] sm:h-9"
+                          isWed ? "h-[31px] sm:h-9" : "h-[34px] sm:h-9"
                         } liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text`}
                       >
                         <input
@@ -227,7 +227,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             {groupIdx < groupedSlots.length - 1 && (
               <div
                 className={`h-[1px] bg-[#A89178]/15 ${
-                  isWed ? "my-0.5 sm:my-2" : "my-1.5 sm:my-2"
+                  isWed ? "my-0.5 sm:my-2" : "my-1 sm:my-2"
                 }`}
               />
             )}

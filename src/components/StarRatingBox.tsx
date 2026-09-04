@@ -23,7 +23,7 @@ export const StarRatingBox: React.FC<StarRatingBoxProps> = ({
       role="radiogroup"
       aria-label={ariaLabel}
       className={`relative w-[124px] sm:w-[204px] md:w-[236px] ${
-        compact ? "h-[31px] sm:h-9" : "h-[35px] sm:h-9"
+        compact ? "h-[31px] sm:h-9" : "h-[34px] sm:h-9"
       } hazy-input rounded-xl sm:rounded-2xl flex items-center justify-center gap-1 sm:gap-2 px-1.5 sm:px-2 shrink-0 select-none transition-all duration-150`}
       onMouseLeave={() => setHoveredRating(null)}
     >

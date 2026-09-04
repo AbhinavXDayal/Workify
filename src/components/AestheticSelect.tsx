@@ -219,7 +219,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
         className={`w-full min-w-0 flex items-center justify-between liquid-glass-input rounded-xl sm:rounded-2xl px-2.5 text-xs sm:text-sm text-[#FAF5EE] transition-all duration-150 cursor-pointer text-left group active:scale-[0.99] ${
           compact
             ? "min-h-[31px] sm:min-h-[38px] py-1 sm:py-2"
-            : "min-h-[35px] sm:min-h-[38px] py-1.5 sm:py-2"
+            : "min-h-[34px] sm:min-h-[38px] py-1 sm:py-2"
         }`}
       >
         <span
