@@ -82,7 +82,11 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
                           {isRatingGroup(ex.muscle_group) ? (
                             <span className="flex items-center gap-1 text-[#BA9F7F]">
                               <Star className="w-3 h-3 fill-[#BA9F7F]" />
-                              <span>{ex.reps !== null && ex.reps > 0 ? `${ex.reps}/5` : "Unrated"}</span>
+                              <span>
+                                {ex.reps !== null && ex.reps > 0
+                                  ? `${ex.reps}/5`
+                                  : "Unrated"}
+                              </span>
                             </span>
                           ) : (
                             <>
