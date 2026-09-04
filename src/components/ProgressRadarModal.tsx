@@ -57,18 +57,18 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-3 sm:p-4 backdrop-blur-lg animate-in fade-in duration-200">
-      <div className="liquid-glass-card rounded-3xl w-full max-w-xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden border border-white/25">
+      <div className="liquid-glass-card rounded-3xl w-full max-w-xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden border border-[#BF7839]/25">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-white/15 shrink-0">
+        <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-[#BF7839]/15 shrink-0">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-xl bg-white/15 border border-white/25 shadow-xs">
-              <Sparkles className="w-4 h-4 text-[#FFAE6B]" />
+            <div className="p-1.5 rounded-xl bg-white/10 border border-[#BF7839]/25 shadow-xs">
+              <Sparkles className="w-4 h-4 text-[#DE8F46]" />
             </div>
             <div>
               <h2 className="text-sm sm:text-base font-bold text-[#FFFDF8] tracking-tight">
                 Workout Progress Radar
               </h2>
-              <p className="text-[11px] text-[#DDCBB8]">
+              <p className="text-[11px] text-[#C5B09E]">
                 Spider web overview & progressive overload balance
               </p>
             </div>
@@ -76,7 +76,7 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#D4BEA8] hover:text-[#FFFFFF] hover:bg-white/15 transition-colors active:scale-95 cursor-pointer"
+            className="p-1.5 rounded-full text-[#A8917F] hover:text-[#FFFFFF] hover:bg-white/10 transition-colors active:scale-95 cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-4 h-4" />
@@ -101,9 +101,9 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
                   fx="50%"
                   fy="50%"
                 >
-                  <stop offset="0%" stopColor="#FFAE6B" stopOpacity="0.55" />
-                  <stop offset="70%" stopColor="#D48E58" stopOpacity="0.35" />
-                  <stop offset="100%" stopColor="#8C5228" stopOpacity="0.18" />
+                  <stop offset="0%" stopColor="#DE8F46" stopOpacity="0.55" />
+                  <stop offset="70%" stopColor="#BF7839" stopOpacity="0.35" />
+                  <stop offset="100%" stopColor="#7A451C" stopOpacity="0.18" />
                 </radialGradient>
                 <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                   <feGaussianBlur stdDeviation="3" result="blur" />
@@ -152,7 +152,7 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
               <polygon
                 points={dataPolygonPoints}
                 fill="url(#radarGradient)"
-                stroke="#FFAE6B"
+                stroke="#DE8F46"
                 strokeWidth="2.5"
                 filter="url(#glow)"
                 className="transition-all duration-300"
@@ -163,7 +163,7 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
                 cx={center}
                 cy={center}
                 r="3"
-                fill="#FFAE6B"
+                fill="#DE8F46"
                 opacity="0.8"
               />
 
@@ -181,7 +181,7 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
                       cy={dataCoord.y}
                       r={isSelected ? 6 : 4}
                       fill={isSelected ? "#FFFFFF" : "#FFFDF8"}
-                      stroke="#FFAE6B"
+                      stroke="#DE8F46"
                       strokeWidth={isSelected ? 2.5 : 1.5}
                       className="cursor-pointer transition-all duration-150"
                       onClick={() => setSelectedAxis(axis)}
@@ -196,8 +196,8 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
                       onClick={() => setSelectedAxis(axis)}
                       className={`text-[10px] sm:text-[11px] font-semibold cursor-pointer transition-colors ${
                         isSelected
-                          ? "fill-[#FFAE6B] font-bold"
-                          : "fill-[#FAF5EE] hover:fill-[#FFAE6B]"
+                          ? "fill-[#DE8F46] font-bold"
+                          : "fill-[#FAF5EE] hover:fill-[#DE8F46]"
                       }`}
                     >
                       <tspan x={labelCoord.x} dy="-0.4em">
@@ -206,7 +206,7 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
                       <tspan
                         x={labelCoord.x}
                         dy="1.2em"
-                        className="text-[9px] font-bold fill-[#F0B888]"
+                        className="text-[9px] font-bold fill-[#D98A48]"
                       >
                         {axis.score}%
                       </tspan>
@@ -218,11 +218,11 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
 
             {/* Tap/Selected Details Bar */}
             {selectedAxis && (
-              <div className="mt-2 text-center text-xs px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 animate-in fade-in duration-150">
+              <div className="mt-2 text-center text-xs px-3 py-1.5 rounded-xl bg-white/10 border border-[#BF7839]/20 animate-in fade-in duration-150">
                 <span className="font-bold text-[#FFFDF8]">
                   {selectedAxis.name}
                 </span>
-                <span className="text-[#DDCBB8] ml-2">
+                <span className="text-[#C5B09E] ml-2">
                   {selectedAxis.weightKg > 0
                     ? `Max: ${selectedAxis.weightKg} kg`
                     : "Bodyweight"}
@@ -236,15 +236,15 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
 
           {/* 2. Intelligent Growth & Progressive Overload Recommendations */}
           <div className="space-y-2.5 pt-1">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#F0DEC8] px-1 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FFAE6B] shadow-[0_0_8px_rgba(255,174,107,0.7)]" />
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#DFC8B4] px-1 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D98A48] shadow-[0_0_8px_rgba(217,138,72,0.6)]" />
               Actionable Progression Guidance
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5">
               {/* Card 1: Progressive Overload Target */}
-              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 border border-white/25 shadow-xs">
-                <div className="flex items-center gap-1.5 text-[#FFAE6B]">
+              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 border border-[#BF7839]/20 shadow-xs">
+                <div className="flex items-center gap-1.5 text-[#DE8F46]">
                   <TrendingUp className="w-3.5 h-3.5 shrink-0" />
                   <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
                     Progressive Overload
@@ -254,10 +254,10 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
                   <p className="text-xs font-bold text-[#FFFDF8]">
                     {analytics.recommendations.progressiveOverload.targetArea}
                   </p>
-                  <p className="text-[11px] text-[#DDCBB8] leading-tight">
+                  <p className="text-[11px] text-[#C5B09E] leading-tight">
                     {analytics.recommendations.progressiveOverload.message}
                   </p>
-                  <p className="text-[11px] text-[#F0B888] font-semibold leading-tight pt-0.5">
+                  <p className="text-[11px] text-[#D98A48] font-semibold leading-tight pt-0.5">
                     ⚡{" "}
                     {
                       analytics.recommendations.progressiveOverload
@@ -268,8 +268,8 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
               </div>
 
               {/* Card 2: Overdue / Longest Stagnant Area */}
-              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 border border-white/25 shadow-xs">
-                <div className="flex items-center gap-1.5 text-[#F0B888]">
+              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 border border-[#BF7839]/20 shadow-xs">
+                <div className="flex items-center gap-1.5 text-[#D98A48]">
                   <Clock className="w-3.5 h-3.5 shrink-0" />
                   <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
                     Overdue Focus
@@ -279,18 +279,18 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
                   <p className="text-xs font-bold text-[#FFFDF8]">
                     {analytics.recommendations.overdueArea.targetArea}
                   </p>
-                  <p className="text-[11px] text-[#DDCBB8] leading-tight">
+                  <p className="text-[11px] text-[#C5B09E] leading-tight">
                     {analytics.recommendations.overdueArea.message}
                   </p>
-                  <p className="text-[11px] text-[#F0B888] font-semibold leading-tight pt-0.5">
+                  <p className="text-[11px] text-[#D98A48] font-semibold leading-tight pt-0.5">
                     ⏳ {analytics.recommendations.overdueArea.actionableStep}
                   </p>
                 </div>
               </div>
 
               {/* Card 3: Lagging Metric / Development Priority */}
-              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 border border-white/25 shadow-xs">
-                <div className="flex items-center gap-1.5 text-[#FFAE6B]">
+              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 border border-[#BF7839]/20 shadow-xs">
+                <div className="flex items-center gap-1.5 text-[#DE8F46]">
                   <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
                   <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
                     Needs More Work
@@ -300,10 +300,10 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
                   <p className="text-xs font-bold text-[#FFFDF8]">
                     {analytics.recommendations.laggingArea.targetArea}
                   </p>
-                  <p className="text-[11px] text-[#DDCBB8] leading-tight">
+                  <p className="text-[11px] text-[#C5B09E] leading-tight">
                     {analytics.recommendations.laggingArea.message}
                   </p>
-                  <p className="text-[11px] text-[#F0B888] font-semibold leading-tight pt-0.5">
+                  <p className="text-[11px] text-[#D98A48] font-semibold leading-tight pt-0.5">
                     🎯 {analytics.recommendations.laggingArea.actionableStep}
                   </p>
                 </div>

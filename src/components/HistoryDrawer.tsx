@@ -19,12 +19,12 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 p-4 backdrop-blur-lg">
-      <div className="liquid-glass-card rounded-3xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-white/25">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-lg">
+      <div className="liquid-glass-card rounded-3xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-[#BF7839]/25">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-white/15">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[#BF7839]/15">
           <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-[#F0B888]" />
+            <Calendar className="w-4 h-4 text-[#D98A48]" />
             <h2 className="text-sm font-bold text-[#FFFDF8]">
               History — {dayLabel}
             </h2>
@@ -32,7 +32,7 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#D4BEA8] hover:text-[#FFFFFF] hover:bg-white/15 transition-colors active:scale-95 cursor-pointer"
+            className="p-1.5 rounded-full text-[#A8917F] hover:text-[#FFFFFF] hover:bg-white/10 transition-colors active:scale-95 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -41,7 +41,7 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
         {/* Content */}
         <div className="p-6 overflow-y-auto space-y-4 custom-glass-scrollbar">
           {history.length === 0 ? (
-            <p className="text-[#DDCBB8] text-xs text-center py-8">
+            <p className="text-[#C5B09E] text-xs text-center py-8">
               No saved workouts found for this day yet.
             </p>
           ) : (
@@ -58,13 +58,13 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
               return (
                 <div
                   key={log.id}
-                  className="liquid-glass-pill rounded-2xl p-4 space-y-3 shadow-xs"
+                  className="liquid-glass-pill rounded-2xl p-4 space-y-3 shadow-xs border border-[#BF7839]/20"
                 >
-                  <div className="flex justify-between items-center text-xs pb-2 border-b border-white/15">
+                  <div className="flex justify-between items-center text-xs pb-2 border-b border-[#BF7839]/15">
                     <span className="font-semibold text-[#FFFDF8]">
                       {formattedDate}
                     </span>
-                    <span className="text-[11px] text-[#DDCBB8]">
+                    <span className="text-[11px] text-[#C5B09E]">
                       2 Sets per exercise
                     </span>
                   </div>
@@ -78,10 +78,10 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
                         <span className="truncate pr-2 text-[#FAF5EE] font-medium">
                           {ex.exercise_name || "Exercise"}
                         </span>
-                        <div className="flex gap-3 text-[#F0B888] shrink-0 font-mono text-[11px] font-semibold items-center">
+                        <div className="flex gap-3 text-[#D98A48] shrink-0 font-mono text-[11px] font-semibold items-center">
                           {isRatingGroup(ex.muscle_group) ? (
-                            <span className="flex items-center gap-1 text-[#FFAE6B]">
-                              <Star className="w-3 h-3 fill-[#FFAE6B]" />
+                            <span className="flex items-center gap-1 text-[#DE8F46]">
+                              <Star className="w-3 h-3 fill-[#DE8F46]" />
                               <span>{ex.reps !== null && ex.reps > 0 ? `${ex.reps}/5` : "Unrated"}</span>
                             </span>
                           ) : (

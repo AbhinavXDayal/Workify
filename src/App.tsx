@@ -32,7 +32,7 @@ export function App() {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] w-full max-w-full overflow-hidden sm:overflow-x-hidden sm:overflow-y-auto bg-[#886F5B] text-[#FAF5ED] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#C49978] selection:text-[#FFFDF8]">
+    <div className="relative h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] w-full max-w-full overflow-hidden sm:overflow-x-hidden sm:overflow-y-auto bg-[#20140E] text-[#FAF5EE] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#8F5C2F] selection:text-[#FFFDF8]">
       {/* 1. Dynamic Ambient Background: small leaves, dot matrix, and connected moving graph */}
       <AmbientBackground />
 
@@ -40,19 +40,19 @@ export function App() {
       <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-1 sm:space-y-3 overflow-hidden sm:overflow-visible overscroll-contain">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
-          <div className="liquid-glass-card border border-white/25 rounded-2xl p-2.5 text-xs text-[#FAF5EE] flex items-start gap-2 shadow-sm shrink-0">
-            <Info className="w-4 h-4 text-[#F0B888] shrink-0 mt-0.5" />
+          <div className="liquid-glass-card border border-[#BF7839]/25 rounded-2xl p-2.5 text-xs text-[#FAF5EE] flex items-start gap-2 shadow-sm shrink-0">
+            <Info className="w-4 h-4 text-[#BF7839] shrink-0 mt-0.5" />
             <div className="space-y-0.5">
               <p className="font-bold text-[#FFFDF8]">
                 Supabase Credentials Needed
               </p>
-              <p className="text-[#DDCBB8] text-[11px] leading-relaxed">
+              <p className="text-[#C5B09E] text-[11px] leading-relaxed">
                 Add{" "}
-                <code className="text-[#F0B888] font-mono bg-black/25 px-1 py-0.5 rounded">
+                <code className="text-[#D98A48] font-mono bg-black/40 px-1 py-0.5 rounded">
                   VITE_SUPABASE_URL
                 </code>{" "}
                 and{" "}
-                <code className="text-[#F0B888] font-mono bg-black/25 px-1 py-0.5 rounded">
+                <code className="text-[#D98A48] font-mono bg-black/40 px-1 py-0.5 rounded">
                   VITE_SUPABASE_ANON_KEY
                 </code>{" "}
                 to your .env file to enable cross-device cloud sync.
@@ -71,7 +71,7 @@ export function App() {
           />
 
           {/* Seamless Subtle Divider connecting routine overview to tracker */}
-          <div className="h-[1px] bg-white/15 my-1.5 sm:my-2.5 shrink-0" />
+          <div className="h-[1px] bg-[#BF7839]/15 my-1.5 sm:my-2.5 shrink-0" />
 
           <WorkoutTracker
             activeDay={activeDay}

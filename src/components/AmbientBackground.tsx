@@ -89,11 +89,11 @@ export const AmbientBackground: React.FC = React.memo(() => {
       context.closePath();
 
       // Soft luminous warm amber-bronze leaf fill
-      context.fillStyle = `rgba(186, 126, 82, ${Math.min(alpha * 0.85, 0.9)})`;
+      context.fillStyle = `rgba(130, 78, 35, ${Math.min(alpha * 0.85, 0.9)})`;
       context.fill();
 
       // Delicate golden amber outer rim stroke
-      context.strokeStyle = `rgba(224, 168, 120, ${Math.min(alpha * 0.9, 0.95)})`;
+      context.strokeStyle = `rgba(191, 120, 57, ${Math.min(alpha * 0.9, 0.95)})`;
       context.lineWidth = 0.85;
       context.stroke();
 
@@ -101,7 +101,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
       context.beginPath();
       context.moveTo(0, 0);
       context.lineTo(length * 0.9, 0);
-      context.strokeStyle = `rgba(252, 230, 206, ${Math.min(alpha * 1.1, 1.0)})`;
+      context.strokeStyle = `rgba(245, 225, 205, ${Math.min(alpha * 1.1, 1.0)})`;
       context.lineWidth = 0.95;
       context.stroke();
 
@@ -128,7 +128,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
 
             // Draw edge line
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(220, 180, 148, ${alpha})`;
+            ctx.strokeStyle = `rgba(191, 120, 57, ${alpha * 0.45})`;
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
             ctx.stroke();
@@ -163,7 +163,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
         // Node dot
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(240, 195, 160, 0.82)";
+        ctx.fillStyle = "rgba(215, 150, 95, 0.75)";
         ctx.fill();
 
         // If node has sprout: draw stem and two sprouting leaves (seedling)
@@ -176,7 +176,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
           ctx.beginPath();
           ctx.moveTo(node.x, node.y);
           ctx.lineTo(tipX, tipY);
-          ctx.strokeStyle = "rgba(220, 175, 140, 0.85)";
+          ctx.strokeStyle = "rgba(191, 120, 57, 0.75)";
           ctx.lineWidth = 1.1;
           ctx.stroke();
 
@@ -225,13 +225,13 @@ export const AmbientBackground: React.FC = React.memo(() => {
       className="pointer-events-none fixed inset-0 w-full h-full max-w-full overflow-hidden z-0 select-none"
       aria-hidden="true"
     >
-      {/* 1. Base Hazy Warm Mocha Gradient (matching reference palette #A88F7A to #886F5B) */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_65%_at_50%_-10%,_#A88F7A_0%,_#987E69_50%,_#886F5B_100%)]" />
+      {/* 1. Base Hazy Dark Espresso Gradient (matching reference palette #2E1E17 to #1A0F0A) */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_65%_at_50%_-10%,_#2E1E17_0%,_#251711_50%,_#1A0F0A_100%)]" />
 
       {/* 2. Fast GPU Hazy Amber/Mocha Radial Gradients */}
-      <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(235,185,145,0.22)_0%,_rgba(195,155,125,0.1)_45%,_transparent_70%)] animate-ambient-1" />
-      <div className="absolute top-1/3 -right-12 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(240,195,155,0.18)_0%,_rgba(205,165,135,0.08)_50%,_transparent_70%)] animate-ambient-2" />
-      <div className="absolute -bottom-16 left-1/4 w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(215,175,145,0.2)_0%,_transparent_65%)] animate-ambient-3" />
+      <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(191,120,57,0.08)_0%,_rgba(140,85,40,0.04)_45%,_transparent_70%)] animate-ambient-1" />
+      <div className="absolute top-1/3 -right-12 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(191,120,57,0.07)_0%,_rgba(110,68,30,0.03)_50%,_transparent_70%)] animate-ambient-2" />
+      <div className="absolute -bottom-16 left-1/4 w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(140,85,40,0.08)_0%,_transparent_65%)] animate-ambient-3" />
 
       {/* 3. Ultra-Light Dot Matrix Grid in Warm Amber Stardust */}
       <svg
@@ -245,7 +245,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
             height="28"
             patternUnits="userSpaceOnUse"
           >
-            <circle cx="2" cy="2" r="1.1" fill="#E1AA7C" fillOpacity="0.5" />
+            <circle cx="2" cy="2" r="1.1" fill="#BF7839" fillOpacity="0.14" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#ambient-dot-matrix)" />
@@ -259,28 +259,28 @@ export const AmbientBackground: React.FC = React.memo(() => {
 
       {/* 5. Elegant Drifting Small Leaves in Warm Golden-Amber (GPU-composited translate3d) */}
       <div className="absolute top-[10%] left-[8%] animate-leaf-drift-1">
-        <SmallLeaf className="w-4 h-4 text-[#E1AA7C]/30 transform -rotate-12" />
+        <SmallLeaf className="w-4 h-4 text-[#BF7839]/20 transform -rotate-12" />
       </div>
 
       <div
         className="absolute top-[22%] right-[10%] animate-leaf-drift-2"
         style={{ animationDelay: "3.5s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#EBB58A]/26 transform rotate-45" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#D48E58]/18 transform rotate-45" />
       </div>
 
       <div
         className="absolute top-[65%] left-[6%] animate-leaf-drift-3"
         style={{ animationDelay: "7s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#E1AA7C]/26 transform -rotate-30" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#BF7839]/18 transform -rotate-30" />
       </div>
 
       <div
         className="absolute top-[80%] right-[12%] animate-leaf-drift-1"
         style={{ animationDelay: "5s" }}
       >
-        <SmallLeaf className="w-4 h-4 text-[#EBB58A]/28 transform rotate-20" />
+        <SmallLeaf className="w-4 h-4 text-[#D48E58]/20 transform rotate-20" />
       </div>
     </div>
   );
