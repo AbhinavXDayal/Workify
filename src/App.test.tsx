@@ -107,6 +107,29 @@ describe("Workout Logger Acceptance Tests", () => {
     expect((kgInputs[0] as HTMLInputElement).value).toBe("75");
   });
 
+  it("supports +1 and +2 increment buttons for KG", () => {
+    render(<App />);
+
+    const kgInputs = screen.getAllByLabelText(/weight/i);
+    const add1Btns = screen.getAllByRole("button", { name: /add 1 kg/i });
+    const add2Btns = screen.getAllByRole("button", { name: /add 2 kg/i });
+
+    expect(add1Btns.length).toBeGreaterThan(0);
+    expect(add2Btns.length).toBeGreaterThan(0);
+
+    // Set weight input to 10
+    fireEvent.change(kgInputs[0], { target: { value: "10" } });
+    expect((kgInputs[0] as HTMLInputElement).value).toBe("10");
+
+    // Clicking +1 increases it from 10 to 11
+    fireEvent.click(add1Btns[0]);
+    expect((kgInputs[0] as HTMLInputElement).value).toBe("11");
+
+    // Clicking +2 increases it from 11 to 13
+    fireEvent.click(add2Btns[0]);
+    expect((kgInputs[0] as HTMLInputElement).value).toBe("13");
+  });
+
   it("opens and closes Auth Modal", async () => {
     render(<App />);
 

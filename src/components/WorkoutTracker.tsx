@@ -1,5 +1,4 @@
 import React from "react";
-import { ChevronUp, ChevronDown } from "lucide-react";
 import { DaySelector } from "./DaySelector";
 import { AestheticSelect } from "./AestheticSelect";
 import { HistoryDrawer } from "./HistoryDrawer";
@@ -118,9 +117,9 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                     groupName={group.name}
                   />
 
-                  {/* KG Input with inline 'kg' unit badge + stepper arrows */}
-                  <div className="flex items-center gap-0.5 shrink-0">
-                    <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono cursor-text">
+                  {/* KG Input with inline 'kg' unit badge + quick increment buttons (+1, +2) */}
+                  <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
+                    <div className="relative w-[50px] sm:w-22 md:w-26 h-8 sm:h-9 liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono cursor-text">
                       <input
                         type="text"
                         inputMode="decimal"
@@ -138,36 +137,42 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                         kg
                       </span>
                     </div>
-                    {/* Stepper arrows: random +1 or +2 kg */}
-                    <div className="flex flex-col gap-0 shrink-0">
+
+                    {/* Quick increment buttons: +1 and +2 */}
+                    <div className="flex items-center gap-0.5 shrink-0">
                       <button
                         type="button"
-                        aria-label="Increase weight"
+                        aria-label="Add 1 kg"
                         onClick={() => {
                           const current = parseFloat(slot.weightKg) || 0;
-                          const step = Math.random() < 0.5 ? 1 : 2;
+                          const next = Math.round((current + 1) * 100) / 100;
                           onUpdateSlot(
                             globalIndex,
                             "weightKg",
-                            String(current + step),
+                            String(next),
                           );
                         }}
-                        className="p-0 w-4 h-3.5 sm:w-5 sm:h-4 flex items-center justify-center rounded-t-md text-[#7C583F] hover:text-[#382C24] hover:bg-white/50 active:scale-90 transition-all cursor-pointer"
+                        className="h-8 sm:h-9 px-1 sm:px-1.5 min-w-[22px] sm:min-w-[26px] liquid-glass-input rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-bold font-mono text-[#7C583F] hover:text-[#382C24] hover:bg-white/70 active:scale-95 transition-all cursor-pointer flex items-center justify-center shadow-2xs select-none"
+                        title="Add 1 kg"
                       >
-                        <ChevronUp className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                        +1
                       </button>
                       <button
                         type="button"
-                        aria-label="Decrease weight"
+                        aria-label="Add 2 kg"
                         onClick={() => {
                           const current = parseFloat(slot.weightKg) || 0;
-                          const step = Math.random() < 0.5 ? 1 : 2;
-                          const next = Math.max(0, current - step);
-                          onUpdateSlot(globalIndex, "weightKg", String(next));
+                          const next = Math.round((current + 2) * 100) / 100;
+                          onUpdateSlot(
+                            globalIndex,
+                            "weightKg",
+                            String(next),
+                          );
                         }}
-                        className="p-0 w-4 h-3.5 sm:w-5 sm:h-4 flex items-center justify-center rounded-b-md text-[#7C583F] hover:text-[#382C24] hover:bg-white/50 active:scale-90 transition-all cursor-pointer"
+                        className="h-8 sm:h-9 px-1 sm:px-1.5 min-w-[22px] sm:min-w-[26px] liquid-glass-input rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-bold font-mono text-[#7C583F] hover:text-[#382C24] hover:bg-white/70 active:scale-95 transition-all cursor-pointer flex items-center justify-center shadow-2xs select-none"
+                        title="Add 2 kg"
                       >
-                        <ChevronDown className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                        +2
                       </button>
                     </div>
                   </div>
