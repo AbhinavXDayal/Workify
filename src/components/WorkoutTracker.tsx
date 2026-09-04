@@ -172,7 +172,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
 
             {/* Subtle separator between muscle groups */}
             {groupIdx < groupedSlots.length - 1 && (
-              <div className="h-[1px] bg-[#D4A37C]/12 my-0.5 sm:my-2" />
+              <div className="h-[1px] bg-white/12 my-0.5 sm:my-2" />
             )}
           </div>
         ))}

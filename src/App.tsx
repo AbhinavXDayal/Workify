@@ -43,7 +43,7 @@ export function App() {
       <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-1 sm:space-y-3 overflow-hidden sm:overflow-visible overscroll-contain">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
-          <div className="liquid-glass-card border border-[#D4A37C]/18 rounded-2xl p-2.5 text-xs text-[#FAF5EE] flex items-start gap-2 shadow-sm shrink-0">
+          <div className="liquid-glass-card border border-white/25 rounded-2xl p-2.5 text-xs text-[#FAF5EE] flex items-start gap-2 shadow-sm shrink-0">
             <Info className="w-4 h-4 text-[#F0B888] shrink-0 mt-0.5" />
             <div className="space-y-0.5">
               <p className="font-bold text-[#FFFDF8]">
@@ -75,7 +75,7 @@ export function App() {
           />
 
           {/* Seamless Subtle Divider connecting routine overview to tracker */}
-          <div className="h-[1px] bg-[#D4A37C]/15 my-1.5 sm:my-2.5 shrink-0" />
+          <div className="h-[1px] bg-white/15 my-1.5 sm:my-2.5 shrink-0" />
 
           <WorkoutTracker
             activeDay={activeDay}
