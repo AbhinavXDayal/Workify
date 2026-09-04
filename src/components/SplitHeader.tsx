@@ -21,7 +21,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
   return (
     <div className="w-full max-w-full transition-all duration-200 shrink-0">
       {/* Header Bar: Title on left, Graph button in middle, Account pill on right */}
-      <div className="flex items-center justify-between gap-2 pb-1 sm:pb-1.5 border-b border-white/15 min-w-0">
+      <div className="flex items-center justify-between gap-2 pb-1 sm:pb-1.5 border-b border-[#D4A37C]/15 min-w-0">
         <a
           href="https://github.com/AbhinavXDayal/Workify"
           target="_blank"
@@ -31,7 +31,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
           <img
             src="/workify-logo.jpg"
             alt="Workify Logo"
-            className="w-5 h-5 sm:w-7 sm:h-7 rounded-md object-cover shadow-xs border border-white/20"
+            className="w-5 h-5 sm:w-7 sm:h-7 rounded-md object-cover shadow-xs border border-[#D4A37C]/20"
           />
           <h1 className="inline">{SPLIT_HEADER_TEXT.title}</h1>
           <svg
@@ -50,7 +50,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
             onClick={onOpenProgressRadar}
             title="Workout Progress Radar & Progressive Overload"
             aria-label="Workout Progress Radar"
-            className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-white text-[11px] sm:text-xs font-semibold liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 group shadow-xs border border-white/25"
+            className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-white text-[11px] sm:text-xs font-semibold liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 group shadow-xs"
           >
             {/* Spider Web / Radar SVG Icon */}
             <svg
@@ -101,7 +101,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
                     onClick={onSignOut}
                     title={`Signed in as ${user.email}. Click to sign out.`}
                     aria-label="Sign out"
-                    className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-[#FFAE6B] text-[10px] sm:text-[11px] font-medium liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-white/25 shadow-xs group"
+                    className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-[#FFAE6B] text-[10px] sm:text-[11px] font-medium liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 shadow-xs group"
                   >
                     <LogOut className="w-3 h-3 text-[#F0B888] group-hover:text-[#FFAE6B] transition-transform duration-200 group-hover:scale-110" />
                     <span className="text-[10px] sm:text-[11px] font-medium tracking-tight">
@@ -146,7 +146,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         </div>
 
         {/* Thin separator line */}
-        <hr className="border-white/15 my-0.5 sm:my-1" />
+        <hr className="border-[#D4A37C]/12 my-0.5 sm:my-1" />
 
         {/* Sets and reps guidelines */}
         <p className="text-[#FFFDF8] text-[10.5px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">

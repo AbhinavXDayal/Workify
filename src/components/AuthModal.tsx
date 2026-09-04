@@ -79,8 +79,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 p-4 backdrop-blur-lg">
-      <div className="liquid-glass-card rounded-3xl w-full max-w-sm p-6 sm:p-7 shadow-2xl relative transition-all duration-200 border border-white/25">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-xl">
+      <div className="liquid-glass-card rounded-3xl w-full max-w-sm p-6 sm:p-7 shadow-2xl relative transition-all duration-200 border border-[#D4A37C]/18">
         <button
           type="button"
           onClick={onClose}

@@ -18,10 +18,10 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 p-4 backdrop-blur-lg">
-      <div className="liquid-glass-card rounded-3xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-white/25">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-xl">
+      <div className="liquid-glass-card rounded-3xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-[#D4A37C]/18">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-white/15">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[#D4A37C]/15">
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-[#F0B888]" />
             <h2 className="text-sm font-bold text-[#FFFDF8]">
@@ -59,7 +59,7 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
                   key={log.id}
                   className="liquid-glass-pill rounded-2xl p-4 space-y-3 shadow-xs"
                 >
-                  <div className="flex justify-between items-center text-xs pb-2 border-b border-white/15">
+                  <div className="flex justify-between items-center text-xs pb-2 border-b border-[#D4A37C]/15">
                     <span className="font-semibold text-[#FFFDF8]">
                       {formattedDate}
                     </span>

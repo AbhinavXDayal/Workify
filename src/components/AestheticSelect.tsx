@@ -232,7 +232,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
       {isOpen && (
         <div
           style={{ position: "absolute" }}
-          className={`left-0 right-0 z-50 liquid-glass-card rounded-2xl p-1.5 shadow-2xl max-h-56 sm:max-h-64 overflow-y-auto custom-glass-scrollbar space-y-0.5 animate-in fade-in duration-150 border border-white/25 ${
+          className={`left-0 right-0 z-50 liquid-glass-card rounded-2xl p-1.5 shadow-2xl max-h-56 sm:max-h-64 overflow-y-auto custom-glass-scrollbar space-y-0.5 animate-in fade-in duration-150 border border-[#D4A37C]/18 ${
             openDirection === "up"
               ? "bottom-full mb-1.5 origin-bottom zoom-in-95"
               : "top-full mt-1.5 origin-top zoom-in-95"
@@ -246,8 +246,8 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
             }}
             className={`w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs sm:text-sm text-left transition-colors cursor-pointer ${
               !value
-                ? "bg-white/20 text-[#FFFDF8] font-bold shadow-xs border border-white/30"
-                : "text-[#DDCBB8] hover:bg-white/12 hover:text-[#FFFFFF]"
+                ? "bg-[#7A5236]/75 text-[#FFFDF8] font-bold shadow-xs border border-[#D4A37C]/30"
+                : "text-[#DDCBB8] hover:bg-white/8 hover:text-[#FFFFFF]"
             }`}
           >
             <span>{placeholder}</span>
@@ -275,8 +275,8 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
                 }}
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm text-left transition-colors cursor-pointer group/opt ${
                   isSelected
-                    ? "bg-white/25 text-[#FFFFFF] font-bold shadow-xs border border-white/40"
-                    : "text-[#FAF5EE] hover:bg-white/15 hover:text-[#FFFFFF]"
+                    ? "bg-[#7A5236]/80 text-[#FFFFFF] font-bold shadow-xs border border-[#D4A37C]/35"
+                    : "text-[#FAF5EE] hover:bg-white/8 hover:text-[#FFFFFF]"
                 }`}
               >
                 <div className="flex items-center gap-1.5 min-w-0 flex-1">
@@ -303,7 +303,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
           })}
 
           {/* Divider & Option to Add Exercise */}
-          <div className="pt-1 mt-1 border-t border-white/15">
+          <div className="pt-1 mt-1 border-t border-[#D4A37C]/15">
             {isAdding ? (
               <form
                 onSubmit={handleSaveCustom}

@@ -56,12 +56,12 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
     .join(" ");
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-3 sm:p-4 backdrop-blur-lg animate-in fade-in duration-200">
-      <div className="liquid-glass-card rounded-3xl w-full max-w-xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden border border-white/25">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-3 sm:p-4 backdrop-blur-xl animate-in fade-in duration-200">
+      <div className="liquid-glass-card rounded-3xl w-full max-w-xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden border border-[#D4A37C]/18">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-white/15 shrink-0">
+        <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-[#D4A37C]/15 shrink-0">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-xl bg-white/15 border border-white/25 shadow-xs">
+            <div className="p-1.5 rounded-xl bg-[#643E26]/60 border border-[#D4A37C]/20 shadow-xs">
               <Sparkles className="w-4 h-4 text-[#FFAE6B]" />
             </div>
             <div>
@@ -218,7 +218,7 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
 
             {/* Tap/Selected Details Bar */}
             {selectedAxis && (
-              <div className="mt-2 text-center text-xs px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 animate-in fade-in duration-150">
+              <div className="mt-2 text-center text-xs px-3 py-1.5 rounded-xl bg-[#643E26]/60 border border-[#D4A37C]/20 animate-in fade-in duration-150">
                 <span className="font-bold text-[#FFFDF8]">
                   {selectedAxis.name}
                 </span>
@@ -243,7 +243,7 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5">
               {/* Card 1: Progressive Overload Target */}
-              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 border border-white/25 shadow-xs">
+              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 shadow-xs">
                 <div className="flex items-center gap-1.5 text-[#FFAE6B]">
                   <TrendingUp className="w-3.5 h-3.5 shrink-0" />
                   <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
@@ -268,7 +268,7 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
               </div>
 
               {/* Card 2: Overdue / Longest Stagnant Area */}
-              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 border border-white/25 shadow-xs">
+              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 shadow-xs">
                 <div className="flex items-center gap-1.5 text-[#F0B888]">
                   <Clock className="w-3.5 h-3.5 shrink-0" />
                   <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
@@ -289,7 +289,7 @@ export const ProgressRadarModal: React.FC<ProgressRadarModalProps> = ({
               </div>
 
               {/* Card 3: Lagging Metric / Development Priority */}
-              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 border border-white/25 shadow-xs">
+              <div className="liquid-glass-pill rounded-2xl p-3 sm:p-3.5 space-y-1.5 shadow-xs">
                 <div className="flex items-center gap-1.5 text-[#FFAE6B]">
                   <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
                   <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
