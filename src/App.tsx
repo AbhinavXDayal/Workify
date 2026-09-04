@@ -86,10 +86,10 @@ export function App() {
           />
         </div>
 
-        {/* Extended bottom spacer (slightly increased for clean breathing room below the card without page scrolling) */}
+        {/* Compact bottom spacer: moves card end bottom point just a little down while preserving single-screen fit */}
         <footer
-          className="h-8 sm:h-10 shrink-0"
-          aria-label="Extended website bottom space"
+          className="h-3 sm:h-5 shrink-0"
+          aria-label="Website bottom space"
         />
       </div>
 
