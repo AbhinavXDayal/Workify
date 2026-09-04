@@ -149,41 +149,10 @@ describe("Workout Logger Acceptance Tests", () => {
     ).toBeDefined();
   });
 
-  it("opens and closes Progress Radar Modal displaying spider web and suggestions", () => {
+  it("does not render the Progress Radar button", () => {
     render(<App />);
-
-    // Locate the Progress Radar button between Workify and Gmail/Account
-    const progressBtn = screen.getByRole("button", {
-      name: /workout progress radar/i,
-    });
-    expect(progressBtn).toBeDefined();
-
-    // Click to open modal
-    fireEvent.click(progressBtn);
-
-    // Modal title and subtitles should appear
     expect(
-      screen.getByRole("heading", { name: /workout progress radar/i }),
-    ).toBeDefined();
-    expect(
-      screen.getByText(/spider web overview & progressive overload balance/i),
-    ).toBeDefined();
-
-    // The three insight cards should be visible
-    expect(screen.getByText("Actionable Progression Guidance")).toBeDefined();
-    expect(screen.getByText("Overdue Focus")).toBeDefined();
-    expect(screen.getByText("Needs More Work")).toBeDefined();
-    expect(
-      screen.getAllByText(/progressive overload/i).length,
-    ).toBeGreaterThanOrEqual(1);
-
-    // Close modal via close button
-    const closeBtn = screen.getByRole("button", { name: /close modal/i });
-    fireEvent.click(closeBtn);
-
-    // Modal should be closed
-    expect(
-      screen.queryByRole("heading", { name: /workout progress radar/i }),
+      screen.queryByRole("button", { name: /workout progress radar/i }),
     ).toBeNull();
   });
 });

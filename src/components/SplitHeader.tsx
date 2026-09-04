@@ -8,7 +8,6 @@ interface SplitHeaderProps {
   authLoading?: boolean;
   onSignOut?: () => void;
   onOpenAuth?: () => void;
-  onOpenProgressRadar?: () => void;
 }
 
 export const SplitHeader: React.FC<SplitHeaderProps> = ({
@@ -16,11 +15,10 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
   authLoading,
   onSignOut,
   onOpenAuth,
-  onOpenProgressRadar,
 }) => {
   return (
     <div className="w-full max-w-full transition-all duration-200 shrink-0">
-      {/* Header Bar: Title on left, Graph button in middle, Account pill on right */}
+      {/* Header Bar: Title on left, Account pill on right */}
       <div className="flex items-center justify-between gap-2 pb-1 sm:pb-1.5 border-b border-white/15 min-w-0">
         <a
           href="https://github.com/AbhinavXDayal/Workify"
@@ -43,53 +41,8 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
           </svg>
         </a>
 
-        {/* Right Action Group: Progress Radar Button & Account Pill */}
+        {/* Right Action Group: Account Pill */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          {onOpenProgressRadar && (
-            <button
-              type="button"
-              onClick={onOpenProgressRadar}
-              title="Workout Progress Radar & Progressive Overload"
-              aria-label="Workout Progress Radar"
-              className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-white text-[11px] sm:text-xs font-semibold liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 group shadow-xs border border-white/25"
-            >
-              {/* Spider Web / Radar SVG Icon */}
-              <svg
-                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FFAE6B] transition-transform duration-200 group-hover:scale-110"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="9"
-                  strokeDasharray="3 3"
-                  opacity="0.6"
-                />
-                <path d="M12 3v18" opacity="0.6" />
-                <path d="M3 12h18" opacity="0.6" />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="5"
-                  strokeDasharray="2 2"
-                  opacity="0.8"
-                />
-                <polygon
-                  points="12 6 16.5 9.5 15.5 15 12 17.5 8.5 15 7.5 9.5"
-                  fill="#FFAE6B"
-                  fillOpacity="0.4"
-                  stroke="#FFAE6B"
-                  strokeWidth="1.5"
-                />
-              </svg>
-              <span className="hidden xs:inline sm:inline">Progress</span>
-            </button>
-          )}
 
           {!authLoading && (
             <>

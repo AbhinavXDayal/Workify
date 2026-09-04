@@ -149,7 +149,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
                 lineAngle,
                 15,
                 6.8,
-                leafAlpha
+                leafAlpha,
               );
             }
           }
@@ -188,7 +188,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
             currentStemAngle - 0.45,
             12,
             5.2,
-            0.85
+            0.85,
           );
 
           drawBotanicalLeaf(
@@ -198,7 +198,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
             currentStemAngle + 0.45,
             12,
             5.2,
-            0.85
+            0.85,
           );
         }
       }

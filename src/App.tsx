@@ -3,7 +3,6 @@ import { Info } from "lucide-react";
 import { SplitHeader } from "./components/SplitHeader";
 import { WorkoutTracker } from "./components/WorkoutTracker";
 import { AuthModal } from "./components/AuthModal";
-import { ProgressRadarModal } from "./components/ProgressRadarModal";
 import { AmbientBackground } from "./components/AmbientBackground";
 import { useAuth } from "./hooks/useAuth";
 import { useWorkoutLogger } from "./hooks/useWorkoutLogger";
@@ -12,8 +11,6 @@ import type { WorkoutDay } from "./types/workout";
 export function App() {
   const [activeDay, setActiveDay] = useState<WorkoutDay>("mon_thu");
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
-  const [isProgressRadarOpen, setIsProgressRadarOpen] =
-    useState<boolean>(false);
 
   const {
     user,
@@ -71,7 +68,6 @@ export function App() {
             authLoading={authLoading}
             onSignOut={signOut}
             onOpenAuth={() => setIsAuthModalOpen(true)}
-            onOpenProgressRadar={() => setIsProgressRadarOpen(true)}
           />
 
           {/* Seamless Subtle Divider connecting routine overview to tracker */}
@@ -104,14 +100,6 @@ export function App() {
         isConfigured={isConfigured}
         onSignIn={signIn}
         onSignUp={signUp}
-      />
-
-      {/* Progress Radar & Progressive Overload Modal */}
-      <ProgressRadarModal
-        isOpen={isProgressRadarOpen}
-        onClose={() => setIsProgressRadarOpen(false)}
-        currentSlots={slots}
-        history={history}
       />
     </div>
   );
