@@ -28,5 +28,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# graft's local graph cache — regenerable, not committed (run `graft build`).
+# graft & graphify local graph caches — regenerable, not committed
 graft/
+graphify-out/

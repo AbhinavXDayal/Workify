@@ -140,14 +140,20 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
         containerRef.current.closest(".liquid-glass-card");
       const parentRect = scrollParent?.getBoundingClientRect();
       const availableBelow = parentRect
-        ? Math.min(parentRect.bottom - rect.bottom, window.innerHeight - rect.bottom)
+        ? Math.min(
+            parentRect.bottom - rect.bottom,
+            window.innerHeight - rect.bottom,
+          )
         : window.innerHeight - rect.bottom;
       const availableAbove = parentRect
         ? Math.min(rect.top - parentRect.top, rect.top)
         : rect.top;
 
       // If space below is constrained (< 240px) and there's more room above, or if space below is limited and above has room
-      if ((availableBelow < 240 && availableAbove > availableBelow) || (availableBelow < 240 && availableAbove > 180)) {
+      if (
+        (availableBelow < 240 && availableAbove > availableBelow) ||
+        (availableBelow < 240 && availableAbove > 180)
+      ) {
         setOpenDirection("up");
       } else {
         setOpenDirection("down");
