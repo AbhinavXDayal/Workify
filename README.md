@@ -14,11 +14,13 @@
 ## Preview
 
 ### Mobile
+
 <p align="center">
   <img src="preview/mobile-preview.png" alt="Workify Mobile Preview" width="320" />
 </p>
 
 ### Desktop
+
 <p align="center">
   <img src="preview/desktop-preview.png" alt="Workify Desktop Preview" width="900" />
 </p>
@@ -40,15 +42,15 @@
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | [React 19](https://react.dev) + [TypeScript 6](https://www.typescriptlang.org) |
-| Styling | [Tailwind CSS 4](https://tailwindcss.com) |
-| Build | [Vite 8](https://vite.dev) |
-| Backend | [Supabase](https://supabase.com) (auth + database) |
-| Icons | [Lucide React](https://lucide.dev) |
-| Testing | [Vitest 5](https://vitest.dev) + [Testing Library](https://testing-library.com) |
-| Linting | [Oxlint](https://oxc.rs) |
+| Layer     | Technology                                                                      |
+| --------- | ------------------------------------------------------------------------------- |
+| Framework | [React 19](https://react.dev) + [TypeScript 6](https://www.typescriptlang.org)  |
+| Styling   | [Tailwind CSS 4](https://tailwindcss.com)                                       |
+| Build     | [Vite 8](https://vite.dev)                                                      |
+| Backend   | [Supabase](https://supabase.com) (auth + database)                              |
+| Icons     | [Lucide React](https://lucide.dev)                                              |
+| Testing   | [Vitest 5](https://vitest.dev) + [Testing Library](https://testing-library.com) |
+| Linting   | [Oxlint](https://oxc.rs)                                                        |
 
 ---
 

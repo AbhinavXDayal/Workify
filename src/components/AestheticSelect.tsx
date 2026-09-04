@@ -25,6 +25,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
   onAddCustomOption,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openDirection, setOpenDirection] = useState<"up" | "down">("down");
   const [isAdding, setIsAdding] = useState(false);
   const [newExerciseInput, setNewExerciseInput] = useState("");
   const [customData, setCustomData] = useState(() =>
@@ -132,6 +133,27 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
     const latest = getCustomExercises(groupName);
     setCustomData(latest);
 
+    if (!isOpen && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollParent =
+        containerRef.current.closest(".overflow-y-auto") ||
+        containerRef.current.closest(".liquid-glass-card");
+      const parentRect = scrollParent?.getBoundingClientRect();
+      const availableBelow = parentRect
+        ? Math.min(parentRect.bottom - rect.bottom, window.innerHeight - rect.bottom)
+        : window.innerHeight - rect.bottom;
+      const availableAbove = parentRect
+        ? Math.min(rect.top - parentRect.top, rect.top)
+        : rect.top;
+
+      // If space below is constrained (< 240px) and there's more room above, or if space below is limited and above has room
+      if ((availableBelow < 240 && availableAbove > availableBelow) || (availableBelow < 240 && availableAbove > 180)) {
+        setOpenDirection("up");
+      } else {
+        setOpenDirection("down");
+      }
+    }
+
     setIsOpen((prev) => {
       const next = !prev;
       // If there are truly 0 options anywhere, start in adding mode
@@ -149,7 +171,10 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
   };
 
   return (
-    <div ref={containerRef} className="relative flex-1 min-w-0">
+    <div
+      ref={containerRef}
+      className={`relative flex-1 min-w-0 ${isOpen ? "z-50" : "z-10"}`}
+    >
       {/* Underlying standard select to preserve accessibility and automated testing */}
       <select
         value={value}
@@ -184,7 +209,14 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
 
       {/* Custom aesthetic dropdown popover with liquid glass */}
       {isOpen && (
-        <div className="absolute left-0 right-0 top-full mt-1.5 z-50 liquid-glass-card rounded-2xl p-1.5 shadow-2xl max-h-64 overflow-y-auto space-y-0.5 animate-in fade-in zoom-in-95 duration-150">
+        <div
+          style={{ position: "absolute" }}
+          className={`left-0 right-0 z-50 liquid-glass-card rounded-2xl p-1.5 shadow-2xl max-h-56 sm:max-h-64 overflow-y-auto custom-glass-scrollbar space-y-0.5 animate-in fade-in duration-150 ${
+            openDirection === "up"
+              ? "bottom-full mb-1.5 origin-bottom zoom-in-95"
+              : "top-full mt-1.5 origin-top zoom-in-95"
+          }`}
+        >
           <button
             type="button"
             onClick={() => {

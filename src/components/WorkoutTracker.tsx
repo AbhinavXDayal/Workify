@@ -146,7 +146,11 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                         onClick={() => {
                           const current = parseFloat(slot.weightKg) || 0;
                           const step = Math.random() < 0.5 ? 1 : 2;
-                          onUpdateSlot(globalIndex, "weightKg", String(current + step));
+                          onUpdateSlot(
+                            globalIndex,
+                            "weightKg",
+                            String(current + step),
+                          );
                         }}
                         className="p-0 w-4 h-3.5 sm:w-5 sm:h-4 flex items-center justify-center rounded-t-md text-[#7C583F] hover:text-[#382C24] hover:bg-white/50 active:scale-90 transition-all cursor-pointer"
                       >
@@ -179,8 +183,8 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       onChange={(e) => {
                         const raw = e.target.value;
                         // Allow empty or partial typing
-                        if (raw === '') {
-                          onUpdateSlot(globalIndex, "reps", '');
+                        if (raw === "") {
+                          onUpdateSlot(globalIndex, "reps", "");
                           return;
                         }
                         const num = parseInt(raw, 10);
