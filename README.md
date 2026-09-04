@@ -1,6 +1,13 @@
-# Workify
+<p align="center">
+  <img src="preview/workify-logo.jpg" alt="Workify Logo" width="120" />
+</p>
 
-A clean, aesthetic workout tracker built with React, TypeScript, and Tailwind CSS. Features a liquid glass UI design with a warm beige palette, dynamic ambient background, and mobile-first responsive layout.
+<h1 align="center">Workify</h1>
+
+<p align="center">
+  A clean, aesthetic workout tracker built with React, TypeScript, and Tailwind CSS.<br/>
+  Liquid glass UI · warm beige palette · dynamic ambient background · mobile-first.
+</p>
 
 ---
 
