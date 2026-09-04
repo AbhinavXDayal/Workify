@@ -80,6 +80,8 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
     };
   });
 
+  const isWed = activeDay === "wed";
+
   return (
     <div className="w-full max-w-full flex flex-col flex-1 min-h-0 transition-all duration-200">
       {/* 1. Day Selector Tabs with soft rounded corners */}
@@ -87,12 +89,25 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
       </div>
 
-      {/* 2. Muscle Groups & Exercise Rows: cohesive, non-scrollable on mobile */}
-      <div className="flex-1 min-h-0 overflow-y-auto sm:overflow-visible overscroll-contain pr-0.5 pb-0.5 sm:pb-3 space-y-1 sm:space-y-3 custom-glass-scrollbar">
+      {/* 2. Muscle Groups & Exercise Rows: cohesive, non-scrollable on mobile, natural on desktop */}
+      <div
+        className={`flex-1 min-h-0 overflow-y-auto sm:overflow-visible overscroll-contain pr-0.5 pb-0.5 sm:pb-3 custom-glass-scrollbar ${
+          isWed ? "space-y-1 sm:space-y-3" : "space-y-2 sm:space-y-3"
+        }`}
+      >
         {groupedSlots.map((group, groupIdx) => (
-          <div key={group.name} className="space-y-0.5 sm:space-y-1.5">
+          <div
+            key={group.name}
+            className={
+              isWed ? "space-y-0.5 sm:space-y-1.5" : "space-y-1.5 sm:space-y-2"
+            }
+          >
             {/* Muscle Group Title with glowing amber accent indicator */}
-            <div className="flex items-center gap-1.5 px-1 sm:pb-0.5">
+            <div
+              className={`flex items-center gap-1.5 px-1 ${
+                isWed ? "pb-0 sm:pb-0.5" : "pb-0.5 sm:pb-0.5"
+              }`}
+            >
               <span className="w-1.5 h-1.5 rounded-full bg-[#B0987F] shadow-[0_0_6px_rgba(176,152,127,0.4)]" />
               <h3 className="text-[9px] sm:text-[10.5px] font-semibold text-[#D0C0B0] tracking-wider uppercase select-none leading-none">
                 {group.name}
@@ -100,7 +115,13 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             </div>
 
             {/* Exercise Slots */}
-            <div className="space-y-0.5 sm:space-y-1.5">
+            <div
+              className={
+                isWed
+                  ? "space-y-0.5 sm:space-y-1.5"
+                  : "space-y-1.5 sm:space-y-2"
+              }
+            >
               {group.slots.map(({ slot, globalIndex }) => (
                 <div
                   key={`${slot.muscleGroup}-${slot.slotNumber}`}
@@ -115,6 +136,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                     options={group.options}
                     placeholder="Select exercise"
                     groupName={group.name}
+                    compact={isWed}
                   />
 
                   {/* Rating / Star Box for Cardio sports, MMA, Long run, and non-weight activities */}
@@ -130,11 +152,16 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                         onUpdateSlot(globalIndex, "rating", String(newRating))
                       }
                       ariaLabel={`${slot.exerciseName || group.name} rating`}
+                      compact={isWed}
                     />
                   ) : (
                     <>
                       {/* KG Input with inline 'kg' unit badge */}
-                      <div className="relative w-[58px] sm:w-24 md:w-28 h-8 sm:h-9 liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
+                      <div
+                        className={`relative w-[58px] sm:w-24 md:w-28 ${
+                          isWed ? "h-[31px] sm:h-9" : "h-[35px] sm:h-9"
+                        } liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text`}
+                      >
                         <input
                           type="text"
                           inputMode="decimal"
@@ -158,7 +185,11 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       </div>
 
                       {/* Reps Input with inline 'reps' unit badge inside the same box */}
-                      <div className="relative w-[64px] sm:w-24 md:w-28 h-8 sm:h-9 liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
+                      <div
+                        className={`relative w-[64px] sm:w-24 md:w-28 ${
+                          isWed ? "h-[31px] sm:h-9" : "h-[35px] sm:h-9"
+                        } liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text`}
+                      >
                         <input
                           type="text"
                           inputMode="numeric"
@@ -194,7 +225,11 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
 
             {/* Subtle separator between muscle groups */}
             {groupIdx < groupedSlots.length - 1 && (
-              <div className="h-[1px] bg-[#A89178]/15 my-0.5 sm:my-2" />
+              <div
+                className={`h-[1px] bg-[#A89178]/15 ${
+                  isWed ? "my-0.5 sm:my-2" : "my-1.5 sm:my-2"
+                }`}
+              />
             )}
           </div>
         ))}

@@ -14,6 +14,7 @@ interface AestheticSelectProps {
   placeholder?: string;
   groupName?: string;
   onAddCustomOption?: (newExercise: string) => void;
+  compact?: boolean;
 }
 
 export const AestheticSelect: React.FC<AestheticSelectProps> = ({
@@ -23,6 +24,7 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
   placeholder = "Select exercise",
   groupName,
   onAddCustomOption,
+  compact = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openDirection, setOpenDirection] = useState<"up" | "down">("down");
@@ -214,7 +216,11 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
       <button
         type="button"
         onClick={handleToggleOpen}
-        className="w-full min-w-0 flex items-center justify-between liquid-glass-input rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-[#FAF5EE] transition-all duration-150 cursor-pointer text-left group active:scale-[0.99] min-h-[32px] sm:min-h-[38px]"
+        className={`w-full min-w-0 flex items-center justify-between liquid-glass-input rounded-xl sm:rounded-2xl px-2.5 text-xs sm:text-sm text-[#FAF5EE] transition-all duration-150 cursor-pointer text-left group active:scale-[0.99] ${
+          compact
+            ? "min-h-[31px] sm:min-h-[38px] py-1 sm:py-2"
+            : "min-h-[35px] sm:min-h-[38px] py-1.5 sm:py-2"
+        }`}
       >
         <span
           className={`truncate min-w-0 ${!value ? "text-[#786B60]" : "text-[#FFFFFF] font-semibold"}`}

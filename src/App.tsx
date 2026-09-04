@@ -62,7 +62,7 @@ export function App() {
         )}
 
         {/* Unified Continuous Liquid-Glass Card: No middle section breaking the app in half */}
-        <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2 sm:p-5 md:p-6 pb-2.5 sm:pb-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
+        <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2.5 sm:p-5 md:p-6 pb-2.5 sm:pb-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
           <SplitHeader
             user={user}
             authLoading={authLoading}
@@ -88,7 +88,7 @@ export function App() {
 
         {/* Compact bottom spacer: keeps bottom page fixed without any page scrolling */}
         <footer
-          className="h-2 sm:h-5 shrink-0"
+          className="h-3 sm:h-5 shrink-0"
           aria-label="Website bottom space"
         />
       </div>
