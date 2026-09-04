@@ -34,7 +34,7 @@
 - **Continuous Card Layout** — unified, unbroken liquid-glass container for the entire app
 - **3-Day Split Tracker** — Mon/Thu, Tue/Fri, Wed rotation with muscle group categorization
 - **Strictly Isolated Custom Exercises** — add custom exercises per muscle group, isolated to their respective section
-- **Weight Logging with Quick `+1` & `+2`** — inline "kg" badge with dedicated `+1` and `+2` increment buttons
+- **Weight Logging** — track kg with inline unit badge and automatic local persistence
 - **Rep Logging with Target Caps** — track reps capped at muscle group default targets (10, 12, 15)
 - **Supabase Auth** — optional sign-in to sync workout data across devices
 - **Mobile-First & Responsive** — locked viewport, optimized touch targets, scales from mobile to desktop
@@ -79,9 +79,8 @@ Each exercise slot in the workout table contains:
    - Inline "+ Add Exercise" input allows instant custom exercise creation.
    - Strict Muscle-Group Isolation: Exercises added to a section (e.g. Back) remain strictly isolated to that section and NEVER bleed into other sections (e.g. Arms).
    - Custom exercises include an option to remove/delete them.
-2. Weight (KG) Box + Quick Increments (+1 & +2):
+2. Weight (KG) Box:
    - Rounded glass numeric input with an embedded "kg" badge inside the right of the box.
-   - Dedicated "+1" and "+2" quick stepper buttons placed directly on the right of the KG box to increment weight by 1 kg or 2 kg in one click.
 3. Reps Box:
    - Numeric input with an embedded "reps" badge inside the right of the box.
    - Reps are capped at the muscle group's default target (e.g. max 10 for Back/Chest, max 12 for Arms/Shoulders, max 15 for Calves/Abs).

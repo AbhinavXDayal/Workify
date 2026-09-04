@@ -117,56 +117,24 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                     groupName={group.name}
                   />
 
-                  {/* KG Input with inline 'kg' unit badge + quick increment buttons (+1, +2) */}
-                  <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
-                    <div className="relative w-[50px] sm:w-22 md:w-26 h-8 sm:h-9 liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono cursor-text">
-                      <input
-                        type="text"
-                        inputMode="decimal"
-                        pattern="[0-9]*[.]?[0-9]*"
-                        value={slot.weightKg}
-                        onFocus={(e) => e.target.select()}
-                        onChange={(e) =>
-                          onUpdateSlot(globalIndex, "weightKg", e.target.value)
-                        }
-                        placeholder="0"
-                        aria-label="Weight (kg)"
-                        className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#382C24] font-semibold placeholder-[#998677] focus:outline-none font-mono pr-0.5"
-                      />
-                      <span className="text-[9.5px] sm:text-xs text-[#7C583F] font-bold select-none shrink-0 pointer-events-none ml-0.5">
-                        kg
-                      </span>
-                    </div>
-
-                    {/* Quick increment buttons: +1 and +2 */}
-                    <div className="flex items-center gap-0.5 shrink-0">
-                      <button
-                        type="button"
-                        aria-label="Add 1 kg"
-                        onClick={() => {
-                          const current = parseFloat(slot.weightKg) || 0;
-                          const next = Math.round((current + 1) * 100) / 100;
-                          onUpdateSlot(globalIndex, "weightKg", String(next));
-                        }}
-                        className="h-8 sm:h-9 px-1 sm:px-1.5 min-w-[22px] sm:min-w-[26px] liquid-glass-input rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-bold font-mono text-[#7C583F] hover:text-[#382C24] hover:bg-white/70 active:scale-95 transition-all cursor-pointer flex items-center justify-center shadow-2xs select-none"
-                        title="Add 1 kg"
-                      >
-                        +1
-                      </button>
-                      <button
-                        type="button"
-                        aria-label="Add 2 kg"
-                        onClick={() => {
-                          const current = parseFloat(slot.weightKg) || 0;
-                          const next = Math.round((current + 2) * 100) / 100;
-                          onUpdateSlot(globalIndex, "weightKg", String(next));
-                        }}
-                        className="h-8 sm:h-9 px-1 sm:px-1.5 min-w-[22px] sm:min-w-[26px] liquid-glass-input rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-bold font-mono text-[#7C583F] hover:text-[#382C24] hover:bg-white/70 active:scale-95 transition-all cursor-pointer flex items-center justify-center shadow-2xs select-none"
-                        title="Add 2 kg"
-                      >
-                        +2
-                      </button>
-                    </div>
+                  {/* KG Input with inline 'kg' unit badge */}
+                  <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      pattern="[0-9]*[.]?[0-9]*"
+                      value={slot.weightKg}
+                      onFocus={(e) => e.target.select()}
+                      onChange={(e) =>
+                        onUpdateSlot(globalIndex, "weightKg", e.target.value)
+                      }
+                      placeholder="0"
+                      aria-label="Weight (kg)"
+                      className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11px] sm:text-sm text-[#382C24] font-semibold placeholder-[#998677] focus:outline-none font-mono pr-0.5"
+                    />
+                    <span className="text-[9.5px] sm:text-xs text-[#7C583F] font-bold select-none shrink-0 pointer-events-none ml-0.5">
+                      kg
+                    </span>
                   </div>
 
                   {/* Reps Input with inline 'reps' unit badge inside the same box */}
