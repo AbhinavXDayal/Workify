@@ -61,26 +61,30 @@ export function App() {
           </div>
         )}
 
-        {/* Section 1: TOP SECTION (Workify Routine Card with embedded user account pill) */}
-        <SplitHeader
-          user={user}
-          authLoading={authLoading}
-          onSignOut={signOut}
-          onOpenAuth={() => setIsAuthModalOpen(true)}
-        />
+        {/* Unified Continuous Liquid-Glass Card: No middle section breaking the app in half */}
+        <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2.5 sm:p-5 md:p-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
+          <SplitHeader
+            user={user}
+            authLoading={authLoading}
+            onSignOut={signOut}
+            onOpenAuth={() => setIsAuthModalOpen(true)}
+          />
 
-        {/* Section 2: MAIN TRACKER */}
-        <WorkoutTracker
-          activeDay={activeDay}
-          onSelectDay={setActiveDay}
-          slots={slots}
-          onUpdateSlot={updateSlot}
-          status={status}
-          statusMessage={statusMessage}
-          history={history}
-          showHistory={showHistory}
-          onToggleHistory={setShowHistory}
-        />
+          {/* Seamless Subtle Divider connecting routine overview to tracker */}
+          <div className="h-[1px] bg-[#382C24]/12 my-1.5 sm:my-2.5 shrink-0" />
+
+          <WorkoutTracker
+            activeDay={activeDay}
+            onSelectDay={setActiveDay}
+            slots={slots}
+            onUpdateSlot={updateSlot}
+            status={status}
+            statusMessage={statusMessage}
+            history={history}
+            showHistory={showHistory}
+            onToggleHistory={setShowHistory}
+          />
+        </div>
 
         {/* Fixed bottom spacer of the website (expandable to user liking) */}
         <footer

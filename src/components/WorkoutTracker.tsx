@@ -79,7 +79,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   });
 
   return (
-    <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2.5 pb-5 sm:p-5 sm:pb-8 md:p-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
+    <div className="w-full max-w-full flex flex-col flex-1 min-h-0 transition-all duration-200">
       {/* 1. Day Selector Tabs with soft rounded corners */}
       <div className="shrink-0 mb-1.5 sm:mb-2">
         <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
