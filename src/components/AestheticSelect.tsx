@@ -48,26 +48,23 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
     return unsubscribe;
   }, [groupName]);
 
-  // Combined options: group custom exercises + predefined + other custom exercises + current value
+  // Combined options: group custom exercises + predefined + current value
   const allOptions = useMemo(() => {
     const combinedSet = new Set<string>();
 
-    // 1. Group custom exercises first
-    customData.groupExercises.forEach((e) => combinedSet.add(e));
+    // 1. Group custom exercises (strictly isolated to this group)
+    customData.combined.forEach((e) => combinedSet.add(e));
 
     // 2. Predefined options (if any)
     options.forEach((e) => combinedSet.add(e));
 
-    // 3. Other custom exercises added anywhere in the app
-    customData.allExercises.forEach((e) => combinedSet.add(e));
-
-    // 4. Current value (if set and not empty)
+    // 3. Current value (if set and not empty)
     if (value && value.trim()) {
       combinedSet.add(value.trim());
     }
 
     return Array.from(combinedSet);
-  }, [options, customData, value]);
+  }, [options, customData.combined, value]);
 
   // Close on outside click or Escape key
   useEffect(() => {

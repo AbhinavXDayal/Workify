@@ -49,10 +49,9 @@ export function getCustomExercises(group?: string): {
     const groupExercises = Array.from(groupSet);
     const allExercises = Array.from(allSet);
 
-    // Combined list: group-specific first, then other custom exercises
-    const combinedSet = new Set<string>(groupExercises);
-    allExercises.forEach((e) => combinedSet.add(e));
-    const combined = Array.from(combinedSet);
+    // Group-specific combined list: only includes this group's exercises
+    // If no group is passed, falls back to all exercises
+    const combined = group ? groupExercises : allExercises;
 
     return { groupExercises, allExercises, combined };
   } catch {
@@ -108,20 +107,31 @@ export function removeCustomExercise(
     if (!raw) return;
     const data: CustomExercisesStorage = JSON.parse(raw);
 
-    // Remove from group
+    // Remove only from the specified group
     if (group) {
       const key = group.trim();
       if (Array.isArray(data[key])) {
         data[key] = (data[key] as string[]).filter((opt) => opt !== target);
       }
-    }
-
-    // Also remove from any direct keys
-    for (const [k, val] of Object.entries(data)) {
-      if (Array.isArray(val)) {
-        data[k] = val.filter((opt) => opt !== target);
+    } else {
+      // If no group specified, remove from all keys
+      for (const [k, val] of Object.entries(data)) {
+        if (Array.isArray(val)) {
+          data[k] = val.filter((opt) => opt !== target);
+        }
       }
     }
+
+    // Rebuild global all list from remaining groups
+    const remainingAll = new Set<string>();
+    for (const [k, val] of Object.entries(data)) {
+      if (k !== 'all' && Array.isArray(val)) {
+        val.forEach((e) => {
+          if (typeof e === 'string' && e.trim()) remainingAll.add(e.trim());
+        });
+      }
+    }
+    data.all = Array.from(remainingAll);
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 

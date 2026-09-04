@@ -18,7 +18,7 @@ describe('Custom Exercises Synchronization & Persistence', () => {
     expect(res.combined).toEqual([]);
   });
 
-  it('saves custom exercise for a group and makes it available in allExercises and combined', () => {
+  it('saves custom exercise for a group and isolates it so other groups do not see it in combined', () => {
     saveCustomExercise('Deadlift', 'Back');
 
     const backRes = getCustomExercises('Back');
@@ -26,29 +26,31 @@ describe('Custom Exercises Synchronization & Persistence', () => {
     expect(backRes.allExercises).toContain('Deadlift');
     expect(backRes.combined).toContain('Deadlift');
 
-    // Also accessible from another group via combined/allExercises
+    // Not visible in another group's combined options
     const armsRes = getCustomExercises('Arms');
     expect(armsRes.groupExercises).not.toContain('Deadlift');
     expect(armsRes.allExercises).toContain('Deadlift');
-    expect(armsRes.combined).toContain('Deadlift');
+    expect(armsRes.combined).not.toContain('Deadlift');
   });
 
-  it('supports saving multiple exercises across groups without overwriting', () => {
+  it('supports saving multiple exercises across groups with strict section isolation', () => {
     saveCustomExercise('Lat pull down', 'Back');
     saveCustomExercise('T bar row', 'Back');
     saveCustomExercise('Bicep curl', 'Arms');
 
     const backRes = getCustomExercises('Back');
     expect(backRes.groupExercises).toEqual(['Lat pull down', 'T bar row']);
+    expect(backRes.combined).toEqual(['Lat pull down', 'T bar row']);
+    expect(backRes.combined).not.toContain('Bicep curl');
     expect(backRes.allExercises).toContain('Lat pull down');
     expect(backRes.allExercises).toContain('T bar row');
     expect(backRes.allExercises).toContain('Bicep curl');
 
     const armsRes = getCustomExercises('Arms');
     expect(armsRes.groupExercises).toEqual(['Bicep curl']);
-    expect(armsRes.combined).toContain('Bicep curl');
-    expect(armsRes.combined).toContain('Lat pull down');
-    expect(armsRes.combined).toContain('T bar row');
+    expect(armsRes.combined).toEqual(['Bicep curl']);
+    expect(armsRes.combined).not.toContain('Lat pull down');
+    expect(armsRes.combined).not.toContain('T bar row');
   });
 
   it('notifies subscribers via window event when an exercise is added or removed', () => {
