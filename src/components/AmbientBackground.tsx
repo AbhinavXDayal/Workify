@@ -3,8 +3,6 @@ import React, { useEffect, useRef } from "react";
 interface GraphNode {
   x: number;
   y: number;
-  vx: number;
-  vy: number;
   radius: number;
 }
 
@@ -42,7 +40,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Optimized node count for buttery-smooth performance
+    // Highly optimized node count for buttery mobile performance
     const isMobile = width < 768;
     const nodeCount = isMobile ? 14 : 24;
     const maxDistance = isMobile ? 95 : 125;
@@ -56,15 +54,14 @@ export const AmbientBackground: React.FC = React.memo(() => {
 
     const nodes: LeafGraphNode[] = [];
     for (let i = 0; i < nodeCount; i++) {
+      // Designate ~25% of nodes to have a seedling/leaf pair sprout
       const hasSprout = i % 4 === 0;
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: 0,
-        vy: 0,
         radius: Math.random() * 0.6 + 1.2,
         hasSprout,
-        sproutAngle: Math.random() * 0.8 - 0.4 - Math.PI / 2,
+        sproutAngle: Math.random() * 0.8 - 0.4 - Math.PI / 2, // pointing generally upward
         stemLength: Math.random() * 6 + 14,
       });
     }
@@ -76,7 +73,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
       y: number,
       angle: number,
       length: number,
-      leafWidth: number,
+      width: number,
       alpha: number,
     ) => {
       if (alpha <= 0.02) return;
@@ -87,8 +84,8 @@ export const AmbientBackground: React.FC = React.memo(() => {
       // 1. Leaf body (almond/oval pointed curve)
       context.beginPath();
       context.moveTo(0, 0);
-      context.quadraticCurveTo(length * 0.45, -leafWidth * 0.6, length, 0);
-      context.quadraticCurveTo(length * 0.45, leafWidth * 0.6, 0, 0);
+      context.quadraticCurveTo(length * 0.45, -width * 0.6, length, 0);
+      context.quadraticCurveTo(length * 0.45, width * 0.6, 0, 0);
       context.closePath();
 
       // Soft luminous warm amber-bronze leaf fill
@@ -111,12 +108,13 @@ export const AmbientBackground: React.FC = React.memo(() => {
       context.restore();
     };
 
+    // Draw botanical constellation once with warm amber tones
     const drawConstellation = () => {
       if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
 
       // 1. Draw connecting edges and attached leaves along edges
-      ctx.lineWidth = 0.8;
+      ctx.lineWidth = 0.85;
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[j].x - nodes[i].x;
@@ -126,11 +124,11 @@ export const AmbientBackground: React.FC = React.memo(() => {
           if (dist2 < maxDist2) {
             const dist = Math.sqrt(dist2);
             const edgeRatio = 1 - dist / maxDistance;
-            const alpha = edgeRatio * 0.35;
+            const alpha = edgeRatio * 0.38;
 
             // Draw edge line
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(186, 128, 86, ${alpha})`;
+            ctx.strokeStyle = `rgba(220, 180, 148, ${alpha})`;
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
             ctx.stroke();
@@ -138,20 +136,20 @@ export const AmbientBackground: React.FC = React.memo(() => {
             // Place leaves along certain edges
             const isLeafEdge = (i * 7 + j * 11) % 4 === 0;
             if (isLeafEdge && edgeRatio > 0.18) {
-              const leafT = 0.48; // placed near midpoint
+              const leafT = 0.48;
               const leafX = nodes[i].x + dx * leafT;
               const leafY = nodes[i].y + dy * leafT;
               const lineAngle = Math.atan2(dy, dx);
-              const leafAlpha = Math.min(edgeRatio * 1.4, 0.85);
+              const leafAlpha = Math.min(edgeRatio * 1.4, 0.88);
 
               drawBotanicalLeaf(
                 ctx,
                 leafX,
                 leafY,
                 lineAngle,
-                15, // length
-                6.8, // width
-                leafAlpha,
+                15,
+                6.8,
+                leafAlpha
               );
             }
           }
@@ -165,7 +163,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
         // Node dot
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(214, 154, 106, 0.72)";
+        ctx.fillStyle = "rgba(240, 195, 160, 0.82)";
         ctx.fill();
 
         // If node has sprout: draw stem and two sprouting leaves (seedling)
@@ -178,12 +176,11 @@ export const AmbientBackground: React.FC = React.memo(() => {
           ctx.beginPath();
           ctx.moveTo(node.x, node.y);
           ctx.lineTo(tipX, tipY);
-          ctx.strokeStyle = "rgba(186, 128, 86, 0.75)";
+          ctx.strokeStyle = "rgba(220, 175, 140, 0.85)";
           ctx.lineWidth = 1.1;
           ctx.stroke();
 
           // Two sprouting leaves from stem tip
-          // Leaf 1 (angled to left)
           drawBotanicalLeaf(
             ctx,
             tipX,
@@ -191,10 +188,9 @@ export const AmbientBackground: React.FC = React.memo(() => {
             currentStemAngle - 0.45,
             12,
             5.2,
-            0.8,
+            0.85
           );
 
-          // Leaf 2 (angled to right)
           drawBotanicalLeaf(
             ctx,
             tipX,
@@ -202,7 +198,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
             currentStemAngle + 0.45,
             12,
             5.2,
-            0.8,
+            0.85
           );
         }
       }
@@ -229,13 +225,13 @@ export const AmbientBackground: React.FC = React.memo(() => {
       className="pointer-events-none fixed inset-0 w-full h-full max-w-full overflow-hidden z-0 select-none"
       aria-hidden="true"
     >
-      {/* 1. Base Hazy Smoky Brown Ambient Gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,_rgba(104,62,34,0.38)_0%,_rgba(22,15,11,0.96)_100%)]" />
+      {/* 1. Base Hazy Warm Mocha Gradient (matching reference palette #A88F7A to #886F5B) */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_65%_at_50%_-10%,_#A88F7A_0%,_#987E69_50%,_#886F5B_100%)]" />
 
       {/* 2. Fast GPU Hazy Amber/Mocha Radial Gradients */}
-      <div className="absolute -top-24 -left-16 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(196,126,76,0.18)_0%,_rgba(138,82,45,0.08)_45%,_transparent_70%)] animate-ambient-1" />
-      <div className="absolute top-1/3 -right-12 w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(218,154,100,0.14)_0%,_rgba(164,102,56,0.06)_50%,_transparent_70%)] animate-ambient-2" />
-      <div className="absolute -bottom-16 left-1/4 w-[340px] h-[340px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(152,92,54,0.16)_0%,_transparent_65%)] animate-ambient-3" />
+      <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(235,185,145,0.22)_0%,_rgba(195,155,125,0.1)_45%,_transparent_70%)] animate-ambient-1" />
+      <div className="absolute top-1/3 -right-12 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(240,195,155,0.18)_0%,_rgba(205,165,135,0.08)_50%,_transparent_70%)] animate-ambient-2" />
+      <div className="absolute -bottom-16 left-1/4 w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(215,175,145,0.2)_0%,_transparent_65%)] animate-ambient-3" />
 
       {/* 3. Ultra-Light Dot Matrix Grid in Warm Amber Stardust */}
       <svg
@@ -249,7 +245,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
             height="28"
             patternUnits="userSpaceOnUse"
           >
-            <circle cx="2" cy="2" r="1.1" fill="#C48E62" fillOpacity="0.45" />
+            <circle cx="2" cy="2" r="1.1" fill="#E1AA7C" fillOpacity="0.5" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#ambient-dot-matrix)" />
@@ -263,28 +259,28 @@ export const AmbientBackground: React.FC = React.memo(() => {
 
       {/* 5. Elegant Drifting Small Leaves in Warm Golden-Amber (GPU-composited translate3d) */}
       <div className="absolute top-[10%] left-[8%] animate-leaf-drift-1">
-        <SmallLeaf className="w-4 h-4 text-[#C48E62]/24 transform -rotate-12" />
+        <SmallLeaf className="w-4 h-4 text-[#E1AA7C]/30 transform -rotate-12" />
       </div>
 
       <div
         className="absolute top-[22%] right-[10%] animate-leaf-drift-2"
         style={{ animationDelay: "3.5s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#D49E72]/20 transform rotate-45" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#EBB58A]/26 transform rotate-45" />
       </div>
 
       <div
         className="absolute top-[65%] left-[6%] animate-leaf-drift-3"
         style={{ animationDelay: "7s" }}
       >
-        <SmallLeaf className="w-3.5 h-3.5 text-[#C48E62]/20 transform -rotate-30" />
+        <SmallLeaf className="w-3.5 h-3.5 text-[#E1AA7C]/26 transform -rotate-30" />
       </div>
 
       <div
         className="absolute top-[80%] right-[12%] animate-leaf-drift-1"
         style={{ animationDelay: "5s" }}
       >
-        <SmallLeaf className="w-4 h-4 text-[#D49E72]/22 transform rotate-20" />
+        <SmallLeaf className="w-4 h-4 text-[#EBB58A]/28 transform rotate-20" />
       </div>
     </div>
   );

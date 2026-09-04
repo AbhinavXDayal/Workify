@@ -35,7 +35,7 @@ export function App() {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] w-full max-w-full overflow-hidden sm:overflow-x-hidden sm:overflow-y-auto bg-[#160F0B] text-[#F5EFEB] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#7E4B28] selection:text-[#FFFBF5]">
+    <div className="relative h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] w-full max-w-full overflow-hidden sm:overflow-x-hidden sm:overflow-y-auto bg-[#886F5B] text-[#FAF5ED] flex flex-col items-center py-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#C49978] selection:text-[#FFFDF8]">
       {/* 1. Dynamic Ambient Background: small leaves, dot matrix, and connected moving graph */}
       <AmbientBackground />
 
