@@ -19,7 +19,7 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 p-4 backdrop-blur-lg">
-      <div className="liquid-glass-card rounded-3xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-white/25">
+      <div className="hazy-card rounded-3xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-white/20">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/15">
           <div className="flex items-center gap-2">
@@ -57,7 +57,7 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
               return (
                 <div
                   key={log.id}
-                  className="liquid-glass-pill rounded-2xl p-4 space-y-3 shadow-xs"
+                  className="hazy-pill rounded-2xl p-4 space-y-3 shadow-xs"
                 >
                   <div className="flex justify-between items-center text-xs pb-2 border-b border-white/15">
                     <span className="font-semibold text-[#FFFDF8]">

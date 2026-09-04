@@ -115,7 +115,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                   />
 
                   {/* KG Input with inline 'kg' unit badge */}
-                  <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
+                  <div className="relative w-[56px] sm:w-24 md:w-28 h-8 sm:h-9 hazy-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
                     <input
                       type="text"
                       inputMode="decimal"
@@ -135,7 +135,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                   </div>
 
                   {/* Reps Input with inline 'reps' unit badge inside the same box */}
-                  <div className="relative w-[62px] sm:w-24 md:w-28 h-8 sm:h-9 liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
+                  <div className="relative w-[62px] sm:w-24 md:w-28 h-8 sm:h-9 hazy-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text">
                     <input
                       type="text"
                       inputMode="numeric"

@@ -53,7 +53,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
                       onClick={onSignOut}
                       title={`Signed in as ${user.email}. Click to sign out.`}
                       aria-label="Sign out"
-                      className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-[#FFAE6B] text-[10px] sm:text-[11px] font-medium liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-white/25 shadow-xs group"
+                      className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-[#FFAE6B] text-[10px] sm:text-[11px] font-medium hazy-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-white/20 shadow-xs group"
                     >
                       <LogOut className="w-3 h-3 text-[#F0B888] group-hover:text-[#FFAE6B] transition-transform duration-200 group-hover:scale-110" />
                       <span className="text-[10px] sm:text-[11px] font-medium tracking-tight">
@@ -65,7 +65,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
                     <button
                       type="button"
                       onClick={onOpenAuth}
-                      className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-white text-[11px] sm:text-xs font-semibold liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-white/25"
+                      className="inline-flex items-center gap-1.5 text-[#FAF5EE] hover:text-white text-[11px] sm:text-xs font-semibold hazy-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-white/20"
                     >
                       <UserIcon className="w-3 h-3 text-[#F0B888]" />
                       <span>Sign In</span>
@@ -83,12 +83,12 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
           {SPLIT_HEADER_TEXT.overview}
         </p>
 
-        {/* Days split - 3 columns on desktop, clean compact glass rows on mobile */}
+        {/* Days split - 3 columns on desktop, clean compact hazy rows on mobile */}
         <div className="space-y-0.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#FAF5EE] text-[10.5px] sm:text-xs mb-0.5 sm:mb-1 font-medium">
           {SPLIT_HEADER_TEXT.days.map((dayText, idx) => (
             <div
               key={idx}
-              className="liquid-glass-pill px-2 py-0.5 md:px-2.5 md:py-1 rounded-md md:rounded-lg flex items-center shadow-xs"
+              className="hazy-pill px-2 py-0.5 md:px-2.5 md:py-1 rounded-md md:rounded-lg flex items-center shadow-xs"
             >
               <p className="leading-tight sm:leading-snug">{dayText}</p>
             </div>
