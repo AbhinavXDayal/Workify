@@ -27,9 +27,9 @@ describe('Workout Configuration & Reps Logic', () => {
     expect(shoulders?.slotsCount).toBe(1);
     expect(shoulders?.defaultReps).toBe(15); // Small muscle = 15
 
-    const cardio = monThu.groups.find((g) => g.name === 'Cardio sports / MMA');
+    const cardio = monThu.groups.find((g) => g.name === 'Cardio sports / running');
     expect(cardio?.slotsCount).toBe(1);
-    expect(cardio?.trackingType).toBe('stars');
+    expect(cardio?.trackingType).toBe('km_time');
   });
 
   it('verifies Tue / Fri structure and muscle sizes', () => {

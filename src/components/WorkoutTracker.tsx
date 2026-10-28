@@ -3,7 +3,7 @@ import { DaySelector } from "./DaySelector";
 import { AestheticSelect } from "./AestheticSelect";
 import { HistoryDrawer } from "./HistoryDrawer";
 import { StarRatingBox } from "./StarRatingBox";
-import { WORKOUT_DAYS_CONFIG, isRatingGroup } from "../constants/workoutConfig";
+import { WORKOUT_DAYS_CONFIG, isRatingGroup, isKmTimeGroup } from "../constants/workoutConfig";
 import type {
   WorkoutDay,
   ExerciseSlotState,
@@ -137,9 +137,8 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                     compact={isWed}
                   />
 
-                  {/* Rating / Star Box for Cardio sports, MMA, Long run, and non-weight activities */}
-                  {group.trackingType === "stars" ||
-                  isRatingGroup(group.name) ? (
+                  {/* Rating / Star Box for activities using star tracking */}
+                  {group.trackingType === "stars" || isRatingGroup(group.name) ? (
                     <StarRatingBox
                       rating={
                         slot.rating !== undefined && slot.rating > 0
@@ -152,6 +151,59 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       ariaLabel={`${slot.exerciseName || group.name} rating`}
                       compact={isWed}
                     />
+                  ) : group.trackingType === "km_time" || isKmTimeGroup(group.name) ? (
+                    <>
+                      {/* KM Input with inline 'km' unit badge */}
+                      <div
+                        className={`relative w-[58px] sm:w-24 md:w-28 ${
+                          isWed ? "h-[31px] sm:h-9" : "h-[34px] sm:h-9"
+                        } liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text`}
+                      >
+                        <input
+                          type="text"
+                          inputMode="decimal"
+                          pattern="[0-9]*[.]?[0-9]*"
+                          value={slot.weightKg}
+                          onFocus={(e) => e.target.select()}
+                          onChange={(e) =>
+                            onUpdateSlot(
+                              globalIndex,
+                              "weightKg",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="0"
+                          aria-label="Distance (km)"
+                          className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11.5px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#58665E] focus:outline-none font-mono pr-0.5"
+                        />
+                        <span className="text-[9.5px] sm:text-xs text-[#859D8E] font-bold select-none shrink-0 pointer-events-none ml-0.5">
+                          km
+                        </span>
+                      </div>
+
+                      {/* Time Input with inline 'time' unit badge */}
+                      <div
+                        className={`relative w-[64px] sm:w-24 md:w-28 ${
+                          isWed ? "h-[31px] sm:h-9" : "h-[34px] sm:h-9"
+                        } liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-1.5 sm:px-2 font-mono shrink-0 cursor-text`}
+                      >
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          value={slot.reps}
+                          onFocus={(e) => e.target.select()}
+                          onChange={(e) => {
+                            onUpdateSlot(globalIndex, "reps", e.target.value);
+                          }}
+                          placeholder="0"
+                          aria-label="Time (mins)"
+                          className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11.5px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#58665E] focus:outline-none font-mono pr-0.5"
+                        />
+                        <span className="text-[9.5px] sm:text-xs text-[#859D8E] font-bold select-none shrink-0 pointer-events-none ml-0.5">
+                          time
+                        </span>
+                      </div>
+                    </>
                   ) : (
                     <>
                       {/* KG Input with inline 'kg' unit badge */}
