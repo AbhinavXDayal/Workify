@@ -8,6 +8,8 @@ export const SPLIT_HEADER_TEXT = {
     'Tue, fri - legs ( 3 ), chest ( 2 ), abs ( 1 ) + cardio sports / mma',
     'Wed - calisthenics ( 3 ) + self defence w tools ( 2 ) + neck ( 2 ) + long run ( 1 )',
   ],
+  pyramidWarmup:
+    'Pyramid warmup - sets 3 | reps - light weight ( 10 ), mid weight ( 5 ), heavy weight ( 3 )',
   guidelines: 'Sets - 2 | Reps - big muscles ( 10 ), mid muscles ( 12 ), small muscles ( 15 )',
   instruction:
     'Choose a weight where the Zth rep feels very hard & close to failure, use controlled reps with natural full ROM, proper form & 1 RIR, never ego lift. Warm up properly & use backups and supporting gear when needed, such as spotters, safety bars, knee sleeves or lifting straps. Listen to your body & if something feels unsafe or uncomfortable, stop or be cautious',

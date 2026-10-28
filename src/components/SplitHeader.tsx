@@ -97,6 +97,11 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         {/* Thin separator line */}
         <hr className="border-[#4A5A4F]/20 my-0.5 sm:my-1" />
 
+        {/* Warmup guidelines */}
+        <p className="text-[#FFFDF8] text-[10.5px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
+          {SPLIT_HEADER_TEXT.pyramidWarmup}
+        </p>
+
         {/* Sets and reps guidelines */}
         <p className="text-[#FFFDF8] text-[10.5px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
           {SPLIT_HEADER_TEXT.guidelines}
