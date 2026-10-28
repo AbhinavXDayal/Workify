@@ -4,7 +4,7 @@ export const SPLIT_HEADER_TEXT = {
   title: 'Workify',
   overview: 'Dynamic warmup → weightlifting ( machines & free weights ) → cardio → self defence',
   days: [
-    'Mon, thu - back ( 3 ), arms ( 2 ), shoulders ( 1 ) + cardio sports / mma',
+    'Mon, thu - back ( 3 ), arms ( 2 ), shoulders ( 1 ) + cardio sports / running',
     'Tue, fri - legs ( 3 ), chest ( 2 ), abs ( 1 ) + cardio sports / mma',
     'Wed - calisthenics ( 3 ) + self defence w tools ( 2 ) + neck ( 2 ) + long run ( 1 )',
   ],
@@ -43,7 +43,7 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         options: [],
       },
       {
-        name: 'Cardio sports / MMA',
+        name: 'Cardio sports / running',
         slotsCount: 1,
         defaultReps: 0,
         trackingType: 'stars',
