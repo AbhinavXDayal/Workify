@@ -18,22 +18,22 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
 }) => {
   return (
     <div className="w-full max-w-full transition-all duration-200 shrink-0">
-      {/* Header Bar: Title on left, Account pill on right */}
-      <div className="flex items-center justify-between gap-2 pb-1 sm:pb-1.5 border-b border-[#4A5A4F]/20 min-w-0">
+      {/* Header Bar: Ultra-compact Title on left, Account icon pill on right */}
+      <div className="flex items-center justify-between gap-1.5 pb-0.5 sm:pb-1 border-b border-[#4A5A4F]/20 min-w-0">
         <a
           href="https://github.com/AbhinavXDayal/Workify"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 sm:gap-2 text-[#FFFDF8] text-sm sm:text-lg font-extrabold tracking-wide select-none shrink-0 hover:text-[#859D8E] transition-colors duration-200 cursor-pointer no-underline group drop-shadow-xs"
+          className="flex items-center gap-1 sm:gap-1.5 text-[#FFFDF8] text-xs sm:text-sm font-bold tracking-wide select-none shrink-0 hover:text-[#859D8E] transition-colors duration-200 cursor-pointer no-underline group drop-shadow-xs"
         >
           <img
             src="/workify-logo.jpg"
             alt="Workify Logo"
-            className="w-5 h-5 sm:w-7 sm:h-7 rounded-md object-cover shadow-xs border border-[#4A5A4F]/25"
+            className="w-4 h-4 sm:w-5 sm:h-5 rounded object-cover shadow-xs border border-[#4A5A4F]/25"
           />
-          <h1 className="inline">{SPLIT_HEADER_TEXT.title}</h1>
+          <h1 className="inline text-xs sm:text-sm">{SPLIT_HEADER_TEXT.title}</h1>
           <svg
-            className="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-75 group-hover:opacity-100 transition-opacity fill-current"
+            className="w-3 h-3 opacity-75 group-hover:opacity-100 transition-opacity fill-current"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -41,8 +41,8 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
           </svg>
         </a>
 
-        {/* Right Action Group: Account Pill */}
-        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        {/* Right Action Group: Compact Account Pill */}
+        <div className="flex items-center gap-1 shrink-0">
           {!authLoading && (
             <>
               {user
@@ -52,21 +52,19 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
                       onClick={onSignOut}
                       title={`Signed in as ${user.email}. Click to sign out.`}
                       aria-label="Sign out"
-                      className="inline-flex items-center gap-1.5 text-[#E2E8E4] hover:text-[#859D8E] text-[10px] sm:text-[11px] font-medium liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-[#4A5A4F]/30 shadow-xs group"
+                      className="inline-flex items-center gap-1 text-[#E2E8E4] hover:text-[#859D8E] text-[9.5px] sm:text-[10.5px] font-medium liquid-glass-pill px-2 py-0.5 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-[#4A5A4F]/30 shadow-xs group"
                     >
-                      <LogOut className="w-3 h-3 text-[#859D8E] group-hover:text-[#9BB5A5] transition-transform duration-200 group-hover:scale-110" />
-                      <span className="text-[10px] sm:text-[11px] font-medium tracking-tight">
-                        sign out
-                      </span>
+                      <LogOut className="w-2.5 h-2.5 text-[#859D8E] group-hover:text-[#9BB5A5] transition-transform duration-200 group-hover:scale-110" />
+                      <span className="tracking-tight">sign out</span>
                     </button>
                   )
                 : onOpenAuth && (
                     <button
                       type="button"
                       onClick={onOpenAuth}
-                      className="inline-flex items-center gap-1.5 text-[#E2E8E4] hover:text-white text-[11px] sm:text-xs font-semibold liquid-glass-pill px-2.5 py-1 sm:px-3 sm:py-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-[#4A5A4F]/30"
+                      className="inline-flex items-center gap-1 text-[#E2E8E4] hover:text-white text-[9.5px] sm:text-[10.5px] font-semibold liquid-glass-pill px-2 py-0.5 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-[#4A5A4F]/30"
                     >
-                      <UserIcon className="w-3 h-3 text-[#859D8E]" />
+                      <UserIcon className="w-2.5 h-2.5 text-[#859D8E]" />
                       <span>Sign In</span>
                     </button>
                   )}
@@ -76,14 +74,14 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
       </div>
 
       {/* Routine Content: Permanently visible with elegant champagne typography */}
-      <div className="mt-1 sm:mt-1.5">
+      <div className="mt-0.5 sm:mt-1">
         {/* Warmup flow */}
-        <p className="text-[#CCD6CF] text-[10.5px] sm:text-xs mb-0.5 sm:mb-1 leading-tight text-center select-none font-semibold">
+        <p className="text-[#CCD6CF] text-[10px] sm:text-xs mb-0.5 leading-tight text-center select-none font-semibold">
           {SPLIT_HEADER_TEXT.overview}
         </p>
 
         {/* Days split - 3 columns on desktop, clean compact glass rows on mobile */}
-        <div className="space-y-0.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#E2E8E4] text-[10.5px] sm:text-xs mb-0.5 sm:mb-1 font-medium">
+        <div className="space-y-0.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#E2E8E4] text-[10px] sm:text-xs mb-0.5 font-medium">
           {SPLIT_HEADER_TEXT.days.map((dayText, idx) => (
             <div
               key={idx}
@@ -95,20 +93,20 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         </div>
 
         {/* Thin separator line */}
-        <hr className="border-[#4A5A4F]/20 my-0.5 sm:my-1" />
+        <hr className="border-[#4A5A4F]/20 my-0.5" />
 
         {/* Warmup guidelines */}
-        <p className="text-[#FFFDF8] text-[10.5px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
+        <p className="text-[#FFFDF8] text-[10px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
           {SPLIT_HEADER_TEXT.pyramidWarmup}
         </p>
 
         {/* Sets and reps guidelines */}
-        <p className="text-[#FFFDF8] text-[10.5px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
+        <p className="text-[#FFFDF8] text-[10px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
           {SPLIT_HEADER_TEXT.guidelines}
         </p>
 
         {/* Short instruction */}
-        <p className="text-[#8A968E] text-[9.5px] sm:text-[11.5px] leading-tight sm:leading-snug text-center max-w-4xl mx-auto font-medium">
+        <p className="text-[#8A968E] text-[9px] sm:text-[11px] leading-tight sm:leading-snug text-center max-w-4xl mx-auto font-medium">
           {SPLIT_HEADER_TEXT.instruction}
         </p>
       </div>

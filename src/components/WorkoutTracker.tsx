@@ -89,10 +89,10 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
       </div>
 
-      {/* 2. Muscle Groups & Exercise Rows: cohesive, non-scrollable on mobile, natural on desktop */}
+      {/* 2. Muscle Groups & Exercise Rows: cohesive, non-scrollable, natural on desktop */}
       <div
-        className={`flex-1 min-h-0 overflow-y-auto sm:overflow-visible overscroll-contain pr-0.5 pb-0.5 sm:pb-3 custom-glass-scrollbar ${
-          isWed ? "space-y-1 sm:space-y-3" : "space-y-1.5 sm:space-y-3"
+        className={`flex-1 min-h-0 overflow-visible pr-0.5 pb-0.5 sm:pb-3 ${
+          isWed ? "space-y-0.5 sm:space-y-2.5" : "space-y-1 sm:space-y-2.5"
         }`}
       >
         {groupedSlots.map((group, groupIdx) => (
