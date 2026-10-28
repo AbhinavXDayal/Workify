@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
-import { ChevronDown, Check, Plus, X } from "lucide-react";
+import { ChevronDown, Check, Plus, X, Pencil } from "lucide-react";
 import {
   getCustomExercises,
   saveCustomExercise,
   removeCustomExercise,
+  renameCustomExercise,
   subscribeToCustomExercises,
 } from "../utils/customExercises";
 
@@ -30,12 +31,15 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
   const [openDirection, setOpenDirection] = useState<"up" | "down">("down");
   const [isAdding, setIsAdding] = useState(false);
   const [newExerciseInput, setNewExerciseInput] = useState("");
+  const [editingExercise, setEditingExercise] = useState<string | null>(null);
+  const [editingInput, setEditingInput] = useState("");
   const [customData, setCustomData] = useState(() =>
     getCustomExercises(groupName),
   );
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const editInputRef = useRef<HTMLInputElement>(null);
   const recentlyRemovedRef = useRef<string | null>(null);
 
   // Sync customData when groupName changes
@@ -136,12 +140,48 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
     setIsOpen(false);
   };
 
+  const handleStartRename = (e: React.MouseEvent, opt: string) => {
+    e.stopPropagation();
+    setEditingExercise(opt);
+    setEditingInput(opt);
+    setTimeout(() => {
+      editInputRef.current?.focus();
+      editInputRef.current?.select();
+    }, 50);
+  };
+
+  const handleSaveRename = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!editingExercise) return;
+    const trimmed = editingInput.trim();
+    if (!trimmed) {
+      setEditingExercise(null);
+      return;
+    }
+
+    renameCustomExercise(editingExercise, trimmed, groupName);
+    if (value === editingExercise) {
+      onChange(trimmed);
+    }
+    setEditingExercise(null);
+    setEditingInput("");
+  };
+
+  const handleCancelRename = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingExercise(null);
+    setEditingInput("");
+  };
+
   const handleRemoveCustom = (e: React.MouseEvent, opt: string) => {
     e.stopPropagation();
     recentlyRemovedRef.current = opt;
     removeCustomExercise(opt, groupName);
     if (value === opt) {
       onChange("");
+    }
+    if (editingExercise === opt) {
+      setEditingExercise(null);
     }
   };
 
@@ -269,6 +309,44 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
           {allOptions.map((opt) => {
             const isSelected = value === opt;
             const isCustom = customData.combined.includes(opt);
+            const isEditingThis = editingExercise === opt;
+
+            if (isEditingThis) {
+              return (
+                <form
+                  key={opt}
+                  onSubmit={handleSaveRename}
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex items-center gap-1 p-1 liquid-glass-input rounded-xl my-0.5 border border-[#859D8E]/50"
+                >
+                  <input
+                    ref={editInputRef}
+                    type="text"
+                    value={editingInput}
+                    onChange={(e) => setEditingInput(e.target.value)}
+                    placeholder="Rename exercise..."
+                    className="flex-1 bg-transparent px-2 py-1 text-xs sm:text-sm text-[#FFFFFF] placeholder-[#58665E] focus:outline-none min-w-0 font-medium"
+                  />
+                  <button
+                    type="submit"
+                    title="Confirm rename"
+                    disabled={!editingInput.trim()}
+                    className="p-1 rounded-md text-[#859D8E] hover:text-[#FFFFFF] hover:bg-[#27322B] disabled:opacity-40 transition-colors cursor-pointer"
+                  >
+                    <Check className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCancelRename}
+                    title="Cancel rename"
+                    className="p-1 rounded-md text-[#829288] hover:text-[#FFFFFF] transition-colors cursor-pointer"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </form>
+              );
+            }
+
             return (
               <div
                 key={opt}
@@ -290,6 +368,14 @@ export const AestheticSelect: React.FC<AestheticSelectProps> = ({
                 </div>
 
                 <div className="flex items-center gap-1 shrink-0 ml-2">
+                  <button
+                    type="button"
+                    onClick={(e) => handleStartRename(e, opt)}
+                    title="Rename exercise"
+                    className="p-1 rounded-md text-[#829288] hover:text-[#859D8E] hover:bg-white/10 transition-colors"
+                  >
+                    <Pencil className="w-3 h-3" />
+                  </button>
                   {isCustom && (
                     <button
                       type="button"

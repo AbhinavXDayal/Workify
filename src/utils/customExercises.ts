@@ -150,6 +150,61 @@ export function removeCustomExercise(
   }
 }
 
+export function renameCustomExercise(
+  oldExercise: string,
+  newExercise: string,
+  group?: string
+): void {
+  if (typeof window === 'undefined') return;
+  const oldTrimmed = oldExercise.trim();
+  const newTrimmed = newExercise.trim();
+  if (!oldTrimmed || !newTrimmed || oldTrimmed === newTrimmed) return;
+
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const data: CustomExercisesStorage = JSON.parse(raw);
+
+    // 1. Rename in group
+    const key = group ? group.trim() : 'general';
+    if (Array.isArray(data[key])) {
+      data[key] = (data[key] as string[]).map((opt) =>
+        opt === oldTrimmed ? newTrimmed : opt
+      );
+    }
+
+    // 2. Rename in all
+    if (Array.isArray(data.all)) {
+      data.all = (data.all as string[]).map((opt) =>
+        opt === oldTrimmed ? newTrimmed : opt
+      );
+    }
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+    // Also update stats if they exist
+    const statsRaw = localStorage.getItem(STATS_STORAGE_KEY);
+    if (statsRaw) {
+      const statsData: Record<string, ExerciseStats> = JSON.parse(statsRaw);
+      const oldKey = oldTrimmed.toLowerCase();
+      const newKey = newTrimmed.toLowerCase();
+      if (statsData[oldKey]) {
+        statsData[newKey] = statsData[oldKey];
+        delete statsData[oldKey];
+        localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(statsData));
+      }
+    }
+
+    window.dispatchEvent(
+      new CustomEvent(EVENT_NAME, {
+        detail: { exercise: newTrimmed, oldExercise: oldTrimmed, group },
+      })
+    );
+  } catch {
+    // Ignore storage errors
+  }
+}
+
 export function subscribeToCustomExercises(callback: () => void): () => void {
   if (typeof window === 'undefined') return () => {};
 
