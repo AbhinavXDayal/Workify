@@ -6,7 +6,7 @@ export const SPLIT_HEADER_TEXT = {
   days: [
     'Mon, thu - back ( 3 ), arms ( 2 ), shoulders ( 1 ) + cardio sports / running',
     'Tue, fri - legs ( 3 ), chest ( 2 ), abs ( 1 ) + cardio sports / mma',
-    'Wed - calisthenics ( 3 ) + self defence w tools ( 2 ) + neck ( 2 ) + long run ( 1 )',
+    'Wed - calisthenics ( 3 ) + self defence ( 2 ) + neck ( 2 ) + long run ( 1 )',
   ],
   pyramidWarmup:
     'Pyramid warmup - sets 3 | reps - light weight ( 10 ), mid weight ( 5 ), heavy weight ( 3 )',
@@ -93,7 +93,7 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         options: [],
       },
       {
-        name: 'Self defence w tools',
+        name: 'Self defence',
         slotsCount: 2,
         defaultReps: 0,
         trackingType: 'stars',
