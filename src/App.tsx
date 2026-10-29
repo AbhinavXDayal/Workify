@@ -7,7 +7,7 @@ import { AmbientBackground } from "./components/AmbientBackground";
 import { useAuth } from "./hooks/useAuth";
 import { useWorkoutLogger } from "./hooks/useWorkoutLogger";
 import type { WorkoutDay } from "./types/workout";
-import { getTodaysWorkoutDay } from "./constants/workoutConfig";
+import { getTodaysWorkoutDay, isWeekendRestDay } from "./constants/workoutConfig";
 
 interface AppProps {
   initialDay?: WorkoutDay;
@@ -80,17 +80,29 @@ export function App({ initialDay }: AppProps = {}) {
           {/* Seamless Subtle Divider connecting routine overview to tracker */}
           <div className="h-[1px] bg-[#4A5A4F]/20 my-1 sm:my-2.5 shrink-0" />
 
-          <WorkoutTracker
-            activeDay={activeDay}
-            onSelectDay={setActiveDay}
-            slots={slots}
-            onUpdateSlot={updateSlot}
-            status={status}
-            statusMessage={statusMessage}
-            history={history}
-            showHistory={showHistory}
-            onToggleHistory={setShowHistory}
-          />
+          {/* If it's Saturday or Sunday and not overridden in props, show Rest Day */}
+          {initialDay === undefined && isWeekendRestDay() ? (
+            <div className="flex-1 flex flex-col items-center justify-center p-6 text-center select-none animate-in fade-in duration-200">
+              <span className="text-2xl sm:text-3xl font-extrabold text-[#FFFDF8] tracking-tight">
+                Rest Day
+              </span>
+              <p className="text-xs sm:text-sm text-[#8A968E] mt-1 font-medium">
+                Recover, hydrate, and get ready for the upcoming week.
+              </p>
+            </div>
+          ) : (
+            <WorkoutTracker
+              activeDay={activeDay}
+              onSelectDay={setActiveDay}
+              slots={slots}
+              onUpdateSlot={updateSlot}
+              status={status}
+              statusMessage={statusMessage}
+              history={history}
+              showHistory={showHistory}
+              onToggleHistory={setShowHistory}
+            />
+          )}
         </div>
 
         {/* Compact bottom spacer: keeps bottom page fixed without any page scrolling */}

@@ -117,6 +117,14 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
 };
 
 /**
+ * Returns true if today is Saturday (6) or Sunday (0)
+ */
+export function isWeekendRestDay(date: Date = new Date()): boolean {
+  const day = date.getDay();
+  return day === 0 || day === 6;
+}
+
+/**
  * Automatically determines which workout tab to open based on the day of the week:
  * - Monday (1) or Thursday (4) -> 'mon_thu'
  * - Tuesday (2) or Friday (5) -> 'tue_fri'
