@@ -96,7 +96,7 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         name: 'Self defence',
         slotsCount: 2,
         defaultReps: 0,
-        trackingType: 'stars',
+        trackingType: 'km_time',
         options: [],
       },
       {
@@ -184,9 +184,5 @@ export function isKmTimeGroup(groupName: string): boolean {
  * Checks if a workout group uses a star rating rather than KG and Reps
  */
 export function isRatingGroup(groupName: string): boolean {
-  if (isKmTimeGroup(groupName)) return false;
-  const normalized = groupName.toLowerCase();
-  return (
-    normalized.includes('self defence')
-  );
+  return false;
 }
