@@ -29,7 +29,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
           <h1 className="inline text-[11px] sm:text-xs font-bold">{SPLIT_HEADER_TEXT.title}</h1>
         </div>
 
-        {/* Right Action Group: Compact Account Pill */}
+        {/* Right Action Group: Compact Account Pill (Icon only) */}
         <div className="flex items-center gap-1 shrink-0">
           {!authLoading && (
             <>
@@ -40,20 +40,20 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
                       onClick={onSignOut}
                       title={`Signed in as ${user.email}. Click to sign out.`}
                       aria-label="Sign out"
-                      className="inline-flex items-center gap-1 text-[#E2E8E4] hover:text-[#859D8E] text-[9px] sm:text-[10px] font-medium liquid-glass-pill px-1.5 py-0.5 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-[#4A5A4F]/30 shadow-xs group"
+                      className="inline-flex items-center justify-center text-[#E2E8E4] hover:text-[#859D8E] liquid-glass-pill p-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-[#4A5A4F]/30 shadow-xs group"
                     >
                       <LogOut className="w-2.5 h-2.5 text-[#859D8E] group-hover:text-[#9BB5A5] transition-transform duration-200 group-hover:scale-110" />
-                      <span className="tracking-tight">sign out</span>
                     </button>
                   )
                 : onOpenAuth && (
                     <button
                       type="button"
                       onClick={onOpenAuth}
-                      className="inline-flex items-center gap-1 text-[#E2E8E4] hover:text-white text-[9px] sm:text-[10px] font-semibold liquid-glass-pill px-1.5 py-0.5 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-[#4A5A4F]/30"
+                      title="Sign In"
+                      aria-label="Sign In"
+                      className="inline-flex items-center justify-center text-[#E2E8E4] hover:text-white liquid-glass-pill p-1 rounded-full transition-all duration-150 cursor-pointer active:scale-95 border border-[#4A5A4F]/30"
                     >
                       <UserIcon className="w-2.5 h-2.5 text-[#859D8E]" />
-                      <span>Sign In</span>
                     </button>
                   )}
             </>
