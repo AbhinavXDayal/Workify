@@ -1,6 +1,6 @@
 import React from "react";
 import { Calendar, X, Star } from "lucide-react";
-import { isRatingGroup, isKmTimeGroup, isRunningExercise } from "../constants/workoutConfig";
+import { isRatingGroup, isKmTimeGroup, isRunningExercise, getTimeUnit } from "../constants/workoutConfig";
 import type { WorkoutLogHistoryItem } from "../types/workout";
 
 interface HistoryDrawerProps {
@@ -97,7 +97,12 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
                                     : "— km"}
                                 </span>
                                 <span>
-                                  {ex.reps !== null ? `${ex.reps} min` : "—"}
+                                  {ex.reps !== null
+                                    ? `${ex.reps} ${getTimeUnit(
+                                        ex.weight_kg !== null ? String(ex.weight_kg) : '',
+                                        String(ex.reps)
+                                      )}`
+                                    : "—"}
                                 </span>
                               </>
                             ) : (

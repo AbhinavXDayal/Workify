@@ -151,6 +151,28 @@ export function isRunningExercise(exerciseName?: string): boolean {
 }
 
 /**
+ * Formats time unit based on distance (km) or minutes input
+ * 1-4 => hrs, 5-60 => min, default => time
+ */
+export function getTimeUnit(kmValue?: string, timeValue?: string): string {
+  // If user typed a value in km or time
+  const kmNum = kmValue !== undefined && kmValue !== '' ? parseFloat(kmValue) : null;
+  const timeNum = timeValue !== undefined && timeValue !== '' ? parseFloat(timeValue) : null;
+
+  // Prioritize km section numbers if available, then time value
+  const numToCheck = kmNum !== null ? kmNum : timeNum;
+  if (numToCheck !== null && !isNaN(numToCheck)) {
+    if (numToCheck >= 1 && numToCheck <= 4) {
+      return 'hrs';
+    }
+    if (numToCheck >= 5 && numToCheck <= 60) {
+      return 'min';
+    }
+  }
+  return 'time';
+}
+
+/**
  * Checks if a workout group uses km and time rather than KG and Reps or Stars
  */
 export function isKmTimeGroup(groupName: string): boolean {

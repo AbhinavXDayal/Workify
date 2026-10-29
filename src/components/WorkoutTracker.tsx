@@ -3,7 +3,7 @@ import { DaySelector } from "./DaySelector";
 import { AestheticSelect } from "./AestheticSelect";
 import { HistoryDrawer } from "./HistoryDrawer";
 import { StarRatingBox } from "./StarRatingBox";
-import { WORKOUT_DAYS_CONFIG, isRatingGroup, isKmTimeGroup, isRunningExercise } from "../constants/workoutConfig";
+import { WORKOUT_DAYS_CONFIG, isRatingGroup, isKmTimeGroup, isRunningExercise, getTimeUnit } from "../constants/workoutConfig";
 import type {
   WorkoutDay,
   ExerciseSlotState,
@@ -182,7 +182,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                           </span>
                         </div>
 
-                        {/* Time Input with inline 'time' unit badge */}
+                        {/* Time Input with dynamic unit badge: hrs if 1-4, min if 5-60, otherwise time */}
                         <div
                           className={`relative w-[64px] sm:w-24 md:w-28 ${
                             isWed ? "h-[31px] sm:h-9" : "h-[34px] sm:h-9"
@@ -197,11 +197,11 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                               onUpdateSlot(globalIndex, "reps", e.target.value);
                             }}
                             placeholder="0"
-                            aria-label="Time (mins)"
+                            aria-label="Time"
                             className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11.5px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#58665E] focus:outline-none font-mono pr-0.5"
                           />
                           <span className="text-[9.5px] sm:text-xs text-[#859D8E] font-bold select-none shrink-0 pointer-events-none ml-0.5">
-                            time
+                            {getTimeUnit(slot.weightKg, slot.reps)}
                           </span>
                         </div>
                       </>
