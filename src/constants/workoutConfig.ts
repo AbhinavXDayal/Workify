@@ -109,7 +109,7 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         name: 'Long run',
         slotsCount: 1,
         defaultReps: 0,
-        trackingType: 'stars',
+        trackingType: 'km_time',
         options: [],
       },
     ],

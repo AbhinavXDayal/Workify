@@ -71,7 +71,7 @@ describe('Workout Configuration & Reps Logic', () => {
 
     const run = wed.groups.find((g) => g.name === 'Long run');
     expect(run?.slotsCount).toBe(1);
-    expect(run?.trackingType).toBe('stars');
+    expect(run?.trackingType).toBe('km_time');
   });
 });
 
