@@ -77,7 +77,7 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         name: 'Cardio sports / MMA',
         slotsCount: 1,
         defaultReps: 0,
-        trackingType: 'stars',
+        trackingType: 'km_time',
         options: [],
       },
     ],
@@ -187,9 +187,6 @@ export function isRatingGroup(groupName: string): boolean {
   if (isKmTimeGroup(groupName)) return false;
   const normalized = groupName.toLowerCase();
   return (
-    normalized.includes('cardio') ||
-    normalized.includes('mma') ||
-    normalized.includes('run') ||
     normalized.includes('self defence')
   );
 }

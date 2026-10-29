@@ -50,7 +50,7 @@ describe('Workout Configuration & Reps Logic', () => {
 
     const cardio = tueFri.groups.find((g) => g.name === 'Cardio sports / MMA');
     expect(cardio?.slotsCount).toBe(1);
-    expect(cardio?.trackingType).toBe('stars');
+    expect(cardio?.trackingType).toBe('km_time');
   });
 
   it('verifies Wed structure and activity types', () => {
