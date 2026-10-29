@@ -142,6 +142,15 @@ export function getTodaysWorkoutDay(date: Date = new Date()): WorkoutDay {
 }
 
 /**
+ * Checks if a specific exercise or activity is running
+ */
+export function isRunningExercise(exerciseName?: string): boolean {
+  if (!exerciseName) return false;
+  const normalized = exerciseName.trim().toLowerCase();
+  return normalized === 'running' || normalized.includes('run');
+}
+
+/**
  * Checks if a workout group uses km and time rather than KG and Reps or Stars
  */
 export function isKmTimeGroup(groupName: string): boolean {
