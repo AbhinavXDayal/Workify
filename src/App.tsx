@@ -69,7 +69,7 @@ export function App({ initialDay }: AppProps = {}) {
         )}
 
         {/* Unified Continuous Liquid-Glass Card: No middle section breaking the app in half */}
-        <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2.5 sm:p-5 md:p-6 pb-2.5 sm:pb-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
+        <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2 sm:p-5 md:p-6 pb-2 sm:pb-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
           <SplitHeader
             user={user}
             authLoading={authLoading}

@@ -12,6 +12,8 @@ export const SPLIT_HEADER_TEXT = {
     'Pyramid warmup - sets 3 | reps - light weight ( 10 ), mid weight ( 5 ), heavy weight ( 3 )',
   guidelines:
     'Target weight - sets 2 | reps - big muscles ( 10 ), mid muscles ( 12 ), small muscles ( 15 )',
+  cardioGuideline:
+    "Cardio - we are counting cardio via sports & running, for sports we don't follow any metric\nFor running, run X km in X mins/hrs",
   instruction:
     'Choose a weight where the Zth rep feels very hard & close to failure, safely progressive overload, use controlled reps with natural full ROM, proper form & 1 RIR, never ego lift. Warm up properly & use backups and supporting gear when needed, such as spotters, safety bars, knee sleeves or lifting straps. Listen to your body & if something feels unsafe or uncomfortable, stop or be cautious',
 };
