@@ -13,7 +13,7 @@ export const SPLIT_HEADER_TEXT = {
   guidelines:
     'Target weight - sets 2 | reps - big muscles ( 10 ), mid muscles ( 12 ), small muscles ( 15 )',
   instruction:
-    'Choose a weight where the Zth rep feels very hard & close to failure to safely progressive overload, use controlled reps with natural full ROM, proper form & 1 RIR, never ego lift. Warm up properly & use backups and supporting gear when needed, such as spotters, safety bars, knee sleeves or lifting straps. Listen to your body & if something feels unsafe or uncomfortable, stop or be cautious',
+    'Choose a weight where the Zth rep feels very hard & close to failure, safely progressive overload, use controlled reps with natural full ROM, proper form & 1 RIR, never ego lift. Warm up properly & use backups and supporting gear when needed, such as spotters, safety bars, knee sleeves or lifting straps. Listen to your body & if something feels unsafe or uncomfortable, stop or be cautious',
 };
 
 // User-defined exercise configuration: all exercises are added and managed by the user
