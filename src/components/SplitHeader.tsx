@@ -93,15 +93,6 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
           {SPLIT_HEADER_TEXT.guidelines}
         </p>
 
-        {/* Separator before Cardio guidelines */}
-        <hr className="border-[#4A5A4F]/20 my-0.5" />
-
-        {/* Cardio guidelines */}
-        <div className="text-[#FFFDF8] text-[10px] sm:text-xs font-bold tracking-tight mb-0.5 text-center leading-tight">
-          <p>Cardio - we are counting cardio via sports &amp; running, for sports we don't follow any metric</p>
-          <p>For running, run X km in X mins/hrs</p>
-        </div>
-
         {/* Short instruction */}
         <p className="text-[#8A968E] text-[9px] sm:text-[11px] leading-tight sm:leading-snug text-center max-w-4xl mx-auto font-medium">
           {SPLIT_HEADER_TEXT.instruction}
