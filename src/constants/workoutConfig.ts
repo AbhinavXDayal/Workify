@@ -183,6 +183,6 @@ export function isKmTimeGroup(groupName: string): boolean {
 /**
  * Checks if a workout group uses a star rating rather than KG and Reps
  */
-export function isRatingGroup(groupName: string): boolean {
+export function isRatingGroup(_groupName?: string): boolean {
   return false;
 }
