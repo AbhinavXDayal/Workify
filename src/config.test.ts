@@ -27,7 +27,7 @@ describe('Workout Configuration & Reps Logic', () => {
     expect(shoulders?.slotsCount).toBe(1);
     expect(shoulders?.defaultReps).toBe(15); // Small muscle = 15
 
-    const cardio = monThu.groups.find((g) => g.name === 'Cardio sports / running');
+    const cardio = monThu.groups.find((g) => g.name === 'Sports / running');
     expect(cardio?.slotsCount).toBe(1);
     expect(cardio?.trackingType).toBe('km_time');
   });
@@ -48,7 +48,7 @@ describe('Workout Configuration & Reps Logic', () => {
     expect(abs?.slotsCount).toBe(1);
     expect(abs?.defaultReps).toBe(15); // Small muscle = 15
 
-    const cardio = tueFri.groups.find((g) => g.name === 'Cardio sports / MMA');
+    const cardio = tueFri.groups.find((g) => g.name === 'Sports / MMA');
     expect(cardio?.slotsCount).toBe(1);
     expect(cardio?.trackingType).toBe('km_time');
   });

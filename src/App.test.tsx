@@ -193,10 +193,10 @@ describe("Workout Logger Acceptance Tests", () => {
   it("renders star rating box in place of KG and Reps for cardio sports and other activities", () => {
     render(<App />);
 
-    // Mon / Thu: Cardio sports / MMA should have a star rating radiogroup
+    // Mon / Thu: Sports / running should have a star rating radiogroup
     fireEvent.click(screen.getByRole("button", { name: /mon \/ thu/i }));
     const cardioRatingGroup = screen.getByRole("radiogroup", {
-      name: /cardio sports \/ mma rating/i,
+      name: /sports \/ running rating/i,
     });
     expect(cardioRatingGroup).toBeDefined();
 

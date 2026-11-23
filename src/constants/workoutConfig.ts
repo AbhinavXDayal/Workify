@@ -45,7 +45,7 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         options: [],
       },
       {
-        name: 'Cardio sports / running',
+        name: 'Sports / running',
         slotsCount: 1,
         defaultReps: 0,
         trackingType: 'km_time',
@@ -76,7 +76,7 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         options: [],
       },
       {
-        name: 'Cardio sports / MMA',
+        name: 'Sports / MMA',
         slotsCount: 1,
         defaultReps: 0,
         trackingType: 'km_time',
