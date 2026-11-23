@@ -211,7 +211,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                           isWed ? "h-[31px] sm:h-9" : "h-[34px] sm:h-9"
                         } w-[126px] sm:w-[204px] md:w-[236px] shrink-0 text-[#8A968E] text-[9px] sm:text-[11px] font-medium italic liquid-glass-pill rounded-xl sm:rounded-2xl leading-tight border border-[#4A5A4F]/25`}
                       >
-                        Not everything should be in a metric form
+                        Sports is for fun
                       </div>
                     )
                   ) : (
