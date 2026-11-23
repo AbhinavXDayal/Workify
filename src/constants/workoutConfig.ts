@@ -5,7 +5,7 @@ export const SPLIT_HEADER_TEXT = {
   overview: 'Dynamic warmup → weightlifting ( free weights ) → sports / cardio → self defence',
   days: [
     'Mon, thu - back ( 3 ), arms ( 2 ), shoulders ( 1 ) + sports / running',
-    'Tue, fri - legs ( 3 ), chest ( 2 ), abs ( 1 ) + cardio sports / mma',
+    'Tue, fri - legs ( 3 ), chest ( 2 ), abs ( 1 ) + sports / mma',
     'Wed - calisthenics ( 3 ) + self defence ( 2 ) + neck ( 2 ) + long run ( 1 )',
   ],
   pyramidWarmup:
