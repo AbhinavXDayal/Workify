@@ -12,7 +12,7 @@ export interface DayWorkoutGroup {
   slotsCount: number;
   defaultReps: number;
   options: string[];
-  trackingType?: 'reps' | 'stars' | 'km_time';
+  trackingType?: 'reps' | 'stars' | 'km_time' | 'hold';
 }
 
 export interface DayWorkoutConfig {

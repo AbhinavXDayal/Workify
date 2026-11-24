@@ -151,6 +151,33 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                       ariaLabel={`${slot.exerciseName || group.name} rating`}
                       compact={isWed}
                     />
+                  ) : group.trackingType === "hold" ? (
+                    <div
+                      className={`relative w-[126px] sm:w-[204px] md:w-[236px] ${
+                        isWed ? "h-[31px] sm:h-9" : "h-[34px] sm:h-9"
+                      } liquid-glass-input rounded-xl sm:rounded-2xl flex items-center justify-between px-2 sm:px-3 font-mono shrink-0 cursor-text`}
+                    >
+                      <input
+                        type="text"
+                        inputMode="decimal"
+                        pattern="[0-9]*[.]?[0-9]*"
+                        value={slot.weightKg}
+                        onFocus={(e) => e.target.select()}
+                        onChange={(e) =>
+                          onUpdateSlot(
+                            globalIndex,
+                            "weightKg",
+                            e.target.value,
+                          )
+                        }
+                        placeholder="0"
+                        aria-label="Hold duration"
+                        className="w-0 flex-1 min-w-0 bg-transparent text-right text-[11.5px] sm:text-sm text-[#FFFFFF] font-semibold placeholder-[#58665E] focus:outline-none font-mono pr-1"
+                      />
+                      <span className="text-[9px] sm:text-[11px] text-[#859D8E] font-bold select-none shrink-0 pointer-events-none whitespace-nowrap">
+                        sec/mins hold
+                      </span>
+                    </div>
                   ) : group.trackingType === "km_time" || isKmTimeGroup(group.name) ? (
                     isRunningExercise(slot.exerciseName) ? (
                       <>
@@ -211,9 +238,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
                           isWed ? "h-[31px] sm:h-9" : "h-[34px] sm:h-9"
                         } w-[126px] sm:w-[204px] md:w-[236px] shrink-0 text-[#8A968E] text-[9px] sm:text-[11px] font-medium italic liquid-glass-pill rounded-xl sm:rounded-2xl leading-tight border border-[#4A5A4F]/25`}
                       >
-                        {group.name === "Calisthenics"
-                          ? "sec/mins hold"
-                          : "Sports is for fun"}
+                        Sports is for fun
                       </div>
                     )
                   ) : (

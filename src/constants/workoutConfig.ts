@@ -93,7 +93,7 @@ export const WORKOUT_DAYS_CONFIG: Record<WorkoutDay, DayWorkoutConfig> = {
         name: 'Calisthenics',
         slotsCount: 3,
         defaultReps: 0,
-        trackingType: 'km_time',
+        trackingType: 'hold',
         options: [],
       },
       {
