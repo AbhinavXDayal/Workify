@@ -59,7 +59,7 @@ describe('Workout Configuration & Reps Logic', () => {
 
     const calisthenics = wed.groups.find((g) => g.name === 'Calisthenics');
     expect(calisthenics?.slotsCount).toBe(3);
-    expect(calisthenics?.defaultReps).toBe(10); // Big muscle = 10
+    expect(calisthenics?.trackingType).toBe('km_time');
 
     const selfDefence = wed.groups.find((g) => g.name === 'Self defence');
     expect(selfDefence?.slotsCount).toBe(2);

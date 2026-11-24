@@ -183,11 +183,8 @@ describe("Workout Logger Acceptance Tests", () => {
     // Wed: Neck (15)
     fireEvent.click(screen.getByRole("button", { name: /wed/i }));
     const wedReps = screen.getAllByLabelText(/reps/i);
-    // Calisthenics slot 0 -> 10
-    expect((wedReps[0] as HTMLInputElement).placeholder).toBe("10");
-    // Neck slot 0 (Calisthenics has 3 slots, Self defence has 0 reps inputs because it's stars rating)
-    // So slot index 3 is Neck slot 0 -> 15 reps
-    expect((wedReps[3] as HTMLInputElement).placeholder).toBe("15");
+    // Neck slot 0 -> 15 reps
+    expect((wedReps[0] as HTMLInputElement).placeholder).toBe("15");
   });
 
   it("renders star rating box in place of KG and Reps for cardio sports and other activities", () => {
