@@ -163,22 +163,18 @@ export function isRunningExercise(exerciseName?: string): boolean {
 }
 
 /**
- * Formats time unit based on distance (km) or minutes input
- * 1-4 => hrs, 5-60 => min, default => time
+ * Formats time unit based on distance (km) input:
+ * 1-5 km => mins, > 5 km => hrs, default => time
  */
-export function getTimeUnit(kmValue?: string, timeValue?: string): string {
-  // If user typed a value in km or time
+export function getTimeUnit(kmValue?: string, _timeValue?: string): string {
   const kmNum = kmValue !== undefined && kmValue !== '' ? parseFloat(kmValue) : null;
-  const timeNum = timeValue !== undefined && timeValue !== '' ? parseFloat(timeValue) : null;
 
-  // Prioritize km section numbers if available, then time value
-  const numToCheck = kmNum !== null ? kmNum : timeNum;
-  if (numToCheck !== null && !isNaN(numToCheck)) {
-    if (numToCheck >= 1 && numToCheck <= 4) {
-      return 'hrs';
+  if (kmNum !== null && !isNaN(kmNum)) {
+    if (kmNum >= 1 && kmNum <= 5) {
+      return 'mins';
     }
-    if (numToCheck >= 5 && numToCheck <= 60) {
-      return 'min';
+    if (kmNum > 5) {
+      return 'hrs';
     }
   }
   return 'time';
