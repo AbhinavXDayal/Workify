@@ -3,6 +3,7 @@ import type { DayWorkoutConfig, WorkoutDay } from '../types/workout';
 export const SPLIT_HEADER_TEXT = {
   title: 'Workify',
   overview: 'Dynamic warmup → weightlifting ( free weights ) → sports / cardio → self defence',
+  priority: 'Weightlifting & sports are high priority, then running & mma',
   days: [
     'Mon, thu - back ( 3 ), arms ( 2 ), shoulders ( 1 ) + sports / running',
     'Tue, fri - legs ( 3 ), chest ( 2 ), abs ( 1 ) + sports / mma',

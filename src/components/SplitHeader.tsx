@@ -68,6 +68,11 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
           {SPLIT_HEADER_TEXT.overview}
         </p>
 
+        {/* Priority note */}
+        <p className="text-[#8A968E] text-[9px] sm:text-[11px] mb-0.5 leading-tight text-center select-none font-medium italic">
+          {SPLIT_HEADER_TEXT.priority}
+        </p>
+
         {/* Days split - 3 columns on desktop, clean compact glass rows on mobile */}
         <div className="space-y-0.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#E2E8E4] text-[10px] sm:text-xs mb-0.5 font-medium">
           {SPLIT_HEADER_TEXT.days.map((dayText, idx) => (
