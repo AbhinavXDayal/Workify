@@ -39,12 +39,12 @@ export function App({ initialDay }: AppProps = {}) {
   } = useWorkoutLogger(activeDay, user);
 
   return (
-    <div className="relative h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] w-full max-w-full overflow-hidden sm:overflow-x-hidden sm:overflow-y-auto bg-[#0B0E0C] text-[#E2E8E4] flex flex-col items-center pt-1 pb-1 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#2A362E] selection:text-[#EAF0EB]">
+    <div className="relative h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] w-full max-w-full overflow-hidden sm:overflow-x-hidden sm:overflow-y-auto bg-[#0B0E0C] text-[#E2E8E4] flex flex-col items-center pt-0.5 pb-0.5 sm:py-4 px-1.5 sm:px-4 md:px-6 lg:px-8 selection:bg-[#2A362E] selection:text-[#EAF0EB]">
       {/* 1. Dynamic Ambient Background: small leaves, dot matrix, and connected moving graph */}
       <AmbientBackground />
 
       {/* Main Full-Width Content Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-1 sm:space-y-3 overflow-hidden sm:overflow-visible overscroll-contain">
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 min-h-0 flex flex-col justify-start space-y-0.5 sm:space-y-3 overflow-hidden sm:overflow-visible overscroll-contain">
         {/* Informative notice if Supabase credentials are missing */}
         {!isConfigured && (
           <div className="liquid-glass-card border border-[#4A5A4F]/25 rounded-2xl p-2.5 text-xs text-[#E2E8E4] flex items-start gap-2 shadow-sm shrink-0">
@@ -69,7 +69,7 @@ export function App({ initialDay }: AppProps = {}) {
         )}
 
         {/* Unified Continuous Liquid-Glass Card: No middle section breaking the app in half */}
-        <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2 sm:p-5 md:p-6 pb-2 sm:pb-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
+        <div className="w-full max-w-full liquid-glass-card rounded-2xl sm:rounded-3xl p-2 sm:p-5 md:p-6 pb-2.5 sm:pb-6 flex flex-col flex-1 min-h-0 transition-all duration-200">
           <SplitHeader
             user={user}
             authLoading={authLoading}
@@ -107,7 +107,7 @@ export function App({ initialDay }: AppProps = {}) {
 
         {/* Compact bottom spacer: keeps bottom page fixed without any page scrolling */}
         <footer
-          className="h-3 sm:h-5 shrink-0"
+          className="h-1 sm:h-5 shrink-0"
           aria-label="Website bottom space"
         />
       </div>
