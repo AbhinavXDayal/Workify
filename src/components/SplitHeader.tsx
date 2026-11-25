@@ -64,12 +64,12 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
       {/* Routine Content: Permanently visible with elegant champagne typography */}
       <div className="mt-0.5 sm:mt-1">
         {/* Warmup flow */}
-        <p className="text-[#CCD6CF] text-[10.5px] sm:text-xs mb-0.5 leading-tight text-center select-none font-semibold">
+        <p className="text-[#CCD6CF] text-[10px] sm:text-xs mb-0.5 leading-tight text-center select-none font-semibold">
           {SPLIT_HEADER_TEXT.overview}
         </p>
 
         {/* Priority note */}
-        <p className="text-[#8A968E] text-[9.5px] sm:text-[11px] mb-0.5 leading-tight text-center select-none font-medium italic">
+        <p className="text-[#8A968E] text-[9px] sm:text-[10.5px] mb-0.5 leading-tight text-center select-none font-medium italic">
           {SPLIT_HEADER_TEXT.priority}
         </p>
 
@@ -77,7 +77,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         <hr className="border-[#4A5A4F]/20 my-0.5" />
 
         {/* Days split - 3 columns on desktop, clean compact glass rows on mobile */}
-        <div className="space-y-0.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#E2E8E4] text-[10px] sm:text-xs mb-0.5 font-medium">
+        <div className="space-y-0.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#E2E8E4] text-[9.5px] sm:text-xs mb-0.5 font-medium">
           {SPLIT_HEADER_TEXT.days.map((dayText, idx) => (
             <div
               key={idx}
@@ -92,12 +92,12 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         <hr className="border-[#4A5A4F]/20 my-0.5" />
 
         {/* Warmup guidelines */}
-        <p className="text-[#CCD6CF] text-[10px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
+        <p className="text-[#CCD6CF] text-[9.5px] sm:text-[11px] font-bold tracking-tight mb-0.5 text-center">
           {SPLIT_HEADER_TEXT.pyramidWarmup}
         </p>
 
         {/* Sets and reps guidelines */}
-        <p className="text-[#CCD6CF] text-[10px] sm:text-xs font-bold tracking-tight text-center">
+        <p className="text-[#CCD6CF] text-[9.5px] sm:text-[11px] font-bold tracking-tight text-center mb-0.5">
           {SPLIT_HEADER_TEXT.guidelines}
         </p>
 
@@ -105,7 +105,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         <hr className="border-[#4A5A4F]/20 my-0.5" />
 
         {/* Cardio guidelines */}
-        <div className="text-[#CCD6CF] text-[10px] sm:text-xs font-bold tracking-tight text-center leading-snug">
+        <div className="text-[#CCD6CF] text-[9.5px] sm:text-[11px] font-bold tracking-tight text-center leading-snug">
           <p>Cardio - we are counting cardio via sports &amp; running, for sports we don't follow any metric</p>
           <p>For running, run X km in X mins/hrs</p>
         </div>
