@@ -105,11 +105,11 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             {/* Muscle Group Title with soft faded accent indicator */}
             <div
               className={`flex items-center gap-1.5 px-1 ${
-                isWed ? "pb-0.5 sm:pb-1" : "pb-1 sm:pb-1"
+                isWed ? "pb-0 sm:pb-0.5" : "pb-0.5 sm:pb-0.5"
               }`}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#7E9A88]" />
-              <h3 className="text-[10px] sm:text-[11px] font-semibold text-[#CCD6CF] tracking-wider uppercase select-none leading-none">
+              <h3 className="text-[9.5px] sm:text-[10.5px] font-semibold text-[#CCD6CF] tracking-wider uppercase select-none leading-none">
                 {group.name}
               </h3>
             </div>
