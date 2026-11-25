@@ -23,7 +23,6 @@ describe("Workout Logger Acceptance Tests", () => {
       expect(screen.getByText(dayLine)).toBeDefined();
     }
     expect(screen.getByText(SPLIT_HEADER_TEXT.guidelines)).toBeDefined();
-    expect(screen.getByText(SPLIT_HEADER_TEXT.instruction)).toBeDefined();
   });
 
   it("renders all three interactive day selectors and switches workout views", () => {

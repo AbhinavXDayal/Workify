@@ -112,11 +112,6 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
 
         {/* Separator after Cardio guidelines */}
         <hr className="border-[#4A5A4F]/20 my-0.5" />
-
-        {/* Short instruction */}
-        <p className="text-[#8A968E] text-[8.5px] sm:text-[10.5px] leading-tight text-center max-w-4xl mx-auto font-medium mt-0.5">
-          {SPLIT_HEADER_TEXT.instruction}
-        </p>
       </div>
     </div>
   );
