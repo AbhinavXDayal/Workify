@@ -92,12 +92,12 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         <hr className="border-[#4A5A4F]/20 my-0.5" />
 
         {/* Warmup guidelines */}
-        <p className="text-[#FFFDF8] text-[10px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
+        <p className="text-[#CCD6CF] text-[10px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
           {SPLIT_HEADER_TEXT.pyramidWarmup}
         </p>
 
         {/* Sets and reps guidelines */}
-        <p className="text-[#FFFDF8] text-[9.5px] sm:text-xs font-bold tracking-tight text-center">
+        <p className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight text-center">
           {SPLIT_HEADER_TEXT.guidelines}
         </p>
 
@@ -105,7 +105,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         <hr className="border-[#4A5A4F]/20 my-0.5" />
 
         {/* Cardio guidelines */}
-        <div className="text-[#FFFDF8] text-[9.5px] sm:text-xs font-bold tracking-tight text-center leading-snug">
+        <div className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight text-center leading-snug">
           <p>Cardio - we are counting cardio via sports &amp; running, for sports we don't follow any metric</p>
           <p>For running, run X km in X mins/hrs</p>
         </div>
