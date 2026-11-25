@@ -62,50 +62,50 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
       </div>
 
       {/* Routine Content: Permanently visible with elegant champagne typography */}
-      <div className="mt-0.5 sm:mt-1">
+      <div className="mt-1 sm:mt-1.5">
         {/* Warmup flow */}
-        <p className="text-[#CCD6CF] text-[10px] sm:text-xs mb-0.5 leading-tight text-center select-none font-semibold">
+        <p className="text-[#CCD6CF] text-[11px] sm:text-sm mb-1 leading-tight text-center select-none font-semibold">
           {SPLIT_HEADER_TEXT.overview}
         </p>
 
         {/* Priority note */}
-        <p className="text-[#8A968E] text-[9px] sm:text-[11px] mb-0.5 leading-tight text-center select-none font-medium italic">
+        <p className="text-[#8A968E] text-[10px] sm:text-xs mb-1 leading-tight text-center select-none font-medium italic">
           {SPLIT_HEADER_TEXT.priority}
         </p>
 
         {/* Separator line after priority note */}
-        <hr className="border-[#4A5A4F]/20 my-0.5" />
+        <hr className="border-[#4A5A4F]/20 my-1" />
 
         {/* Days split - 3 columns on desktop, clean compact glass rows on mobile */}
-        <div className="space-y-0.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#E2E8E4] text-[10px] sm:text-xs mb-0.5 font-medium">
+        <div className="space-y-1 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#E2E8E4] text-[10.5px] sm:text-xs mb-1 font-medium">
           {SPLIT_HEADER_TEXT.days.map((dayText, idx) => (
             <div
               key={idx}
-              className="liquid-glass-pill px-2 py-0.5 md:px-2.5 md:py-1 rounded-md md:rounded-lg flex items-center shadow-xs"
+              className="liquid-glass-pill px-2.5 py-1 md:px-3 md:py-1.5 rounded-md md:rounded-lg flex items-center shadow-xs"
             >
-              <p className="leading-tight sm:leading-snug">{dayText}</p>
+              <p className="leading-snug">{dayText}</p>
             </div>
           ))}
         </div>
 
         {/* Thin separator line */}
-        <hr className="border-[#4A5A4F]/20 my-0.5" />
+        <hr className="border-[#4A5A4F]/20 my-1" />
 
         {/* Warmup guidelines */}
-        <p className="text-[#CCD6CF] text-[10px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
+        <p className="text-[#CCD6CF] text-[10.5px] sm:text-xs font-bold tracking-tight mb-1 text-center">
           {SPLIT_HEADER_TEXT.pyramidWarmup}
         </p>
 
         {/* Sets and reps guidelines */}
-        <p className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight text-center">
+        <p className="text-[#CCD6CF] text-[10.5px] sm:text-xs font-bold tracking-tight text-center mb-1">
           {SPLIT_HEADER_TEXT.guidelines}
         </p>
 
         {/* Separator before Cardio guidelines */}
-        <hr className="border-[#4A5A4F]/20 my-0.5" />
+        <hr className="border-[#4A5A4F]/20 my-1" />
 
         {/* Cardio guidelines */}
-        <div className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight text-center leading-snug">
+        <div className="text-[#CCD6CF] text-[10.5px] sm:text-xs font-bold tracking-tight text-center leading-snug">
           <p>Cardio - we are counting cardio via sports &amp; running, for sports we don't follow any metric</p>
           <p>For running, run X km in X mins/hrs</p>
         </div>
