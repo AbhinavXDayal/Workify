@@ -91,7 +91,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
 
       {/* 2. Muscle Groups & Exercise Rows: cohesive, non-scrollable, natural on desktop */}
       <div
-        className={`flex-1 min-h-0 overflow-visible pr-0.5 pb-0.5 sm:pb-3 ${
+        className={`flex-1 min-h-0 overflow-visible pr-0.5 pb-0.5 sm:pb-3 flex flex-col justify-between ${
           isWed ? "space-y-0.5 sm:space-y-2.5" : "space-y-1 sm:space-y-2.5"
         }`}
       >
