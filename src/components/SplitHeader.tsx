@@ -93,7 +93,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
 
         {/* Warmup & Sets/Reps guidelines */}
         <div className="w-full">
-          <p className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight mb-1 px-3.5 sm:px-0 text-left sm:text-center">
+          <p className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight mb-1 pl-2.5 sm:px-0 text-left sm:text-center">
             {SPLIT_HEADER_TEXT.pyramidWarmup}
           </p>
 
