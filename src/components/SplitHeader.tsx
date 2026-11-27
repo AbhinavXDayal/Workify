@@ -62,22 +62,22 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
       </div>
 
       {/* Routine Content: Permanently visible with elegant champagne typography */}
-      <div className="mt-0.5 sm:mt-1">
+      <div className="mt-1 sm:mt-1.5">
         {/* Warmup flow */}
-        <p className="text-[#CCD6CF] text-[10px] sm:text-xs mb-0.5 leading-tight text-center select-none font-semibold">
+        <p className="text-[#CCD6CF] text-[10px] sm:text-xs mb-1 leading-tight text-center select-none font-semibold">
           {SPLIT_HEADER_TEXT.overview}
         </p>
 
         {/* Priority note */}
-        <p className="text-[#8A968E] text-[9px] sm:text-[11px] mb-0.5 leading-tight text-center select-none font-medium italic">
+        <p className="text-[#8A968E] text-[9px] sm:text-[11px] leading-tight text-center select-none font-medium italic">
           {SPLIT_HEADER_TEXT.priority}
         </p>
 
         {/* Separator line after priority note */}
-        <hr className="border-[#4A5A4F]/20 my-0.5" />
+        <hr className="border-[#4A5A4F]/20 my-1.5" />
 
         {/* Days split - 3 columns on desktop, clean compact glass rows on mobile */}
-        <div className="space-y-0.5 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#E2E8E4] text-[10px] sm:text-xs mb-0.5 font-medium">
+        <div className="space-y-1 md:space-y-0 md:grid md:grid-cols-3 md:gap-1.5 text-[#E2E8E4] text-[10px] sm:text-xs font-medium">
           {SPLIT_HEADER_TEXT.days.map((dayText, idx) => (
             <div
               key={idx}
@@ -89,10 +89,10 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         </div>
 
         {/* Thin separator line */}
-        <hr className="border-[#4A5A4F]/20 my-0.5" />
+        <hr className="border-[#4A5A4F]/20 my-1.5" />
 
         {/* Warmup guidelines */}
-        <p className="text-[#CCD6CF] text-[10px] sm:text-xs font-bold tracking-tight mb-0.5 text-center">
+        <p className="text-[#CCD6CF] text-[10px] sm:text-xs font-bold tracking-tight mb-1 text-center">
           {SPLIT_HEADER_TEXT.pyramidWarmup}
         </p>
 
@@ -102,7 +102,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         </p>
 
         {/* Separator before Cardio guidelines */}
-        <hr className="border-[#4A5A4F]/20 my-0.5" />
+        <hr className="border-[#4A5A4F]/20 my-1.5" />
 
         {/* Cardio guidelines */}
         <div className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight text-center leading-snug">

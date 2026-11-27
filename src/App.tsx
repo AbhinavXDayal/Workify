@@ -78,7 +78,7 @@ export function App({ initialDay }: AppProps = {}) {
           />
 
           {/* Seamless Subtle Divider connecting routine overview to tracker */}
-          <div className="h-[1px] bg-[#4A5A4F]/20 my-1 sm:my-2.5 shrink-0" />
+          <div className="h-[1px] bg-[#4A5A4F]/20 my-1.5 sm:my-2.5 shrink-0" />
 
           {/* If it's Saturday or Sunday and not overridden in props, show Rest Day */}
           {initialDay === undefined && isWeekendRestDay() ? (
