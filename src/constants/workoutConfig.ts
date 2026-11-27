@@ -10,7 +10,7 @@ export const SPLIT_HEADER_TEXT = {
     'Wed - calisthenics ( 3 ) + self defence ( 2 ) + neck ( 2 ) + long run ( 1 )',
   ],
   pyramidWarmup:
-    'Pyramid warmup - sets 3 | reps - light weight ( 10 ), mid weight ( 5 ), heavy weight ( 3 )',
+    'Pyramid warmup - sets 2 | reps - mid weight ( 10 ), heavy weight ( 5 )',
   guidelines:
     'Target weight - sets 2 | reps - big muscles ( 10 ), mid muscles ( 12 ), small muscles ( 15 )',
   cardioGuideline:
