@@ -14,7 +14,7 @@ export const SPLIT_HEADER_TEXT = {
   guidelines:
     'Target weight - sets 2 | reps - big muscles ( 10 ), mid muscles ( 12 ), small muscles ( 15 )',
   cardioGuideline:
-    "Cardio - we are counting cardio via sports & running, for sports we don't follow any metric\nFor running, run X km in X mins/hrs",
+    "Cardio - we are tracking cardio via sports & running, sports is for fun & enough for cardio, but we don't use it as a metric\nFor running, run X km in X mins/hrs",
   instruction:
     'Choose a weight where the Zth rep feels very hard & close to failure, safely progressive overload, use controlled reps with natural full ROM, proper form & 1 RIR, never ego lift. Warm up properly & use backups and supporting gear when needed, such as spotters, safety bars, knee sleeves or lifting straps. Listen to your body & if something feels unsafe or uncomfortable, stop or be cautious',
 };

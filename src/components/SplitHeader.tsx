@@ -106,7 +106,7 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
 
         {/* Cardio guidelines */}
         <div className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight text-center leading-snug">
-          <p>Cardio - we are counting cardio via sports &amp; running, for sports we don't follow any metric</p>
+          <p>Cardio - we are tracking cardio via sports &amp; running, sports is for fun &amp; enough for cardio, but we don&apos;t use it as a metric</p>
           <p>For running, run X km in X mins/hrs</p>
         </div>
       </div>
