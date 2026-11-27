@@ -57,9 +57,9 @@ export const AmbientBackground: React.FC = React.memo(() => {
 
     const setupCanvasDimensions = () => {
       if (!canvas || !ctx) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
       height = window.innerHeight;
+      const dpr = width < 768 ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       canvas.style.width = `${width}px`;
@@ -346,9 +346,14 @@ export const AmbientBackground: React.FC = React.memo(() => {
       return;
     }
 
-    // Dynamic 60fps animation loop
+    // Throttled ~30fps animation loop to halve GPU/CPU work while keeping slow drift smooth
+    let lastFrameTime = 0;
+    const FRAME_INTERVAL = 33;
     const animate = (timestamp: number) => {
-      renderFrame(timestamp);
+      if (timestamp - lastFrameTime >= FRAME_INTERVAL) {
+        lastFrameTime = timestamp;
+        renderFrame(timestamp);
+      }
       animationFrameId = requestAnimationFrame(animate);
     };
 
@@ -387,6 +392,7 @@ export const AmbientBackground: React.FC = React.memo(() => {
   return (
     <div
       className="pointer-events-none fixed inset-0 w-full h-full max-w-full overflow-hidden z-0 select-none"
+      style={{ contain: "strict" }}
       aria-hidden="true"
     >
       {/* 1. Base Hazy Dark Obsidian & Forest Gradient */}

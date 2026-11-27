@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Info } from "lucide-react";
 import { SplitHeader } from "./components/SplitHeader";
 import { WorkoutTracker } from "./components/WorkoutTracker";
-import { AuthModal } from "./components/AuthModal";
 import { AmbientBackground } from "./components/AmbientBackground";
+
+const AuthModal = lazy(() =>
+  import("./components/AuthModal").then((m) => ({ default: m.AuthModal })),
+);
 import { useAuth } from "./hooks/useAuth";
 import { useWorkoutLogger } from "./hooks/useWorkoutLogger";
 import type { WorkoutDay } from "./types/workout";
@@ -112,14 +115,18 @@ export function App({ initialDay }: AppProps = {}) {
         />
       </div>
 
-      {/* Auth Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        isConfigured={isConfigured}
-        onSignIn={signIn}
-        onSignUp={signUp}
-      />
+      {/* Auth Modal (lazy-loaded on open) */}
+      {isAuthModalOpen && (
+        <Suspense fallback={null}>
+          <AuthModal
+            isOpen={isAuthModalOpen}
+            onClose={() => setIsAuthModalOpen(false)}
+            isConfigured={isConfigured}
+            onSignIn={signIn}
+            onSignUp={signUp}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

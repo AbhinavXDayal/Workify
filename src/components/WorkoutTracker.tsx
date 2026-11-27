@@ -1,8 +1,11 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { DaySelector } from "./DaySelector";
 import { AestheticSelect } from "./AestheticSelect";
-import { HistoryDrawer } from "./HistoryDrawer";
 import { StarRatingBox } from "./StarRatingBox";
+
+const HistoryDrawer = lazy(() =>
+  import("./HistoryDrawer").then((m) => ({ default: m.HistoryDrawer })),
+);
 import { WORKOUT_DAYS_CONFIG, isRatingGroup, isKmTimeGroup, isRunningExercise, getTimeUnit } from "../constants/workoutConfig";
 import type {
   WorkoutDay,
@@ -320,14 +323,16 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
         ))}
       </div>
 
-      {/* History Drawer Modal */}
-      {onToggleHistory && (
-        <HistoryDrawer
-          isOpen={showHistory}
-          onClose={() => onToggleHistory(false)}
-          dayLabel={dayConfig.label}
-          history={history}
-        />
+      {/* History Drawer Modal (lazy-loaded on open) */}
+      {onToggleHistory && showHistory && (
+        <Suspense fallback={null}>
+          <HistoryDrawer
+            isOpen={showHistory}
+            onClose={() => onToggleHistory(false)}
+            dayLabel={dayConfig.label}
+            history={history}
+          />
+        </Suspense>
       )}
     </div>
   );
