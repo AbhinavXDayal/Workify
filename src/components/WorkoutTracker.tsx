@@ -85,15 +85,13 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   return (
     <div className="w-full max-w-full flex flex-col flex-1 min-h-0 transition-all duration-200">
       {/* 1. Day Selector Tabs with soft rounded corners */}
-      <div className="shrink-0 mb-1 sm:mb-2">
+      <div className="shrink-0 mb-0.5 sm:mb-2">
         <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
       </div>
 
       {/* 2. Muscle Groups & Exercise Rows: cohesive, non-scrollable, natural on desktop */}
       <div
-        className={`flex-1 min-h-0 overflow-visible pr-0.5 pb-0.5 sm:pb-3 flex flex-col justify-between ${
-          isWed ? "space-y-0.5 sm:space-y-2.5" : "space-y-1 sm:space-y-2.5"
-        }`}
+        className={`flex-1 min-h-0 overflow-visible pr-0.5 pb-0 sm:pb-3 flex flex-col justify-evenly sm:justify-start sm:space-y-2.5`}
       >
         {groupedSlots.map((group, groupIdx) => (
           <div
@@ -117,7 +115,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             {/* Exercise Slots */}
             <div
               className={
-                isWed ? "space-y-0.5 sm:space-y-1.5" : "space-y-1 sm:space-y-2"
+                isWed ? "space-y-0.5 sm:space-y-1.5" : "space-y-1.5 sm:space-y-2"
               }
             >
               {group.slots.map(({ slot, globalIndex }) => (
