@@ -91,15 +91,16 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         {/* Thin separator line */}
         <hr className="border-[#4A5A4F]/20 my-1.5" />
 
-        {/* Warmup guidelines */}
-        <p className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight mb-1 text-center">
-          {SPLIT_HEADER_TEXT.pyramidWarmup}
-        </p>
+        {/* Warmup & Sets/Reps guidelines (wrapped so "Pyramid" aligns with "Target" on the left) */}
+        <div className="w-fit max-w-full mx-auto">
+          <p className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight mb-1 text-left">
+            {SPLIT_HEADER_TEXT.pyramidWarmup}
+          </p>
 
-        {/* Sets and reps guidelines */}
-        <p className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight text-center">
-          {SPLIT_HEADER_TEXT.guidelines}
-        </p>
+          <p className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight text-center">
+            {SPLIT_HEADER_TEXT.guidelines}
+          </p>
+        </div>
 
         {/* Separator before Cardio guidelines */}
         <hr className="border-[#4A5A4F]/20 my-1.5" />
