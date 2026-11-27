@@ -91,9 +91,9 @@ export const SplitHeader: React.FC<SplitHeaderProps> = ({
         {/* Thin separator line */}
         <hr className="border-[#4A5A4F]/20 my-1.5" />
 
-        {/* Warmup & Sets/Reps guidelines (wrapped so "Pyramid" aligns with "Target" on the left) */}
-        <div className="w-fit max-w-full mx-auto">
-          <p className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight mb-1 text-left">
+        {/* Warmup & Sets/Reps guidelines */}
+        <div className="w-full">
+          <p className="text-[#CCD6CF] text-[9.5px] sm:text-xs font-bold tracking-tight mb-1 px-3.5 sm:px-0 text-left sm:text-center">
             {SPLIT_HEADER_TEXT.pyramidWarmup}
           </p>
 
