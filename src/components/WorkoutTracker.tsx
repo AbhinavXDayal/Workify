@@ -85,21 +85,21 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
   return (
     <div className="w-full max-w-full flex flex-col flex-1 min-h-0 transition-all duration-200">
       {/* 1. Day Selector Tabs with soft rounded corners */}
-      <div className="shrink-0 mb-1 sm:mb-2">
+      <div className="shrink-0 mb-1.5 sm:mb-2.5">
         <DaySelector activeDay={activeDay} onSelectDay={onSelectDay} />
       </div>
 
       {/* 2. Muscle Groups & Exercise Rows: cohesive, non-scrollable, natural on desktop */}
       <div
         className={`flex-1 min-h-0 overflow-visible pr-0.5 pb-0.5 sm:pb-3 ${
-          isWed ? "space-y-0.5 sm:space-y-2.5" : "space-y-0.5 sm:space-y-2.5"
+          isWed ? "space-y-1 sm:space-y-2.5" : "space-y-1.5 sm:space-y-3"
         }`}
       >
         {groupedSlots.map((group, groupIdx) => (
           <div
             key={group.name}
             className={
-              isWed ? "space-y-0.5 sm:space-y-1.5" : "space-y-0.5 sm:space-y-1.5"
+              isWed ? "space-y-0.5 sm:space-y-1.5" : "space-y-1 sm:space-y-1.5"
             }
           >
             {/* Muscle Group Title with soft faded accent indicator */}
@@ -109,7 +109,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
               }`}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#7E9A88]" />
-              <h3 className="text-[9.5px] sm:text-[10.5px] font-semibold text-[#CCD6CF] tracking-wider uppercase select-none leading-none">
+              <h3 className="text-[9.5px] sm:text-[11px] font-semibold text-[#CCD6CF] tracking-wider uppercase select-none leading-none">
                 {group.name}
               </h3>
             </div>
@@ -117,7 +117,7 @@ export const WorkoutTracker: React.FC<WorkoutTrackerProps> = ({
             {/* Exercise Slots */}
             <div
               className={
-                isWed ? "space-y-0.5 sm:space-y-1.5" : "space-y-1 sm:space-y-2"
+                isWed ? "space-y-1 sm:space-y-1.5" : "space-y-1.5 sm:space-y-2"
               }
             >
               {group.slots.map(({ slot, globalIndex }) => (
